@@ -115,6 +115,15 @@ input:  service, property (→ pincode, built-up area), quantity (if the rate ty
 - The client never sends a price. The order stores the whole quote as a snapshot (`order_lines`).
 - **Plans** (bundles) keep `plan_prices` per pincode in the same way.
 
+### 4.4b Plans and subscriptions (BUILT, M3.3b)
+- **Plans are admin-made.** A plan has a name, descriptions, a duration in months, an on/off switch, and a list of services with a number of **visits** each. Its price is set per pincode (with a default) in the same dated price books as service prices (`plan_prices`).
+- **Buying:** a customer chooses a plan for a property. The server prices it, creates an order of purpose PLAN with one plan line, and a **subscription** that waits for payment. The subscription keeps a snapshot of the plan (visits per service and duration), so later edits never change it.
+- **Life cycle:** PENDING_PAYMENT → ACTIVE when the order is paid (starts that day in India, ends on the day before the same date `duration` months later) → EXPIRED after its last day. Cancelling the unpaid order cancels it.
+- **Entitlements** (`total`, `used`) count the visits left per service. They are used up when a job is requested (M5).
+- Same **purchaser rule** as orders (both directions) and a duplicate warning if the same plan already runs.
+- Customers can still **buy any service on demand** without a plan.
+- Not built: member discounts on add-on services (the legacy quantity discounts).
+
 ### 4.5 Admin screens (M3)
 - **Rate types:** list, add, edit, switch off.
 - **Service pricing:** pick a service → grid of pincodes with price, filter by city, bulk-set a price for a selection, import a CSV (`pincode, amount`), copy from another service, and a coverage line ("priced in 140 of 182 available pincodes"). The default price and the minimum charge are on the same screen.
