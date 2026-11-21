@@ -34,7 +34,7 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 </head>
 <body>
 <nav class="top" aria-label="Sections">
-<a href="index.html">← Architecture</a><a href="#progress">Progress</a><a href="#run">Run it</a><a href="#modules">Backend modules</a><a href="#rules">Rules enforced</a><a href="#screens">Screens</a><a href="#org">Hierarchy & dispatch</a><a href="#ops">Operating the console</a><a href="#next">Next</a>
+<a href="index.html">← Architecture</a><a href="#progress">Progress</a><a href="#run">Run it</a><a href="#modules">Backend modules</a><a href="#rules">Rules enforced</a><a href="#screens">Screens</a><a href="#org">Hierarchy & dispatch</a><a href="#ops">Operating the console</a><a href="#next">Next</a><a href="docs/view.html">Documents</a>
 </nav>
 <main class="wrap">
 <h1>What is built, as of 21 Nov 2026</h1>
@@ -133,7 +133,7 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 <li><b>Areas are pincodes</b>, grouped into named <i>territories</i>. Area names are labels. A child's pincodes must lie inside its parent's.</li>
 <li><b>Available to customers</b> = pincode switched on AND an active, staffed provider covers it.</li>
 <li><b>Planned dispatch:</b> a bought service becomes a request in an <b>open pool</b>. Every eligible provider (covers the pincode and offers the service) sees it, as do the franchise, master franchise and ops above. The first provider to accept wins (one atomic update). Upline can nudge. The provider then assigns one of its own workers who offers the service.</li>
-<li><b>Proposed, awaiting the owner's yes:</b> one master franchise per city, one franchise per pincode, many providers per pincode; upline can also assign directly; customer details hidden until accepted; an acceptance time limit with escalation.</li>
+<li><b>Decided 21 Nov 2026:</b> a franchise holds one or many pincodes and areas but never overlaps another franchise; providers choose pincodes from their franchise's list, may overlap each other, and can register under more than one franchise to serve pincodes outside their own; upline can nudge or assign directly; customer details are hidden until a provider accepts; acceptance limit 2 hours (30 minutes urgent), then escalation; a worker just gets the job and can raise "cannot attend".</li>
 </ul>
 
 <h2 id="ops">Operating the console (for the team)</h2>
@@ -159,7 +159,7 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 <li>The virus scanner is a no-op in development. ClamAV is required before production.</li>
 <li>Files are on local disk. S3 is added at the AWS step.</li>
 <li>GitHub Actions workflows are blocked until the <code>mpd-infra</code> repo allows other repos to call its workflows.</li>
-<li>The documentation folder <code>D:\MPDv2\docs</code> is not in a git repo. Back it up.</li>
+<li>Specs and decisions now live in this repository under <code>docs/</code> (open them from <a href="docs/view.html">Documents</a>). A new machine is set up from <code>workspace/NEW-MACHINE.md</code>.</li>
 </ul>
 </main>
 </body>

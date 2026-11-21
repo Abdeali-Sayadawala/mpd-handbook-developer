@@ -1,0 +1,5886 @@
+{
+ "_note": "Service catalogue extracted from legacy MPD DB dump 20-Nov-2026. Master data only, no personal data. legacy_id kept for migration mapping. Review names/typos before seeding.",
+ "categories": [
+  {
+   "legacy_id": 3,
+   "name": "site visit",
+   "description": "A site visit description details an in-person inspection of a location, focusing on assessing conditions, progress, safety, and compliance for projects like construction, environmental studies, or real estate.",
+   "image": "1765202228.jpg",
+   "active": true,
+   "show_on_homepage": true,
+   "sort": 1
+  },
+  {
+   "legacy_id": 14,
+   "name": "CONSULTING  SERVICES",
+   "description": "Property consulting services offer expert, data-driven advice for buying, selling, leasing, or developing real estate, focusing on market analysis, investment strategy",
+   "image": "1765202977.jpg",
+   "active": true,
+   "show_on_homepage": true,
+   "sort": 2
+  },
+  {
+   "legacy_id": 16,
+   "name": "Repairing Services",
+   "description": "Property Repairing Services offer comprehensive upkeep for buildings, covering everything from routine cleaning, landscaping, and pest control to complex electrical, plumbing, and structural fixes",
+   "image": "1765203255.jpg",
+   "active": true,
+   "show_on_homepage": true,
+   "sort": 3
+  },
+  {
+   "legacy_id": 17,
+   "name": "Legal",
+   "description": "Property Legal Services offer expert guidance for all property-related matters, encompassing secure buying/selling, drafting/verifying crucial documents like deeds and leases, resolving ownership/boundary/landlord disputes.",
+   "image": "1765203393.jpg",
+   "active": true,
+   "show_on_homepage": true,
+   "sort": 4
+  },
+  {
+   "legacy_id": 18,
+   "name": "Property Management & Caretaking",
+   "description": "Property Management & Caretaking involves overseeing real estate (residential/commercial) for owners, handling daily upkeep, maintenance, tenant relations (screening, rent, complaints), finances, and legal compliance.",
+   "image": "1765203550.jpg",
+   "active": true,
+   "show_on_homepage": true,
+   "sort": 5
+  },
+  {
+   "legacy_id": 19,
+   "name": "Architectural & Structural Design",
+   "description": "Architectural design focuses on a building's aesthetics, function, and user experience (form, space, beauty), while structural design ensures its safety, stability, and integrity.",
+   "image": "1765203649.jpg",
+   "active": true,
+   "show_on_homepage": true,
+   "sort": 6
+  },
+  {
+   "legacy_id": 20,
+   "name": "Real Estate Consultancy",
+   "description": "A real estate consultancy provides expert, data-driven advice and strategic guidance for making informed decisions on buying, selling, leasing, or developing residential and commercial properties.",
+   "image": "1765203847.jpg",
+   "active": true,
+   "show_on_homepage": true,
+   "sort": 7
+  },
+  {
+   "legacy_id": 21,
+   "name": "Property Development",
+   "description": "Property development is the business of creating or improving buildings and land for profit, involving buying raw land or existing properties, managing planning/construction/renovation, and selling or leasing the finished product.",
+   "image": "1765204011.png",
+   "active": true,
+   "show_on_homepage": true,
+   "sort": 8
+  },
+  {
+   "legacy_id": 22,
+   "name": "Property Valuation",
+   "description": "Property valuation is the professional process of estimating a real estate asset's monetary worth (market value) by assessing its features (size, condition, location), market trends, and comparable sales.",
+   "image": "1765204098.jpg",
+   "active": true,
+   "show_on_homepage": true,
+   "sort": 9
+  },
+  {
+   "legacy_id": 23,
+   "name": "Vastu Consultancy",
+   "description": "A Vastu Consultancy offers expert guidance in applying Vastu Shastra, the ancient Indian science of architecture, to harmonize living/working spaces with natural energies (earth, water, fire, air, space)",
+   "image": "1765204246.jpg",
+   "active": true,
+   "show_on_homepage": true,
+   "sort": 10
+  },
+  {
+   "legacy_id": 24,
+   "name": "Environmental Clearance",
+   "description": "Environmental Clearance (EC) is a mandatory government approval process, primarily under India's EIA Notification 2006, requiring developers to assess and mitigate potential negative impacts of large projects.",
+   "image": "1765204324.jpg",
+   "active": true,
+   "show_on_homepage": true,
+   "sort": 11
+  },
+  {
+   "legacy_id": 25,
+   "name": "Ground water Consultancy",
+   "description": "A groundwater consultancy provides expert services for sustainable management, development, and protection of underground water resources, involving hydrogeological studies, water quality/quantity assessment.",
+   "image": "1765204446.jpg",
+   "active": true,
+   "show_on_homepage": true,
+   "sort": 12
+  },
+  {
+   "legacy_id": 27,
+   "name": "Construction Project Management",
+   "description": "Construction Project Management (CPM) is the professional service of planning, coordinating, and overseeing a construction project from inception to completion",
+   "image": "1772280250.webp",
+   "active": true,
+   "show_on_homepage": true,
+   "sort": 13
+  }
+ ],
+ "sub_categories": [
+  {
+   "legacy_id": 1,
+   "category_legacy_id": 3,
+   "category": "site visit",
+   "name": "compulsory service",
+   "description": null,
+   "image": "1765289940.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 4,
+   "category_legacy_id": 14,
+   "category": "CONSULTING  SERVICES",
+   "name": "Architectural Design",
+   "description": "Architectural design is the creative and technical process of planning and creating functional, safe, and aesthetically pleasing buildings.",
+   "image": "1765204678.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 5,
+   "category_legacy_id": 14,
+   "category": "CONSULTING  SERVICES",
+   "name": "Structure Design",
+   "description": "Structure design is the engineering process of creating safe, stable, and functional frameworks for buildings and other constructions.",
+   "image": "1765204816.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 6,
+   "category_legacy_id": 14,
+   "category": "CONSULTING  SERVICES",
+   "name": "Interior Design",
+   "description": null,
+   "image": null,
+   "active": true
+  },
+  {
+   "legacy_id": 7,
+   "category_legacy_id": 14,
+   "category": "CONSULTING  SERVICES",
+   "name": "Property Valuation",
+   "description": null,
+   "image": null,
+   "active": true
+  },
+  {
+   "legacy_id": 8,
+   "category_legacy_id": 14,
+   "category": "CONSULTING  SERVICES",
+   "name": "Arbitration",
+   "description": null,
+   "image": null,
+   "active": true
+  },
+  {
+   "legacy_id": 9,
+   "category_legacy_id": 14,
+   "category": "CONSULTING  SERVICES",
+   "name": "Other Legal Services",
+   "description": null,
+   "image": null,
+   "active": true
+  },
+  {
+   "legacy_id": 11,
+   "category_legacy_id": 16,
+   "category": "Repairing Services",
+   "name": "Electrical Repairs",
+   "description": "Electrical repair is the process of inspecting, diagnosing, troubleshooting, and fixing broken or malfunctioning electrical systems, wiring, fixtures, and appliances in homes, businesses, and industries to ensure safety, efficiency, and functionality.",
+   "image": "1765206470.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 12,
+   "category_legacy_id": 16,
+   "category": "Repairing Services",
+   "name": "Plumbing Repairs",
+   "description": "Plumbing repairs involve diagnosing and fixing issues in water, gas, and waste systems, covering everything from leaky pipes, clogged drains, and broken fixtures.",
+   "image": "1765206604.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 13,
+   "category_legacy_id": 16,
+   "category": "Repairing Services",
+   "name": "Carpentry Repairs",
+   "description": "Carpentry repairs involve diagnosing and fixing issues in wooden structures and fixtures, like rot, damage, or misalignment, to restore functionality and appearance.",
+   "image": "1765206696.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 14,
+   "category_legacy_id": 16,
+   "category": "Repairing Services",
+   "name": "Masonry & Civil Repairs",
+   "description": "Masonry & Civil Repairs involves fixing, strengthening, and restoring structures built with brick, stone, concrete blocks, using skilled techniques to repair cracks, repoint joints, rebuild damaged sections.",
+   "image": "1765206794.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 15,
+   "category_legacy_id": 16,
+   "category": "Repairing Services",
+   "name": "Appliance Repairs",
+   "description": "Appliance repair involves diagnosing, fixing, and maintaining household/commercial machines like fridges",
+   "image": "1765206917.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 16,
+   "category_legacy_id": 16,
+   "category": "Repairing Services",
+   "name": "Specialized Equipment",
+   "description": "Specialized equipment refers to tools or machinery uniquely designed for specific tasks, professions, or industries.",
+   "image": "1765207083.png",
+   "active": true
+  },
+  {
+   "legacy_id": 17,
+   "category_legacy_id": 17,
+   "category": "Legal",
+   "name": "Property Transactions & Documentation",
+   "description": null,
+   "image": "1765207345.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 18,
+   "category_legacy_id": 17,
+   "category": "Legal",
+   "name": "Government Approvals & Statutory Compliance",
+   "description": null,
+   "image": "1765207496.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 19,
+   "category_legacy_id": 17,
+   "category": "Legal",
+   "name": "Licenses & Permits",
+   "description": null,
+   "image": "1765207574.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 20,
+   "category_legacy_id": 17,
+   "category": "Legal",
+   "name": "Labour Law Compliance",
+   "description": null,
+   "image": "1765207805.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 21,
+   "category_legacy_id": 17,
+   "category": "Legal",
+   "name": "Finance & Taxation",
+   "description": null,
+   "image": "1765207850.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 22,
+   "category_legacy_id": 17,
+   "category": "Legal",
+   "name": "Insurance & Claims",
+   "description": null,
+   "image": "1765207915.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 23,
+   "category_legacy_id": 17,
+   "category": "Legal",
+   "name": "Disputes & Legal Drafting",
+   "description": null,
+   "image": "1765207980.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 24,
+   "category_legacy_id": 17,
+   "category": "Legal",
+   "name": "Special Property Matters",
+   "description": null,
+   "image": "1765208043.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 25,
+   "category_legacy_id": 18,
+   "category": "Property Management & Caretaking",
+   "name": "Building & Facility Management",
+   "description": null,
+   "image": "1765208480.png",
+   "active": true
+  },
+  {
+   "legacy_id": 26,
+   "category_legacy_id": 18,
+   "category": "Property Management & Caretaking",
+   "name": "Utilities & Services Management",
+   "description": null,
+   "image": "1765208323.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 27,
+   "category_legacy_id": 18,
+   "category": "Property Management & Caretaking",
+   "name": "Tenant & Occupancy Management",
+   "description": null,
+   "image": "1765208252.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 28,
+   "category_legacy_id": 18,
+   "category": "Property Management & Caretaking",
+   "name": "Safety & Compliance",
+   "description": null,
+   "image": "1765208361.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 29,
+   "category_legacy_id": 18,
+   "category": "Property Management & Caretaking",
+   "name": "Special Services",
+   "description": null,
+   "image": "1765208571.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 30,
+   "category_legacy_id": 19,
+   "category": "Architectural & Structural Design",
+   "name": "Architectural Design",
+   "description": null,
+   "image": "1765208803.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 31,
+   "category_legacy_id": 19,
+   "category": "Architectural & Structural Design",
+   "name": "Structural Design",
+   "description": null,
+   "image": "1765208830.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 32,
+   "category_legacy_id": 19,
+   "category": "Architectural & Structural Design",
+   "name": "Specialized Services",
+   "description": null,
+   "image": "1765208918.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 33,
+   "category_legacy_id": 20,
+   "category": "Real Estate Consultancy",
+   "name": "Property Advisory",
+   "description": null,
+   "image": "1765209045.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 34,
+   "category_legacy_id": 20,
+   "category": "Real Estate Consultancy",
+   "name": "Transaction Support",
+   "description": null,
+   "image": "1765209174.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 35,
+   "category_legacy_id": 20,
+   "category": "Real Estate Consultancy",
+   "name": "Market Research & Feasibility",
+   "description": null,
+   "image": "1765209216.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 36,
+   "category_legacy_id": 20,
+   "category": "Real Estate Consultancy",
+   "name": "Financial Advisory",
+   "description": null,
+   "image": "1765209245.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 37,
+   "category_legacy_id": 20,
+   "category": "Real Estate Consultancy",
+   "name": "Regulatory & Compliance",
+   "description": null,
+   "image": "1765209294.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 38,
+   "category_legacy_id": 20,
+   "category": "Real Estate Consultancy",
+   "name": "Project Management & Advisory",
+   "description": null,
+   "image": "1765209338.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 39,
+   "category_legacy_id": 20,
+   "category": "Real Estate Consultancy",
+   "name": "Specialized Services",
+   "description": null,
+   "image": "1765209425.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 40,
+   "category_legacy_id": 21,
+   "category": "Property Development",
+   "name": "Land Acquisition & Feasibility",
+   "description": null,
+   "image": "1765209485.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 41,
+   "category_legacy_id": 21,
+   "category": "Property Development",
+   "name": "Planning & Design",
+   "description": null,
+   "image": "1765209524.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 42,
+   "category_legacy_id": 21,
+   "category": "Property Development",
+   "name": "Approvals & Permits",
+   "description": null,
+   "image": "1765209585.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 43,
+   "category_legacy_id": 21,
+   "category": "Property Development",
+   "name": "Construction Management",
+   "description": null,
+   "image": "1765209627.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 44,
+   "category_legacy_id": 21,
+   "category": "Property Development",
+   "name": "Marketing & Sales",
+   "description": null,
+   "image": "1765209746.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 45,
+   "category_legacy_id": 21,
+   "category": "Property Development",
+   "name": "Post-Construction & Maintenance",
+   "description": null,
+   "image": "1765209821.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 46,
+   "category_legacy_id": 21,
+   "category": "Property Development",
+   "name": "Financial & Risk Advisory",
+   "description": null,
+   "image": "1765209927.png",
+   "active": true
+  },
+  {
+   "legacy_id": 47,
+   "category_legacy_id": 22,
+   "category": "Property Valuation",
+   "name": "Residential Property Valuation",
+   "description": null,
+   "image": "1765210000.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 48,
+   "category_legacy_id": 22,
+   "category": "Property Valuation",
+   "name": "Commercial Property Valuation",
+   "description": null,
+   "image": "1765291363.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 49,
+   "category_legacy_id": 22,
+   "category": "Property Valuation",
+   "name": "Land Valuation",
+   "description": null,
+   "image": "1765291441.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 50,
+   "category_legacy_id": 22,
+   "category": "Property Valuation",
+   "name": "Special Purpose Valuation",
+   "description": null,
+   "image": "1765291515.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 51,
+   "category_legacy_id": 22,
+   "category": "Property Valuation",
+   "name": "Financial & Loan Support",
+   "description": null,
+   "image": "1765291681.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 52,
+   "category_legacy_id": 22,
+   "category": "Property Valuation",
+   "name": "Reports & Documentation",
+   "description": null,
+   "image": "1765291923.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 53,
+   "category_legacy_id": 23,
+   "category": "Vastu Consultancy",
+   "name": "Residential Vastu",
+   "description": null,
+   "image": "1765290629.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 54,
+   "category_legacy_id": 23,
+   "category": "Vastu Consultancy",
+   "name": "Commercial Vastu",
+   "description": null,
+   "image": "1765290063.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 55,
+   "category_legacy_id": 23,
+   "category": "Vastu Consultancy",
+   "name": "Plot & Site Selection",
+   "description": null,
+   "image": "1765290181.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 56,
+   "category_legacy_id": 23,
+   "category": "Vastu Consultancy",
+   "name": "Energy & Environmental Vastu",
+   "description": null,
+   "image": "1765290290.png",
+   "active": true
+  },
+  {
+   "legacy_id": 57,
+   "category_legacy_id": 23,
+   "category": "Vastu Consultancy",
+   "name": "Consultancy Reports & Recommendations",
+   "description": null,
+   "image": "1765290409.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 58,
+   "category_legacy_id": 23,
+   "category": "Vastu Consultancy",
+   "name": "Specialized Vastu Services",
+   "description": null,
+   "image": "1765290516.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 59,
+   "category_legacy_id": 24,
+   "category": "Environmental Clearance",
+   "name": "Project Categorization",
+   "description": null,
+   "image": "1765290879.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 60,
+   "category_legacy_id": 24,
+   "category": "Environmental Clearance",
+   "name": "Environmental Impact Assessment (EIA)",
+   "description": null,
+   "image": "1765290935.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 61,
+   "category_legacy_id": 24,
+   "category": "Environmental Clearance",
+   "name": "Clearance Documentation & Submission",
+   "description": null,
+   "image": "1765291078.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 62,
+   "category_legacy_id": 24,
+   "category": "Environmental Clearance",
+   "name": "Regulatory Compliance & Monitoring",
+   "description": null,
+   "image": "1765291138.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 63,
+   "category_legacy_id": 24,
+   "category": "Environmental Clearance",
+   "name": "Specialized Environmental Services",
+   "description": null,
+   "image": "1765291255.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 64,
+   "category_legacy_id": 25,
+   "category": "Ground water Consultancy",
+   "name": "Exploration & Assessment",
+   "description": null,
+   "image": "1765210483.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 66,
+   "category_legacy_id": 25,
+   "category": "Ground water Consultancy",
+   "name": "Borewell & Well Management",
+   "description": null,
+   "image": "1765210415.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 67,
+   "category_legacy_id": 25,
+   "category": "Ground water Consultancy",
+   "name": "Water Resource Management",
+   "description": null,
+   "image": "1765210348.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 68,
+   "category_legacy_id": 25,
+   "category": "Ground water Consultancy",
+   "name": "Regulatory & Compliance",
+   "description": null,
+   "image": "1765210292.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 69,
+   "category_legacy_id": 25,
+   "category": "Ground water Consultancy",
+   "name": "Monitoring & Data Analysis",
+   "description": null,
+   "image": "1765210207.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 70,
+   "category_legacy_id": 25,
+   "category": "Ground water Consultancy",
+   "name": "Specific Services",
+   "description": null,
+   "image": "1765210147.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 71,
+   "category_legacy_id": 18,
+   "category": "Property Management & Caretaking",
+   "name": "Special Services",
+   "description": null,
+   "image": "1765210073.jpg",
+   "active": true
+  },
+  {
+   "legacy_id": 73,
+   "category_legacy_id": 27,
+   "category": "Construction Project Management",
+   "name": "Bid Preparation / Evaluation and Procurement Assistant",
+   "description": "A Bid Preparation / Evaluation and Procurement Assistant supports the end-to-end purchasing process, focusing on drafting tender documents, evaluating supplier bids for technical compliance, and ensuring procurement policies are followed",
+   "image": "1772451074.webp",
+   "active": true
+  }
+ ],
+ "services": [
+  {
+   "legacy_id": 1,
+   "category": null,
+   "sub_category": "compulsory service",
+   "sub_category_legacy_id": 1,
+   "type_group": "Dusting, Brooming, Mopping, Outdoor Brooming only",
+   "name": "Basic Cleaning Type 1",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 2,
+   "category": null,
+   "sub_category": "Structure Design",
+   "sub_category_legacy_id": 5,
+   "type_group": "Outdoor Cleaning (Otta + Parking Area+ Compound Area)",
+   "name": "outdoor cleaning type1",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 3,
+   "category": null,
+   "sub_category": "Architectural Design",
+   "sub_category_legacy_id": 4,
+   "type_group": "repairs of furniture",
+   "name": "basic carpentary service1",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 4,
+   "category": "site visit",
+   "sub_category": "compulsory service",
+   "sub_category_legacy_id": 1,
+   "type_group": "Extra Service",
+   "name": "Site Visit",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": true
+   }
+  },
+  {
+   "legacy_id": 21,
+   "category": null,
+   "sub_category": null,
+   "sub_category_legacy_id": 2,
+   "type_group": "brooming ,  & mopping",
+   "name": "Basic Cleaning",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 22,
+   "category": null,
+   "sub_category": null,
+   "sub_category_legacy_id": 2,
+   "type_group": "brooming , mopping ,  window sill, ceiling",
+   "name": "Deep Cleaning",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 23,
+   "category": null,
+   "sub_category": null,
+   "sub_category_legacy_id": 2,
+   "type_group": "cleaning furniture  with chemicals",
+   "name": "Furniture Cleaning",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 24,
+   "category": null,
+   "sub_category": null,
+   "sub_category_legacy_id": 2,
+   "type_group": "Lanscape",
+   "name": "Landscape",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 25,
+   "category": null,
+   "sub_category": null,
+   "sub_category_legacy_id": 2,
+   "type_group": "Outdoor Cleaning (Otta +  Parking Area+ Compound  Area)",
+   "name": "Outdoor Cleaning",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 26,
+   "category": null,
+   "sub_category": null,
+   "sub_category_legacy_id": 3,
+   "type_group": "Plumbing",
+   "name": "Plumbing",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 27,
+   "category": null,
+   "sub_category": null,
+   "sub_category_legacy_id": 3,
+   "type_group": "Electric",
+   "name": "Electric",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 28,
+   "category": null,
+   "sub_category": null,
+   "sub_category_legacy_id": 3,
+   "type_group": "Furniture Repair",
+   "name": "Furniture Repair",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 29,
+   "category": null,
+   "sub_category": null,
+   "sub_category_legacy_id": 3,
+   "type_group": "Others.",
+   "name": "Others.",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 30,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Architectural Design",
+   "sub_category_legacy_id": 4,
+   "type_group": "Conceptual Design",
+   "name": "Conceptual Design ( Conceptual Layouts  for each floor , 3D &  one sectional elevation,  two revisions )",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 31,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Architectural Design",
+   "sub_category_legacy_id": 4,
+   "type_group": "Working Plans",
+   "name": "Working Plans  (working plans for  onsite execution)",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 32,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Architectural Design",
+   "sub_category_legacy_id": 4,
+   "type_group": "DESIGN",
+   "name": "Sanction File Preparation",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 33,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Structure Design",
+   "sub_category_legacy_id": 5,
+   "type_group": "DESIGN",
+   "name": "All dwgs phase wise",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 34,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Interior Design",
+   "sub_category_legacy_id": 6,
+   "type_group": "DESIGN",
+   "name": "Depends upon client budget & level of detailing",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 35,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Property Valuation",
+   "sub_category_legacy_id": 7,
+   "type_group": "VALUATION",
+   "name": "VISA",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 36,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Property Valuation",
+   "sub_category_legacy_id": 7,
+   "type_group": "VALUATION",
+   "name": "Capital Gains Tax",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 37,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Property Valuation",
+   "sub_category_legacy_id": 7,
+   "type_group": "VALUATION",
+   "name": "Market Value",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 38,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Arbitration",
+   "sub_category_legacy_id": 8,
+   "type_group": "LEGAL",
+   "name": "Arbitration",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 39,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Other Legal Services",
+   "sub_category_legacy_id": 9,
+   "type_group": "Legal Dispute",
+   "name": "Disputes & Legal Drafting",
+   "description": "Property sold without consent",
+   "image": "1785927798.png",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 40,
+   "category": null,
+   "sub_category": null,
+   "sub_category_legacy_id": 2,
+   "type_group": "Parking",
+   "name": "Parking",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 41,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Architectural Design",
+   "sub_category_legacy_id": 4,
+   "type_group": "DESIGN",
+   "name": "3D design with 4 views",
+   "description": null,
+   "image": null,
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 48,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Other Legal Services",
+   "sub_category_legacy_id": 9,
+   "type_group": "legal service",
+   "name": "Property Inspection",
+   "description": "Property inspection services involve a thorough examination of a property's condition by a qualified professional, typically before a real estate transaction. The inspector assesses various aspects of the property, including its structure, systems (like electrical and plumbing), and overall condition, to identify potential issues, needed repairs, or maintenance. This process helps buyers make informed decisions and protects sellers by revealing any problems that need addressing.",
+   "image": "1752923430.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 51,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Architectural Design",
+   "sub_category_legacy_id": 4,
+   "type_group": "Architectural Design Services",
+   "name": "Architectural Services",
+   "description": "Architectural designing services encompass the conceptualization, planning, design, and documentation of buildings and other structures to meet client needs for functionality, aesthetics, and safety, often involving detailed drawings, material selection, and compliance with regulatory standards.",
+   "image": "1756115595.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 52,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Other Legal Services",
+   "sub_category_legacy_id": 9,
+   "type_group": "LEGAL",
+   "name": "Legal Service",
+   "description": "Legal services are professional legal assistance, which includes providing advice on any legal matter, conducting cases in courts or tribunals, and preparing legal documents like appeals and paper books. In India, the Legal Services Authorities Act, 1987, mandates the provision of free and competent legal services to weaker sections of society to ensure equal access to justice. This includes activities like conducting Lok Adalats for dispute resolution, spreading legal literacy, and offering free legal aid to eligible citizens.",
+   "image": "1756720749.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 53,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Property Valuation",
+   "sub_category_legacy_id": 7,
+   "type_group": "VALUATION",
+   "name": "SELL PROPERTY",
+   "description": "A sell property service guides homeowners through a property sale by handling legalities, marketing, buyer interaction, and negotiations to secure the best deal and ensure a smooth, legal transfer of ownership. Key components include document verification, property marketing with appealing visuals, buyer qualification, sale agreement preparation, legal registration, and managing post-sale requirements.",
+   "image": "1756723955.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 54,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Property Valuation",
+   "sub_category_legacy_id": 7,
+   "type_group": "VALUATION",
+   "name": "BUY PROPERTY",
+   "description": "Buy property services\" refers to professional assistance from real estate agents, brokers, or agencies that help clients find, evaluate, negotiate, and purchase residential, commercial, or industrial real estate. These services encompass activities such as market analysis, property listings, legal documentation, property registration, and negotiation to facilitate a smooth and profitable transaction for the client.",
+   "image": "1756724379.png",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 55,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Other Legal Services",
+   "sub_category_legacy_id": 9,
+   "type_group": "LEGAL",
+   "name": "Tenant Verification",
+   "description": "A tenant verification service is a process or company that performs background checks on prospective tenants for property owners to ensure the safety and reliability of a tenant before renting out a property. It involves verifying a tenant's identity, address, and employment, and conducting criminal record checks and reference checks, often with police involvement, to prevent fraud, property damage, and other risks to the landlord and the property.",
+   "image": "1756730762.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 56,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Structure Design",
+   "sub_category_legacy_id": 5,
+   "type_group": "DESIGN",
+   "name": "Structure Design",
+   "description": "Structure design services involve a civil engineering process where structural engineers analyze, design, and detail structural elements like beams, columns, and foundations to ensure a building or infrastructure project is safe, stable, durable, and cost-effective. These services ensure structures can withstand all anticipated loads, including self-weight, environmental forces like wind and seismic activity, and operational use, all while adhering to relevant building codes and regulations. The outcome is detailed construction drawings and specifications that enable the creation of a robust and functional structure.",
+   "image": "1757064483.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 57,
+   "category": "CONSULTING  SERVICES",
+   "sub_category": "Other Legal Services",
+   "sub_category_legacy_id": 9,
+   "type_group": "LEGAL",
+   "name": "Investment Consulting",
+   "description": "Investment consulting services involve professional guidance to individuals, corporations, and institutions on financial planning, strategy, and portfolio management to achieve their financial goals. Consultants assess a client's financial situation, risk tolerance, and objectives to develop customized, long-term investment plans, monitor market trends, and recommend specific investment vehicles such as stocks, bonds, and real estate. These services aim to help clients manage risk, maximize returns, and ensure their investments align with their evolving financial needs.",
+   "image": "1757065266.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 59,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Internal house/office wiring",
+   "name": "Wiring & Cabling(Internal house/office wiring)",
+   "description": "Fixing short circuits, rewiring old/damaged lines, replacing burned wires, proper earthing",
+   "image": "1759074682.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 60,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Underground cables",
+   "name": "Wiring & Cabling(Underground cables)",
+   "description": "Digging, insulation repair, jointing, replacement of damaged sections",
+   "image": "1759158611.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 61,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "LAN/Data cables",
+   "name": "Wiring & Cabling(LAN/Data cables)",
+   "description": "Re-crimping, cable replacement, switch/router reconfiguration",
+   "image": "1759158789.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 62,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Switchboards",
+   "name": "Switches & Boards(Switchboards)",
+   "description": "Replacement of burnt switches, tightening loose connections, upgrading to modular boards",
+   "image": "1759158949.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 63,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Sockets",
+   "name": "Switches & Boards(Sockets)",
+   "description": "Changing faulty sockets, rewiring, earthing checks",
+   "image": "1759159408.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 64,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "MCBs/DB Panels",
+   "name": "Switches & Boards(MCBs/DB Panels)",
+   "description": "Resetting/replacing faulty MCBs, tightening busbars, repairing tripping circuits",
+   "image": "1759159561.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 65,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Tube lights",
+   "name": "Lighting(Tube lights)",
+   "description": "Tube/bulb replacement, choke/starter repair",
+   "image": "1759159753.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 66,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "LED panels",
+   "name": "Lighting(LED panels)",
+   "description": "Driver replacement, panel replacement, loose wiring fix",
+   "image": "1759160469.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 67,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Street lights",
+   "name": "Lighting(Street lights)",
+   "description": "Pole wiring, luminaire replacement, photocell sensor repair",
+   "image": "1759160586.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 68,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Decorative lights",
+   "name": "Lighting(Decorative lights)",
+   "description": "Fixture alignment, transformer/driver replacement",
+   "image": "1759160727.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 69,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Ceiling fans",
+   "name": "Fans & Fixtures(Ceiling fans)",
+   "description": "Blade balancing, motor rewinding, capacitor replacement",
+   "image": "1759160869.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 70,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Exhaust fans",
+   "name": "Fans & Fixtures(Exhaust fans)",
+   "description": "Motor cleaning, lubrication, shaft/bearing replacement",
+   "image": "1759161230.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 71,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Wall/stand fans",
+   "name": "Fans & Fixtures(Wall/stand fans)",
+   "description": "Switch repair, motor rewinding",
+   "image": "1759161414.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 72,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Stabilizers",
+   "name": "Power Equipment(Stabilizers)",
+   "description": "PCB repair, relay replacement, output voltage calibration",
+   "image": "1759162872.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 73,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "UPS/Inverters",
+   "name": "Power Equipment(UPS/Inverters)",
+   "description": "Battery replacement, fuse replacement, software reset",
+   "image": "1759163030.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 74,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Electrical panels",
+   "name": "Panels & Motors(Electrical panels)",
+   "description": "Contact cleaning, overload relay replacement, rewiring",
+   "image": "1759163137.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 75,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Pumps/motors",
+   "name": "Panels & Motors(Pumps/motors)",
+   "description": "Motor rewinding, seal replacement, bearing lubrication",
+   "image": "1759163262.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 76,
+   "category": "Repairing Services",
+   "sub_category": "Plumbing Repairs",
+   "sub_category_legacy_id": 12,
+   "type_group": "GI/CPVC/PVC pipes",
+   "name": "Piping(GI/CPVC/PVC pipes)",
+   "description": "Leakage sealing, pipe replacement, joint fitting",
+   "image": "1759163408.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 77,
+   "category": "Repairing Services",
+   "sub_category": "Plumbing Repairs",
+   "sub_category_legacy_id": 12,
+   "type_group": "Taps",
+   "name": "Fittings(Taps)",
+   "description": "Washer replacement, spindle greasing, handle fixing",
+   "image": "1759163510.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": true
+   }
+  },
+  {
+   "legacy_id": 78,
+   "category": "Repairing Services",
+   "sub_category": "Plumbing Repairs",
+   "sub_category_legacy_id": 12,
+   "type_group": "Showers",
+   "name": "Fittings(Showers)",
+   "description": "Nozzle unclogging, flow adjustment, replacement",
+   "image": "1759163699.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 79,
+   "category": "Repairing Services",
+   "sub_category": "Plumbing Repairs",
+   "sub_category_legacy_id": 12,
+   "type_group": "Flush systems",
+   "name": "Fittings(Flush systems)",
+   "description": "Float valve replacement, leakage repair",
+   "image": "1759163825.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 80,
+   "category": "Repairing Services",
+   "sub_category": "Plumbing Repairs",
+   "sub_category_legacy_id": 12,
+   "type_group": "Valves",
+   "name": "Fittings(Valves)",
+   "description": "Gate valve lubrication, gland packing, replacement",
+   "image": "1759163971.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 81,
+   "category": "Repairing Services",
+   "sub_category": "Plumbing Repairs",
+   "sub_category_legacy_id": 12,
+   "type_group": "Floor traps",
+   "name": "Drainage(Floor traps)",
+   "description": "Blockage removal, cleaning, odor trap sealing",
+   "image": "1759164080.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 82,
+   "category": "Repairing Services",
+   "sub_category": "Plumbing Repairs",
+   "sub_category_legacy_id": 12,
+   "type_group": "Sewer pipes",
+   "name": "Drainage(Sewer pipes)",
+   "description": "Jet cleaning, crack sealing, pipe replacement",
+   "image": "1759164308.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 83,
+   "category": "Repairing Services",
+   "sub_category": "Plumbing Repairs",
+   "sub_category_legacy_id": 12,
+   "type_group": "Manholes",
+   "name": "Drainage(Manholes)",
+   "description": "Cover replacement, cleaning, masonry repair",
+   "image": "1759164426.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 84,
+   "category": "Repairing Services",
+   "sub_category": "Plumbing Repairs",
+   "sub_category_legacy_id": 12,
+   "type_group": "Overhead tanks",
+   "name": "Storage(Overhead tanks)",
+   "description": "Leakage sealing, float valve repair, cleaning",
+   "image": "1759164663.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 85,
+   "category": "Repairing Services",
+   "sub_category": "Plumbing Repairs",
+   "sub_category_legacy_id": 12,
+   "type_group": "Sumps",
+   "name": "Storage(Sumps)",
+   "description": "Crack sealing, waterproofing",
+   "image": "1759164868.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 86,
+   "category": "Repairing Services",
+   "sub_category": "Plumbing Repairs",
+   "sub_category_legacy_id": 12,
+   "type_group": "Water coolers",
+   "name": "Storage(Water coolers)",
+   "description": "Tap replacement, cooling coil repair",
+   "image": "1759165071.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 87,
+   "category": "Repairing Services",
+   "sub_category": "Carpentry Repairs",
+   "sub_category_legacy_id": 13,
+   "type_group": "Wooden doors",
+   "name": "Doors & Windows(Wooden doors)",
+   "description": "Hinge replacement, lock fitting, termite treatment",
+   "image": "1759226507.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 88,
+   "category": "Repairing Services",
+   "sub_category": "Carpentry Repairs",
+   "sub_category_legacy_id": 13,
+   "type_group": "Frames",
+   "name": "Doors & Windows(Frames)",
+   "description": "Alignment correction, polishing, crack sealing",
+   "image": "1759226714.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 89,
+   "category": "Repairing Services",
+   "sub_category": "Carpentry Repairs",
+   "sub_category_legacy_id": 13,
+   "type_group": "Windows",
+   "name": "Doors & Windows(Windows)",
+   "description": "Glass replacement, shutter alignment",
+   "image": "1759226929.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 90,
+   "category": "Repairing Services",
+   "sub_category": "Carpentry Repairs",
+   "sub_category_legacy_id": 13,
+   "type_group": "Chairs & tables",
+   "name": "Furniture(Chairs & tables)",
+   "description": "Joint tightening, lamination repair, polishing",
+   "image": "1759227136.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 91,
+   "category": "Repairing Services",
+   "sub_category": "Carpentry Repairs",
+   "sub_category_legacy_id": 13,
+   "type_group": "Cupboards",
+   "name": "Furniture(Cupboards)",
+   "description": "Drawer runner replacement, lock change",
+   "image": "1759227365.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 92,
+   "category": "Repairing Services",
+   "sub_category": "Carpentry Repairs",
+   "sub_category_legacy_id": 13,
+   "type_group": "Beds",
+   "name": "Furniture(Beds)",
+   "description": "Frame tightening, panel replacement",
+   "image": "1759227493.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 93,
+   "category": "Repairing Services",
+   "sub_category": "Carpentry Repairs",
+   "sub_category_legacy_id": 13,
+   "type_group": "Wooden partitions",
+   "name": "Panels/Partitions(Wooden partitions)",
+   "description": "Panel replacement, polishing, joint sealing",
+   "image": "1759227807.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 94,
+   "category": "Repairing Services",
+   "sub_category": "Carpentry Repairs",
+   "sub_category_legacy_id": 13,
+   "type_group": "Locks",
+   "name": "Locks & Handles(Locks)",
+   "description": "Lock replacement, key duplication fitting",
+   "image": "1759227944.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 95,
+   "category": "Repairing Services",
+   "sub_category": "Carpentry Repairs",
+   "sub_category_legacy_id": 13,
+   "type_group": "Handles & hinges",
+   "name": "Locks & Handles(Handles & hinges)",
+   "description": "Tightening, lubrication, replacement",
+   "image": "1759228105.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 96,
+   "category": "Repairing Services",
+   "sub_category": "Masonry & Civil Repairs",
+   "sub_category_legacy_id": 14,
+   "type_group": "Tiles",
+   "name": "Flooring(Tiles)",
+   "description": "Replacing broken tiles, re-grouting",
+   "image": "1759228311.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 97,
+   "category": "Repairing Services",
+   "sub_category": "Masonry & Civil Repairs",
+   "sub_category_legacy_id": 14,
+   "type_group": "Marble/Granite",
+   "name": "Flooring(Marble/Granite)",
+   "description": "Crack filling, polishing, leveling",
+   "image": "1759228411.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 98,
+   "category": "Repairing Services",
+   "sub_category": "Masonry & Civil Repairs",
+   "sub_category_legacy_id": 14,
+   "type_group": "Cracks",
+   "name": "Walls & Plaster(Cracks)",
+   "description": "Crack injection, plaster patching",
+   "image": "1759228610.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 99,
+   "category": "Repairing Services",
+   "sub_category": "Masonry & Civil Repairs",
+   "sub_category_legacy_id": 14,
+   "type_group": "Plaster",
+   "name": "Walls & Plaster(Plaster)",
+   "description": "Re-plastering damaged sections, waterproofing",
+   "image": "1759234896.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 100,
+   "category": "Repairing Services",
+   "sub_category": "Masonry & Civil Repairs",
+   "sub_category_legacy_id": 14,
+   "type_group": "Interior walls",
+   "name": "Painting(Interior walls)",
+   "description": "Touch-up painting, full repainting",
+   "image": "1759316160.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 101,
+   "category": "Repairing Services",
+   "sub_category": "Masonry & Civil Repairs",
+   "sub_category_legacy_id": 14,
+   "type_group": "Exterior walls",
+   "name": "Painting(Exterior walls)",
+   "description": "Waterproof coating, weather-resistant paint",
+   "image": "1759316294.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 102,
+   "category": "Repairing Services",
+   "sub_category": "Masonry & Civil Repairs",
+   "sub_category_legacy_id": 14,
+   "type_group": "Metal/Wood surfaces",
+   "name": "Painting(Metal/Wood surfaces)",
+   "description": "Anti-rust paint, polish",
+   "image": "1759316444.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 103,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Split AC",
+   "name": "Air Conditioners(Split AC)",
+   "description": "Gas refilling, PCB repair, coil cleaning",
+   "image": "1759319930.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 104,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Window AC",
+   "name": "Air Conditioners(Window AC)",
+   "description": "Thermostat replacement, motor repair",
+   "image": "1759320031.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 105,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Cassette/Ductable AC",
+   "name": "Air Conditioners(Cassette/Ductable AC)",
+   "description": "Filter cleaning, compressor service",
+   "image": "1759320172.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 106,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Single door",
+   "name": "Refrigerators(Single door)",
+   "description": "Gas charging, thermostat change",
+   "image": "1759320278.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 107,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Refrigerators(Double door)",
+   "name": "Refrigerators(Double door)",
+   "description": "Door gasket replacement, cooling coil service",
+   "image": "1759320418.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 108,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Refrigerators(Deep freezer)",
+   "name": "Refrigerators(Deep freezer)",
+   "description": "Compressor replacement, defrost heater service",
+   "image": "1759320579.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 109,
+   "category": "Repairing Services",
+   "sub_category": "Electrical Repairs",
+   "sub_category_legacy_id": 11,
+   "type_group": "Washing Machines(Semi-auto)",
+   "name": "Washing Machines(Semi-auto)",
+   "description": "Belt replacement, motor repair",
+   "image": "1759320786.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 110,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Washing Machines(Fully automatic)",
+   "name": "Washing Machines(Fully automatic)",
+   "description": "PCB repair, drum balancing",
+   "image": "1759321103.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 111,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Washing Machines(Front load)",
+   "name": "Washing Machines(Front load)",
+   "description": "Door seal replacement, water pump repair",
+   "image": "1759321063.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 112,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Geysers/Heaters(Instant geyser)",
+   "name": "Geysers/Heaters(Instant geyser)",
+   "description": "Heating element replacement, thermostat repair",
+   "image": "1759321222.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 113,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Geysers/Heaters(Storage geyser)",
+   "name": "Geysers/Heaters(Storage geyser)",
+   "description": "Leakage sealing, anode rod replacement",
+   "image": "1759321349.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 114,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Geysers/Heaters(Solar water heater)",
+   "name": "Geysers/Heaters(Solar water heater)",
+   "description": "Collector cleaning, pipeline insulation",
+   "image": "1759321692.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 115,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Other Appliances(RO/Water purifiers)",
+   "name": "Other Appliances(RO/Water purifiers)",
+   "description": "Filter change, pump replacement",
+   "image": "1759321863.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 116,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Microwave",
+   "name": "Other Appliances(Microwave)",
+   "description": "Magnetron repair, door switch replacement",
+   "image": "1759322001.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 117,
+   "category": "Repairing Services",
+   "sub_category": "Appliance Repairs",
+   "sub_category_legacy_id": 15,
+   "type_group": "Induction stove",
+   "name": "Other Appliances(Induction stove)",
+   "description": "Coil replacement, PCB repair",
+   "image": "1759322219.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 118,
+   "category": "Repairing Services",
+   "sub_category": "Specialized Equipment",
+   "sub_category_legacy_id": 16,
+   "type_group": "Passenger lifts",
+   "name": "Elevators(Passenger lifts)",
+   "description": "Door sensor repair, cable replacement",
+   "image": "1759322720.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 119,
+   "category": "Repairing Services",
+   "sub_category": "Specialized Equipment",
+   "sub_category_legacy_id": 16,
+   "type_group": "Freight lifts",
+   "name": "Elevators(Freight lifts)",
+   "description": "Overload system repair, motor rewinding",
+   "image": "1759322593.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 120,
+   "category": "Repairing Services",
+   "sub_category": "Specialized Equipment",
+   "sub_category_legacy_id": 16,
+   "type_group": "Generators(DG sets)",
+   "name": "Generators(DG sets)",
+   "description": "Fuel pump repair, alternator rewinding",
+   "image": "1759322847.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 121,
+   "category": "Repairing Services",
+   "sub_category": "Specialized Equipment",
+   "sub_category_legacy_id": 16,
+   "type_group": "Portable gensets",
+   "name": "Generators(Portable gensets)",
+   "description": "Battery replacement, carburetor cleaning",
+   "image": "1759322950.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 122,
+   "category": "Repairing Services",
+   "sub_category": "Specialized Equipment",
+   "sub_category_legacy_id": 16,
+   "type_group": "Firefighting Systems(Hydrants)",
+   "name": "Firefighting Systems(Hydrants)",
+   "description": "Nozzle replacement, pump testing",
+   "image": "1759323124.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 123,
+   "category": "Repairing Services",
+   "sub_category": "Specialized Equipment",
+   "sub_category_legacy_id": 16,
+   "type_group": "Sprinklers",
+   "name": "Firefighting Systems(Sprinklers)",
+   "description": "Head replacement, pipe flushing",
+   "image": "1759327452.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 124,
+   "category": "Repairing Services",
+   "sub_category": "Specialized Equipment",
+   "sub_category_legacy_id": 16,
+   "type_group": "Fire alarms",
+   "name": "Firefighting Systems(Fire alarms)",
+   "description": "Panel troubleshooting, sensor replacement",
+   "image": "1759327546.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 125,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Drafting Sale Deed",
+   "name": "Sale & Purchase(Drafting Sale Deed)",
+   "description": "Preparation, vetting, and registration of sale deed agreements",
+   "image": "1759327963.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 126,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Title Verification",
+   "name": "Sale & Purchase(Title Verification)",
+   "description": "Checking ownership history, encumbrances, legal disputes",
+   "image": "1759328096.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 127,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Agreement to Sell",
+   "name": "Sale & Purchase(Agreement to Sell)",
+   "description": "Drafting and notarizing preliminary agreements",
+   "image": "1759328222.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 128,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Gift Deed",
+   "name": "Sale & Purchase(Gift Deed)",
+   "description": "Drafting and registering property gift transfers",
+   "image": "1759328453.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 129,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Lease & Rental Agreements",
+   "name": "Sale & Purchase(Lease & Rental Agreements)",
+   "description": "Drafting, review, tenant/landlord clauses, long-term lease documentation, compliance",
+   "image": "1759328704.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 130,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Mutation of Property",
+   "name": "Registration & Documentation(Mutation of Property)",
+   "description": "Updating ownership in government revenue records",
+   "image": "1759328847.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 131,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Property Registration",
+   "name": "Registration & Documentation(Property Registration)",
+   "description": "Registration with sub-registrar, calculation of stamp duty & fees",
+   "image": "1759329018.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 132,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Power of Attorney (PoA)",
+   "name": "Registration & Documentation(Power of Attorney (PoA))",
+   "description": "Drafting general/special PoA for transactions",
+   "image": "1759329108.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 133,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Partition Deed",
+   "name": "Registration & Documentation(Partition Deed)",
+   "description": "Drafting for division among heirs/family",
+   "image": "1759329311.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 134,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Will & Probate",
+   "name": "Registration & Documentation(Will & Probate)",
+   "description": "Drafting wills, probate proceedings in court",
+   "image": "1759329528.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 135,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Property verification / Title Search",
+   "name": "Due Diligence & Verification(Property verification / Title Search)",
+   "description": "Verifying ownership, encumbrance certificate, municipal/revenue records",
+   "image": "1759329644.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 136,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Encumbrance Certificate",
+   "name": "Due Diligence & Verification(Encumbrance Certificate)",
+   "description": "Checking mortgages, loans, charges",
+   "image": "1759329771.png",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 137,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Land Use Verification",
+   "name": "Due Diligence & Verification(Land Use Verification)",
+   "description": "Confirming zoning (residential, commercial, industrial, agricultural)",
+   "image": "1759329947.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 138,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Litigation Check",
+   "name": "Due Diligence & Verification(Litigation Check)",
+   "description": "Ensuring property is free of legal disputes in courts",
+   "image": "1759330164.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 139,
+   "category": "Legal",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Agricultural to non-agricultural",
+   "name": "Land Conversion(Agricultural to non-agricultural)",
+   "description": "Applications, approvals, revenue office processing",
+   "image": "1759330294.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 140,
+   "category": "Legal",
+   "sub_category": "Government Approvals & Statutory Compliance",
+   "sub_category_legacy_id": 18,
+   "type_group": "Project registration & monitoring",
+   "name": "RERA Compliance(Project registration & monitoring)",
+   "description": "Project registration & monitoring",
+   "image": "1759330420.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 141,
+   "category": "Legal",
+   "sub_category": "Government Approvals & Statutory Compliance",
+   "sub_category_legacy_id": 18,
+   "type_group": "Groundwater abstraction NOC",
+   "name": "CGWA Approvals(Groundwater abstraction NOC)",
+   "description": "Application, hydrogeology reports, renewals",
+   "image": "1759330703.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 142,
+   "category": "Legal",
+   "sub_category": "Government Approvals & Statutory Compliance",
+   "sub_category_legacy_id": 18,
+   "type_group": "Consent to Establish / Operate",
+   "name": "Pollution Control Board (PCB)(Consent to Establish / Operate)",
+   "description": "Documentation, renewal, compliance submissions",
+   "image": "1759330927.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 143,
+   "category": "Legal",
+   "sub_category": "Government Approvals & Statutory Compliance",
+   "sub_category_legacy_id": 18,
+   "type_group": "Local municipal approvals",
+   "name": "Building Permissions(Local municipal approvals)",
+   "description": "Verification of approved layouts, occupancy certificate, deviations, penalties",
+   "image": "1759331057.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 144,
+   "category": "Legal",
+   "sub_category": "Government Approvals & Statutory Compliance",
+   "sub_category_legacy_id": 18,
+   "type_group": "Fire NOC",
+   "name": "Fire & Safety Approvals(Fire NOC)",
+   "description": "Inspection, application, compliance with fire safety norms",
+   "image": "1759331267.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 145,
+   "category": "Legal",
+   "sub_category": "Licenses & Permits",
+   "sub_category_legacy_id": 19,
+   "type_group": "Registration / Amendment / Renewal",
+   "name": "Factory License(Registration / Amendment / Renewal)",
+   "description": "Compliance under Factories Act",
+   "image": "1759331464.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 146,
+   "category": "Legal",
+   "sub_category": "Licenses & Permits",
+   "sub_category_legacy_id": 19,
+   "type_group": "Food safety license",
+   "name": "FSSAI License(Food safety license)",
+   "description": "Basic, state, central licenses, renewals",
+   "image": "1759331593.png",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 147,
+   "category": "Legal",
+   "sub_category": "Licenses & Permits",
+   "sub_category_legacy_id": 19,
+   "type_group": "Trade license",
+   "name": "Shop & Establishment(Trade license)",
+   "description": "Registration, amendments, compliance",
+   "image": "1759331720.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 148,
+   "category": "Legal",
+   "sub_category": "Labour Law Compliance",
+   "sub_category_legacy_id": 20,
+   "type_group": "PF, ESIC, Professional Tax",
+   "name": "Registrations(PF, ESIC, Professional Tax)",
+   "description": "New establishment registrations",
+   "image": "1759331874.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 149,
+   "category": "Legal",
+   "sub_category": "Labour Law Compliance",
+   "sub_category_legacy_id": 20,
+   "type_group": "Monthly / Annual returns",
+   "name": "Compliance Filings(Monthly / Annual returns)",
+   "description": "Filing PF, ESIC, gratuity, professional tax",
+   "image": "1759332009.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 150,
+   "category": "Legal",
+   "sub_category": "Labour Law Compliance",
+   "sub_category_legacy_id": 20,
+   "type_group": "Advisory(Labour disputes)",
+   "name": "Advisory(Labour disputes)",
+   "description": "Guidance on settlement, compliance audits",
+   "image": "1759332130.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 151,
+   "category": "Legal",
+   "sub_category": "Finance & Taxation",
+   "sub_category_legacy_id": 21,
+   "type_group": "GST(Registration & Returns)",
+   "name": "GST(Registration & Returns)",
+   "description": "Monthly, quarterly, annual filings",
+   "image": "1759486330.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 152,
+   "category": "Legal",
+   "sub_category": "Finance & Taxation",
+   "sub_category_legacy_id": 21,
+   "type_group": "TDS(Deduction & Filing)",
+   "name": "TDS(Deduction & Filing)",
+   "description": "Deduction, payment, quarterly statements",
+   "image": "1759486574.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 153,
+   "category": "Legal",
+   "sub_category": "Finance & Taxation",
+   "sub_category_legacy_id": 21,
+   "type_group": "Income Tax(Corporate & individual returns)",
+   "name": "Income Tax(Corporate & individual returns)",
+   "description": "Filing, assessments, appeals",
+   "image": "1759486683.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 154,
+   "category": "Legal",
+   "sub_category": "Finance & Taxation",
+   "sub_category_legacy_id": 21,
+   "type_group": "ROC / MCA Filings(Annual returns & compliance)",
+   "name": "ROC / MCA Filings(Annual returns & compliance)",
+   "description": "Board resolutions, statutory submissions",
+   "image": "1759486946.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 155,
+   "category": "Legal",
+   "sub_category": "Finance & Taxation",
+   "sub_category_legacy_id": 21,
+   "type_group": "Property Tax(Assessment & Filing)",
+   "name": "Property Tax(Assessment & Filing)",
+   "description": "Guidance on municipal property tax assessments and payments",
+   "image": "1759487982.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 156,
+   "category": "Legal",
+   "sub_category": "Finance & Taxation",
+   "sub_category_legacy_id": 21,
+   "type_group": "Capital Gains Tax(Advisory)",
+   "name": "Capital Gains Tax(Advisory)",
+   "description": "Tax liability in sale/purchase",
+   "image": "1759487465.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 157,
+   "category": "Legal",
+   "sub_category": "Finance & Taxation",
+   "sub_category_legacy_id": 21,
+   "type_group": "Home Loan Documentation(Vetting)",
+   "name": "Home Loan Documentation(Vetting)",
+   "description": "Loan sanction, mortgage agreements",
+   "image": "1759487606.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 158,
+   "category": "Legal",
+   "sub_category": "Insurance & Claims",
+   "sub_category_legacy_id": 22,
+   "type_group": "Insurance Advisory(Policy selection)",
+   "name": "Insurance Advisory(Policy selection)",
+   "description": "Property, fire, liability, workmen’s compensation",
+   "image": "1759487773.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 159,
+   "category": "Legal",
+   "sub_category": "Insurance & Claims",
+   "sub_category_legacy_id": 22,
+   "type_group": "Claims Management(Documentation & Settlement)",
+   "name": "Claims Management(Documentation & Settlement)",
+   "description": "Filing, follow-up, claim settlement",
+   "image": "1759487931.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 160,
+   "category": "Legal",
+   "sub_category": "Disputes & Legal Drafting",
+   "sub_category_legacy_id": 23,
+   "type_group": "Arbitration(Dispute resolution)",
+   "name": "Arbitration(Dispute resolution)",
+   "description": "Commercial, construction, tenancy-related disputes",
+   "image": "1759488323.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 161,
+   "category": "Legal",
+   "sub_category": "Disputes & Legal Drafting",
+   "sub_category_legacy_id": 23,
+   "type_group": "Legal Notices(Drafting & Response)",
+   "name": "Legal Notices(Drafting & Response)",
+   "description": "Notices for recovery, eviction, non-performance",
+   "image": "1759488609.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 162,
+   "category": "Legal",
+   "sub_category": "Disputes & Legal Drafting",
+   "sub_category_legacy_id": 23,
+   "type_group": "Contracts(Drafting & Vetting)",
+   "name": "Contracts(Drafting & Vetting)",
+   "description": "Sale deed, JV agreements, NDAs, service contracts",
+   "image": "1759488741.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 163,
+   "category": "Legal",
+   "sub_category": "Disputes & Legal Drafting",
+   "sub_category_legacy_id": 23,
+   "type_group": "Litigation Support(Civil & Corporate matters)",
+   "name": "Litigation Support(Civil & Corporate matters)",
+   "description": "Coordination with advocates, evidence documentation, representation",
+   "image": "1759489165.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 164,
+   "category": "Legal",
+   "sub_category": "Special Property Matters",
+   "sub_category_legacy_id": 24,
+   "type_group": "Land Conversion / Advisory",
+   "name": "Agricultural / Industrial Lands(Land Conversion / Advisory)",
+   "description": "Agricultural to non-agricultural conversion, industrial estate compliance",
+   "image": "1759489321.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 165,
+   "category": "Legal",
+   "sub_category": "Special Property Matters",
+   "sub_category_legacy_id": 24,
+   "type_group": "Redevelopment / Slum Rehabilitation(Documentation & Agreements)",
+   "name": "Redevelopment / Slum Rehabilitation(Documentation & Agreements)",
+   "description": "Drafting agreements with builders, regulatory approvals",
+   "image": "1759489475.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 166,
+   "category": "Legal",
+   "sub_category": "Special Property Matters",
+   "sub_category_legacy_id": 24,
+   "type_group": "Transactions & FEMA compliance",
+   "name": "NRI Property Advisory(Transactions & FEMA compliance)",
+   "description": "Handling property transactions for NRI clients",
+   "image": "1759489614.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 167,
+   "category": "Legal",
+   "sub_category": "Special Property Matters",
+   "sub_category_legacy_id": 24,
+   "type_group": "Succession & Inheritance(Succession Certificates)",
+   "name": "Succession & Inheritance(Succession Certificates)",
+   "description": "Assisting heirs in succession-related property claims",
+   "image": "1759489707.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 168,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Building & Facility Management",
+   "sub_category_legacy_id": 25,
+   "type_group": "Cleaning & Housekeeping",
+   "name": "Daily Operations(Cleaning & Housekeeping)",
+   "description": "Sweeping, mopping, dusting, garbage disposal, restroom maintenance",
+   "image": "1759489897.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 169,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Building & Facility Management",
+   "sub_category_legacy_id": 25,
+   "type_group": "Security Management",
+   "name": "Daily Operations(Security Management)",
+   "description": "Hiring/training security staff, CCTV monitoring, visitor management",
+   "image": "1759490115.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 170,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Building & Facility Management",
+   "sub_category_legacy_id": 25,
+   "type_group": "Daily Operations(Reception & Front Desk)",
+   "name": "Daily Operations(Reception & Front Desk)",
+   "description": "Handling visitor logs, mail management, tenant queries",
+   "image": "1759490501.png",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 171,
+   "category": "Legal",
+   "sub_category": "Building & Facility Management",
+   "sub_category_legacy_id": 25,
+   "type_group": "Preventive Maintenance",
+   "name": "Maintenance Scheduling(Preventive Maintenance)",
+   "description": "Scheduling HVAC, plumbing, electrical, elevator inspections",
+   "image": "1759490862.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 172,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Building & Facility Management",
+   "sub_category_legacy_id": 25,
+   "type_group": "Maintenance Scheduling(Repairs Coordination)",
+   "name": "Maintenance Scheduling(Repairs Coordination)",
+   "description": "Managing repair requests, liaising with contractors",
+   "image": "1759491018.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 173,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Building & Facility Management",
+   "sub_category_legacy_id": 25,
+   "type_group": "Facility Audits",
+   "name": "Maintenance Scheduling(Facility Audits)",
+   "description": "Regular checks for safety, cleanliness, and functionality",
+   "image": "1759491626.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 174,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Utilities & Services Management",
+   "sub_category_legacy_id": 26,
+   "type_group": "Water supply management",
+   "name": "Water & Plumbing(Water supply management)",
+   "description": "Pump operation, leak detection, tank cleaning, plumbing repairs",
+   "image": "1759491272.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 175,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Utilities & Services Management",
+   "sub_category_legacy_id": 26,
+   "type_group": "Power supply & energy management",
+   "name": "Electricity & HVAC(Power supply & energy management)",
+   "description": "Meter readings, load monitoring, AC servicing, energy optimization",
+   "image": "1759491500.png",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 176,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Utilities & Services Management",
+   "sub_category_legacy_id": 26,
+   "type_group": "Solid & liquid waste disposal",
+   "name": "Waste Management(Solid & liquid waste disposal)",
+   "description": "Segregation, recycling, disposal as per municipal norms",
+   "image": "1759491746.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 177,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Utilities & Services Management",
+   "sub_category_legacy_id": 26,
+   "type_group": "Garden & open space care",
+   "name": "Landscaping & Grounds(Garden & open space care)",
+   "description": "Lawn mowing, tree trimming, irrigation, seasonal planting",
+   "image": "1759491925.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 178,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Tenant & Occupancy Management",
+   "sub_category_legacy_id": 27,
+   "type_group": "Lease documentation",
+   "name": "Rent & Lease Management(Lease documentation)",
+   "description": "Renewal notices, rent collection, late payment tracking",
+   "image": "1759492153.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 179,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Tenant & Occupancy Management",
+   "sub_category_legacy_id": 27,
+   "type_group": "Tenant support services",
+   "name": "Tenant Relations(Tenant support services)",
+   "description": "Handling complaints, queries, and service requests",
+   "image": "1759492352.webp",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 180,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Tenant & Occupancy Management",
+   "sub_category_legacy_id": 27,
+   "type_group": "Vacancy Management(Marketing & leasing)",
+   "name": "Vacancy Management(Marketing & leasing)",
+   "description": "Advertising vacant units, tenant screening, lease agreements",
+   "image": "1759492490.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 181,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Safety & Compliance",
+   "sub_category_legacy_id": 28,
+   "type_group": "Fire safety systems",
+   "name": "Fire & Safety(Fire safety systems)",
+   "description": "Inspection of extinguishers, sprinklers, alarms, drills",
+   "image": "1759492671.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 182,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Safety & Compliance",
+   "sub_category_legacy_id": 28,
+   "type_group": "Statutory adherence",
+   "name": "Regulatory Compliance(Statutory adherence)",
+   "description": "Ensuring building complies with local laws, municipal regulations",
+   "image": "1759492872.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 183,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Safety & Compliance",
+   "sub_category_legacy_id": 28,
+   "type_group": "Insurance & Claims(Property insurance management)",
+   "name": "Insurance & Claims(Property insurance management)",
+   "description": "Maintaining policy documents, coordinating claims for damages",
+   "image": "1759493004.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 184,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Special Services",
+   "sub_category_legacy_id": 29,
+   "type_group": "Community facilities",
+   "name": "Event & Common Area Management(Community facilities)",
+   "description": "Maintenance of halls, clubhouses, gyms, swimming pools",
+   "image": "1759502335.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 185,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Special Services",
+   "sub_category_legacy_id": 29,
+   "type_group": "Minor repairs & refurbishments",
+   "name": "Renovation & Upgrades(Minor repairs & refurbishments)",
+   "description": "Painting, carpentry, electrical and plumbing upgrades",
+   "image": "1759504476.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 186,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Special Services",
+   "sub_category_legacy_id": 29,
+   "type_group": "Emergency Services(24/7 response)",
+   "name": "Emergency Services(24/7 response)",
+   "description": "Handling breakdowns, medical emergencies, security incidents",
+   "image": "1759504656.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 187,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Architectural Design",
+   "sub_category_legacy_id": 30,
+   "type_group": "Conceptual Design(Space Planning & Layout)",
+   "name": "Conceptual Design(Space Planning & Layout)",
+   "description": "Initial sketches, functional zoning, circulation planning",
+   "image": "1759504794.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 188,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Architectural Design",
+   "sub_category_legacy_id": 4,
+   "type_group": "Conceptual Visualization",
+   "name": "Conceptual Design(Conceptual Visualization)",
+   "description": "3D renders, mood boards, material palette",
+   "image": "1759504949.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 189,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Architectural Design",
+   "sub_category_legacy_id": 4,
+   "type_group": "Schematic Design(Preliminary Drawings)",
+   "name": "Schematic Design(Preliminary Drawings)",
+   "description": "Floor plans, elevations, site plans, sections",
+   "image": "1759505109.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 190,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Architectural Design",
+   "sub_category_legacy_id": 4,
+   "type_group": "Schematic Design(Feasibility Studies)",
+   "name": "Schematic Design(Feasibility Studies)",
+   "description": "Site analysis, zoning checks, FAR calculations",
+   "image": "1759506385.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 191,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Architectural Design",
+   "sub_category_legacy_id": 4,
+   "type_group": "Detailed Design(Working Drawings)",
+   "name": "Detailed Design(Working Drawings)",
+   "description": "Detailed plans, elevations, sections, interior layouts",
+   "image": "1759506494.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 192,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Architectural Design",
+   "sub_category_legacy_id": 4,
+   "type_group": "Detailed Design(Interior Design)",
+   "name": "Detailed Design(Interior Design)",
+   "description": "Furniture layouts, color schemes, lighting plans, finishes",
+   "image": "1759508112.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 193,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Architectural Design",
+   "sub_category_legacy_id": 4,
+   "type_group": "Landscape Design",
+   "name": "Detailed Design(Landscape Design)",
+   "description": "Garden layout, hardscape/softscape planning, irrigation design",
+   "image": "1759506857.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 194,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Structure Design",
+   "sub_category_legacy_id": 5,
+   "type_group": "Structural Feasibility",
+   "name": "Analysis & Planning(Structural Feasibility)",
+   "description": "Load calculations, soil reports, structural system selection",
+   "image": "1759506985.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 195,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Structure Design",
+   "sub_category_legacy_id": 5,
+   "type_group": "Structural Modeling",
+   "name": "Analysis & Planning(Structural Modeling)",
+   "description": "2D/3D structural drawings, software modeling (ETABS, STAAD)",
+   "image": "1759507232.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 196,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Structure Design",
+   "sub_category_legacy_id": 5,
+   "type_group": "Design of Structural Elements(Foundations)",
+   "name": "Design of Structural Elements(Foundations)",
+   "description": "Raft, pile, strip foundations, isolated footings",
+   "image": "1759507377.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": true
+   }
+  },
+  {
+   "legacy_id": 197,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Structure Design",
+   "sub_category_legacy_id": 5,
+   "type_group": "Columns & Beams",
+   "name": "Design of Structural Elements(Columns & Beams)",
+   "description": "Material specification, reinforcement detailing",
+   "image": "1759507507.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 198,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Structure Design",
+   "sub_category_legacy_id": 5,
+   "type_group": "Slabs & Floors",
+   "name": "Design of Structural Elements(Slabs & Floors)",
+   "description": "RCC slabs, prestressed slabs, composite floor systems",
+   "image": "1759507825.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 199,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Structure Design",
+   "sub_category_legacy_id": 5,
+   "type_group": "Roof Structures",
+   "name": "Design of Structural Elements(Roof Structures)",
+   "description": "Trusses, canopies, roof framing plans",
+   "image": "1759507933.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 200,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Structure Design",
+   "sub_category_legacy_id": 5,
+   "type_group": "Reinforcement Detailing",
+   "name": "Detailing & Drawings(Reinforcement Detailing)",
+   "description": "Bar bending schedules, tie layouts, construction drawings",
+   "image": "1759508059.png",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 201,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Structure Design",
+   "sub_category_legacy_id": 5,
+   "type_group": "Structural Notes",
+   "name": "Detailing & Drawings(Structural Notes)",
+   "description": "Material specifications, construction methodology",
+   "image": "1759512140.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 202,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Structure Design",
+   "sub_category_legacy_id": 5,
+   "type_group": "Structural Review & Consultancy",
+   "name": "Construction Support(Structural Review & Consultancy)",
+   "description": "Site inspections, construction supervision, quality checks",
+   "image": "1759570685.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 203,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Structure Design",
+   "sub_category_legacy_id": 5,
+   "type_group": "Value Engineering",
+   "name": "Construction Support(Value Engineering)",
+   "description": "Optimization of materials, cost-saving alternatives, efficiency checks",
+   "image": "1759570856.png",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 204,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Specialized Services",
+   "sub_category_legacy_id": 32,
+   "type_group": "Seismic & Wind Design(Earthquake-resistant structures)",
+   "name": "Specialized Services",
+   "description": "Design and detailing as per IS codes for seismic loads",
+   "image": "1759571570.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 205,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Specialized Services",
+   "sub_category_legacy_id": 32,
+   "type_group": "Wind Load Analysis",
+   "name": "Seismic & Wind Design(Wind Load Analysis)",
+   "description": "High-rise and exposed structures wind calculations",
+   "image": "1759571771.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 206,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Specialized Services",
+   "sub_category_legacy_id": 32,
+   "type_group": "Building Information Modeling",
+   "name": "BIM & 3D Modeling(Building Information Modeling)",
+   "description": "Clash detection, coordination between MEP and structural designs",
+   "image": "1759571895.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 207,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Specialized Services",
+   "sub_category_legacy_id": 32,
+   "type_group": "Structural Retrofitting",
+   "name": "Renovation & Retrofitting(Structural Retrofitting)",
+   "description": "Strengthening columns, beams, slabs, foundation repairs",
+   "image": "1759572128.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 208,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Specialized Services",
+   "sub_category_legacy_id": 32,
+   "type_group": "Architectural Upgrades",
+   "name": "Renovation & Retrofitting(Architectural Upgrades)",
+   "description": "Interior remodeling, façade redesign, extension planning",
+   "image": "1759572354.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 209,
+   "category": "Architectural & Structural Design",
+   "sub_category": "Specialized Services",
+   "sub_category_legacy_id": 32,
+   "type_group": "Eco-friendly Design",
+   "name": "Sustainability & Green Design(Eco-friendly Design)",
+   "description": "Energy-efficient building design, green materials, LEED compliance",
+   "image": "1759572464.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 210,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Property Advisory",
+   "sub_category_legacy_id": 33,
+   "type_group": "Market Analysis",
+   "name": "Investment Advisory(Market Analysis)",
+   "description": "Feasibility studies, market trends, ROI projections",
+   "image": "1759741256.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 211,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Property Advisory",
+   "sub_category_legacy_id": 33,
+   "type_group": "Property Valuation",
+   "name": "Investment Advisory(Property Valuation)",
+   "description": "Valuation for purchase, sale, leasing, or taxation purposes",
+   "image": "1759741455.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 212,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Property Advisory",
+   "sub_category_legacy_id": 33,
+   "type_group": "Portfolio Advisory",
+   "name": "Investment Advisory(Portfolio Advisory)",
+   "description": "Optimizing real estate holdings, risk assessment, diversification",
+   "image": "1759741612.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 213,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Transaction Support",
+   "sub_category_legacy_id": 34,
+   "type_group": "Buyer/Seller Representation",
+   "name": "Sale & Purchase(Buyer/Seller Representation)",
+   "description": "Assistance in negotiations, documentation, and registration",
+   "image": "1759741750.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": true,
+    "lump_sum": true
+   }
+  },
+  {
+   "legacy_id": 214,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Transaction Support",
+   "sub_category_legacy_id": 34,
+   "type_group": "Due Diligence",
+   "name": "Sale & Purchase(Due Diligence)",
+   "description": "Title verification, encumbrance checks, legal compliance",
+   "image": "1759742028.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 215,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Transaction Support",
+   "sub_category_legacy_id": 34,
+   "type_group": "Tenant/Landlord Advisory",
+   "name": "Leasing & Rental(Tenant/Landlord Advisory)",
+   "description": "Lease agreements, rent assessment, dispute resolution",
+   "image": "1759742174.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 216,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Transaction Support",
+   "sub_category_legacy_id": 34,
+   "type_group": "Lease Management",
+   "name": "Leasing & Rental(Lease Management)",
+   "description": "Rental collection, lease renewals, occupancy monitoring",
+   "image": "1759742551.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 217,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Market Research & Feasibility",
+   "sub_category_legacy_id": 35,
+   "type_group": "Location Assessment",
+   "name": "Site Selection(Location Assessment)",
+   "description": "Accessibility, amenities, demographic study, zoning restrictions",
+   "image": "1759742699.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 218,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Market Research & Feasibility",
+   "sub_category_legacy_id": 35,
+   "type_group": "Cost-benefit analysis",
+   "name": "Project Feasibility(Cost-benefit analysis)",
+   "description": "Construction costs, development potential, expected returns",
+   "image": "1759742898.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 219,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Market Research & Feasibility",
+   "sub_category_legacy_id": 35,
+   "type_group": "Market intelligence",
+   "name": "Demand-Supply Analysis(Market intelligence)",
+   "description": "Real estate trends, competitive analysis, pricing strategy",
+   "image": "1759748196.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 220,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Financial Advisory",
+   "sub_category_legacy_id": 36,
+   "type_group": "Loan Advisory",
+   "name": "Funding & Loans(Loan Advisory)",
+   "description": "Assistance with mortgage, funding options, interest optimization",
+   "image": "1759748407.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 221,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Financial Advisory",
+   "sub_category_legacy_id": 36,
+   "type_group": "Capital Gains & Property Tax",
+   "name": "Tax Planning(Capital Gains & Property Tax)",
+   "description": "Advisory on tax implications, TDS, exemptions",
+   "image": "1759748623.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 222,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Financial Advisory",
+   "sub_category_legacy_id": 36,
+   "type_group": "Joint Ventures & Partnerships",
+   "name": "Investment Structuring(Joint Ventures & Partnerships)",
+   "description": "Structuring deals, legal and financial frameworks",
+   "image": "1759748817.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 223,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Regulatory Compliance & Monitoring",
+   "sub_category_legacy_id": 62,
+   "type_group": "Documentation Support",
+   "name": "Legal Advisory(Documentation Support)",
+   "description": "Verification of title, sale deeds, lease agreements",
+   "image": "1759748968.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 224,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Regulatory & Compliance",
+   "sub_category_legacy_id": 68,
+   "type_group": "RERA, municipal, environmental",
+   "name": "Approvals & Clearances(RERA, municipal, environmental)",
+   "description": "Ensuring project compliance, NOCs, statutory approvals",
+   "image": "1759749364.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 225,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Regulatory Compliance & Monitoring",
+   "sub_category_legacy_id": 62,
+   "type_group": "Dispute Mitigation",
+   "name": "Risk Management(Dispute Mitigation)",
+   "description": "Arbitration, legal guidance, contract review",
+   "image": "1759749485.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 226,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Project Management & Advisory",
+   "sub_category_legacy_id": 38,
+   "type_group": "Master Planning",
+   "name": "Pre-Construction(Master Planning)",
+   "description": "Land use, site layout, conceptual planning",
+   "image": "1759749606.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 227,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Project Management & Advisory",
+   "sub_category_legacy_id": 38,
+   "type_group": "Vendor & Contractor Management",
+   "name": "Construction Advisory(Vendor & Contractor Management)",
+   "description": "Selection, contract drafting, project monitoring",
+   "image": "1759749870.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 228,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Project Management & Advisory",
+   "sub_category_legacy_id": 38,
+   "type_group": "Asset Management",
+   "name": "Post-Construction(Asset Management)",
+   "description": "Maintenance planning, rental yield optimization, resale advisory",
+   "image": "1759750016.png",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 229,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Specialized Services",
+   "sub_category_legacy_id": 39,
+   "type_group": "Transactions & Compliance",
+   "name": "NRI Real Estate Advisory(Transactions & Compliance)",
+   "description": "FEMA compliance, repatriation, property management for NRIs",
+   "image": "1759750177.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 230,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Specialized Services",
+   "sub_category_legacy_id": 39,
+   "type_group": "Leasing, Sale & Development",
+   "name": "Commercial & Industrial Advisory(Leasing, Sale & Development)",
+   "description": "Industrial plots, office spaces, warehouses, compliance guidance",
+   "image": "1759750355.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 231,
+   "category": "Real Estate Consultancy",
+   "sub_category": "Specialized Services",
+   "sub_category_legacy_id": 39,
+   "type_group": "Advisory",
+   "name": "Sustainability & Green Buildings(Advisory)",
+   "description": "Energy-efficient design, green certifications, LEED consultancy",
+   "image": "1759750489.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 232,
+   "category": "Property Development",
+   "sub_category": "Land Acquisition & Feasibility",
+   "sub_category_legacy_id": 40,
+   "type_group": "Land scouting & evaluation",
+   "name": "Site Identification(Land scouting & evaluation)",
+   "description": "Location analysis, accessibility, zoning, demographics",
+   "image": "1759760783.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 233,
+   "category": "Property Development",
+   "sub_category": "Land Acquisition & Feasibility",
+   "sub_category_legacy_id": 40,
+   "type_group": "Legal & Regulatory Checks",
+   "name": "Due Diligence(Legal & Regulatory Checks)",
+   "description": "Title verification, encumbrance certificate, compliance checks",
+   "image": "1759760949.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 234,
+   "category": "Property Development",
+   "sub_category": "Land Acquisition & Feasibility",
+   "sub_category_legacy_id": 40,
+   "type_group": "Financial & Market Analysis",
+   "name": "Feasibility Study(Financial & Market Analysis)",
+   "description": "ROI projections, market demand, cost estimates, risk assessment",
+   "image": "1759761119.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 235,
+   "category": "Property Development",
+   "sub_category": "Planning & Design",
+   "sub_category_legacy_id": 41,
+   "type_group": "Site Layout & Space Planning",
+   "name": "Master Planning(Site Layout & Space Planning)",
+   "description": "Land use planning, plot distribution, circulation",
+   "image": "1759761375.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 236,
+   "category": "Property Development",
+   "sub_category": "Planning & Design",
+   "sub_category_legacy_id": 41,
+   "type_group": "Conceptual & Detailed Design",
+   "name": "Architectural Design(Conceptual & Detailed Design)",
+   "description": "Floor plans, elevations, 3D models, interiors, landscape",
+   "image": "1759761489.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 237,
+   "category": "Property Development",
+   "sub_category": "Planning & Design",
+   "sub_category_legacy_id": 41,
+   "type_group": "Engineering & Detailing",
+   "name": "Structural Design(Engineering & Detailing)",
+   "description": "Structural analysis, foundation, beams, slabs, reinforcement detailing",
+   "image": "1759761727.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 238,
+   "category": "Property Development",
+   "sub_category": "Planning & Design",
+   "sub_category_legacy_id": 41,
+   "type_group": "Green Building Design",
+   "name": "Sustainability Planning(Green Building Design)",
+   "description": "Energy efficiency, water conservation, eco-friendly materials",
+   "image": "1759761848.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 239,
+   "category": "Property Development",
+   "sub_category": "Approvals & Permits",
+   "sub_category_legacy_id": 42,
+   "type_group": "RERA, Municipal, Environmental",
+   "name": "Government Clearances(RERA, Municipal, Environmental)",
+   "description": "NOCs, building plan approvals, CGWA, PCB permissions",
+   "image": "1759761991.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 240,
+   "category": "Property Development",
+   "sub_category": "Approvals & Permits",
+   "sub_category_legacy_id": 42,
+   "type_group": "Factory, Fire, Food, Trade",
+   "name": "Licenses & Permits(Factory, Fire, Food, Trade)",
+   "description": "Registration, renewal, statutory compliance",
+   "image": "1759762198.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 241,
+   "category": "Property Development",
+   "sub_category": "Approvals & Permits",
+   "sub_category_legacy_id": 42,
+   "type_group": "Land Conversion & Zoning",
+   "name": "Legal Compliance(Land Conversion & Zoning)",
+   "description": "Applications for agricultural to non-agricultural, industrial permits",
+   "image": "1759762379.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 242,
+   "category": "Property Development",
+   "sub_category": "Construction Management",
+   "sub_category_legacy_id": 43,
+   "type_group": "Vendor & Contractor Management",
+   "name": "Project Management(Vendor & Contractor Management)",
+   "description": "Contractor selection, procurement, site supervision",
+   "image": "1759762495.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 243,
+   "category": "Property Development",
+   "sub_category": "Construction Management",
+   "sub_category_legacy_id": 43,
+   "type_group": "Construction Monitoring",
+   "name": "Quality Control(Construction Monitoring)",
+   "description": "Material checks, workmanship, compliance with design specs",
+   "image": "1759762644.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 244,
+   "category": "Property Development",
+   "sub_category": "Construction Management",
+   "sub_category_legacy_id": 43,
+   "type_group": "Timeline & Cost Management",
+   "name": "Scheduling & Budgeting(Timeline & Cost Management)",
+   "description": "Resource allocation, cost tracking, milestone monitoring",
+   "image": "1759762777.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 245,
+   "category": "Property Development",
+   "sub_category": "Marketing & Sales",
+   "sub_category_legacy_id": 44,
+   "type_group": "Branding & Promotions",
+   "name": "Marketing Strategy(Branding & Promotions)",
+   "description": "Online/offline campaigns, brochures, property exhibitions",
+   "image": "1759765271.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 246,
+   "category": "Property Development",
+   "sub_category": "Marketing & Sales",
+   "sub_category_legacy_id": 44,
+   "type_group": "Buyer/Seller Coordination",
+   "name": "Sales Support(Buyer/Seller Coordination)",
+   "description": "Property showcasing, negotiations, documentation assistance",
+   "image": "1759765366.png",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 247,
+   "category": "Property Development",
+   "sub_category": "Marketing & Sales",
+   "sub_category_legacy_id": 44,
+   "type_group": "Tenant Management",
+   "name": "Leasing & Rental(Tenant Management)",
+   "description": "Lease agreements, rent collection, tenant support services",
+   "image": "1759765451.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 248,
+   "category": "Property Development",
+   "sub_category": "Post-Construction & Maintenance",
+   "sub_category_legacy_id": 45,
+   "type_group": "Property Handover",
+   "name": "Handover & Occupancy(Property Handover)",
+   "description": "Documentation, certificates, tenant induction",
+   "image": "1759765555.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 249,
+   "category": "Property Development",
+   "sub_category": "Post-Construction & Maintenance",
+   "sub_category_legacy_id": 45,
+   "type_group": "Facility & Operations",
+   "name": "Property Management(Facility & Operations)",
+   "description": "Cleaning, security, utilities, landscaping, maintenance coordination",
+   "image": "1759765695.png",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 250,
+   "category": "Property Development",
+   "sub_category": "Post-Construction & Maintenance",
+   "sub_category_legacy_id": 45,
+   "type_group": "Retrofitting & Repairs",
+   "name": "Renovation & Upgrades(Retrofitting & Repairs)",
+   "description": "Minor renovations, structural upgrades, interior refurbishments",
+   "image": "1759765792.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 251,
+   "category": "Property Development",
+   "sub_category": "Financial & Risk Advisory",
+   "sub_category_legacy_id": 46,
+   "type_group": "Loans, Equity, JV Structuring",
+   "name": "Investment & Funding(Loans, Equity, JV Structuring)",
+   "description": "Mortgage support, joint ventures, investor relations",
+   "image": "1759765900.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 252,
+   "category": "Property Development",
+   "sub_category": "Financial & Risk Advisory",
+   "sub_category_legacy_id": 46,
+   "type_group": "Insurance & Dispute Resolution",
+   "name": "Risk Management(Insurance & Dispute Resolution)",
+   "description": "Property insurance, arbitration, legal compliance",
+   "image": "1759765990.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 253,
+   "category": "Property Development",
+   "sub_category": "Financial & Risk Advisory",
+   "sub_category_legacy_id": 46,
+   "type_group": "Capital Gains, GST, TDS",
+   "name": "Tax & Compliance(Capital Gains, GST, TDS)",
+   "description": "Advisory on taxation, filing, regulatory compliance",
+   "image": "1759766069.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 254,
+   "category": "Property Valuation",
+   "sub_category": "Residential Property Valuation",
+   "sub_category_legacy_id": 47,
+   "type_group": "Apartment / Flat Valuation",
+   "name": "Individual Units(Apartment / Flat Valuation)",
+   "description": "Market value estimation for sale, purchase, rental, or loan purposes",
+   "image": "1759766437.png",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 255,
+   "category": "Property Valuation",
+   "sub_category": "Residential Property Valuation",
+   "sub_category_legacy_id": 47,
+   "type_group": "Independent house valuation",
+   "name": "Houses / Villas(Independent house valuation)",
+   "description": "Analysis of location, built-up area, amenities, legal compliance",
+   "image": "1759766552.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 256,
+   "category": "Property Valuation",
+   "sub_category": "Commercial Property Valuation",
+   "sub_category_legacy_id": 48,
+   "type_group": "Market & Rental Valuation",
+   "name": "Office Spaces(Market & Rental Valuation)",
+   "description": "Valuation for sale, lease, mortgage, or insurance purposes",
+   "image": "1759766659.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 257,
+   "category": "Property Valuation",
+   "sub_category": "Commercial Property Valuation",
+   "sub_category_legacy_id": 48,
+   "type_group": "Property appraisal",
+   "name": "Retail Outlets / Shops(Property appraisal)",
+   "description": "Rental potential, footfall analysis, market comparison",
+   "image": "1759766770.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 258,
+   "category": "Property Valuation",
+   "sub_category": "Commercial Property Valuation",
+   "sub_category_legacy_id": 48,
+   "type_group": "Asset & Market Valuation",
+   "name": "Warehouses / Industrial Units(Asset & Market Valuation)",
+   "description": "Site assessment, structural condition, usage potential",
+   "image": "1759766857.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 259,
+   "category": "Property Valuation",
+   "sub_category": "Land Valuation",
+   "sub_category_legacy_id": 49,
+   "type_group": "Market Value Estimation",
+   "name": "Residential / Commercial Plots(Market Value Estimation)",
+   "description": "Land zoning, FAR potential, development feasibility",
+   "image": "1759768040.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 260,
+   "category": "Property Valuation",
+   "sub_category": "Land Valuation",
+   "sub_category_legacy_id": 49,
+   "type_group": "Conversion & Market Valuation",
+   "name": "Agricultural Land(Conversion & Market Valuation)",
+   "description": "Agricultural vs. non-agricultural usage, soil quality, irrigation access",
+   "image": "1759768085.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 261,
+   "category": "Property Valuation",
+   "sub_category": "Land Valuation",
+   "sub_category_legacy_id": 49,
+   "type_group": "Valuation for Development",
+   "name": "Industrial Land(Valuation for Development)",
+   "description": "Location, connectivity, regulatory permissions, potential ROI",
+   "image": "1759768169.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 262,
+   "category": "Property Valuation",
+   "sub_category": "Special Purpose Valuation",
+   "sub_category_legacy_id": 50,
+   "type_group": "Valuation for FEMA / Repatriation",
+   "name": "NRI Property(Valuation for FEMA / Repatriation)",
+   "description": "Property assessment for NRIs, legal compliance, market value",
+   "image": "1759768347.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 263,
+   "category": "Property Valuation",
+   "sub_category": "Special Purpose Valuation",
+   "sub_category_legacy_id": 50,
+   "type_group": "Multi-property Valuation",
+   "name": "Investment Portfolio(Multi-property Valuation)",
+   "description": "Total asset valuation for taxation, insurance, or financial planning",
+   "image": "1759768420.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 264,
+   "category": "Property Valuation",
+   "sub_category": "Special Purpose Valuation",
+   "sub_category_legacy_id": 50,
+   "type_group": "Valuation for Court / Arbitration",
+   "name": "Litigation & Dispute(Valuation for Court / Arbitration)",
+   "description": "Expert report for inheritance, partition, sale disputes",
+   "image": "1759768485.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 265,
+   "category": "Property Valuation",
+   "sub_category": "Financial & Loan Support",
+   "sub_category_legacy_id": 51,
+   "type_group": "Bank Valuation",
+   "name": "Mortgage / Loan(Bank Valuation)",
+   "description": "Documentation and assessment for property-backed loans",
+   "image": "1759768819.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 266,
+   "category": "Property Valuation",
+   "sub_category": "Financial & Loan Support",
+   "sub_category_legacy_id": 51,
+   "type_group": "Capital Gains & Property Tax",
+   "name": "Taxation(Capital Gains & Property Tax)",
+   "description": "Valuation for income tax, TDS, stamp duty, municipal assessment",
+   "image": "1759768891.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 267,
+   "category": "Property Valuation",
+   "sub_category": "Financial & Loan Support",
+   "sub_category_legacy_id": 51,
+   "type_group": "Property Insurance Valuation",
+   "name": "Insurance(Property Insurance Valuation)",
+   "description": "Market replacement cost, coverage recommendation",
+   "image": "1759768981.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 268,
+   "category": "Property Valuation",
+   "sub_category": "Reports & Documentation",
+   "sub_category_legacy_id": 52,
+   "type_group": "Comprehensive Reports",
+   "name": "Valuation Reports(Comprehensive Reports)",
+   "description": "Detailed valuation report with methodology, photographs, and legal checks",
+   "image": "1759769055.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 269,
+   "category": "Property Valuation",
+   "sub_category": "Property Transactions & Documentation",
+   "sub_category_legacy_id": 17,
+   "type_group": "Investment or Sale Guidance",
+   "name": "Advisory & Recommendations(Investment or Sale Guidance)",
+   "description": "Recommendations based on market trends and financial implications",
+   "image": "1759769100.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 270,
+   "category": "Vastu Consultancy",
+   "sub_category": "Residential Vastu",
+   "sub_category_legacy_id": 53,
+   "type_group": "Layout Planning",
+   "name": "Houses & Villas(Layout Planning)",
+   "description": "Room placements (bedroom, kitchen, living), entrance orientation, plot orientation",
+   "image": "1759850575.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 271,
+   "category": "Vastu Consultancy",
+   "sub_category": "Residential Vastu",
+   "sub_category_legacy_id": 53,
+   "type_group": "Furniture & Decor Placement",
+   "name": "Interiors & Furnishing( Furniture & Decor Placement)",
+   "description": "Positioning of furniture, colors, lighting, mirrors, storage",
+   "image": "1759850636.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 272,
+   "category": "Vastu Consultancy",
+   "sub_category": "Residential Vastu",
+   "sub_category_legacy_id": 53,
+   "type_group": "Structural Adjustments",
+   "name": "Renovation & Modification(Structural Adjustments)",
+   "description": "Doors, windows, walls, staircases, and extensions as per Vastu principles",
+   "image": "1759850718.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 273,
+   "category": "Vastu Consultancy",
+   "sub_category": "Commercial Vastu",
+   "sub_category_legacy_id": 54,
+   "type_group": "Office Layout Planning",
+   "name": "Offices & Workspaces(Office Layout Planning)",
+   "description": "Desk arrangements, cabins, conference rooms, staff placement",
+   "image": "1759850808.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 274,
+   "category": "Vastu Consultancy",
+   "sub_category": "Commercial Vastu",
+   "sub_category_legacy_id": 54,
+   "type_group": "Store & Display Planning",
+   "name": "Retail & Shops(Store & Display Planning)",
+   "description": "Product placement, counters, shelves, entrance, and cash counters",
+   "image": "1759851030.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 275,
+   "category": "Vastu Consultancy",
+   "sub_category": "Commercial Vastu",
+   "sub_category_legacy_id": 54,
+   "type_group": "Factory & Warehouses",
+   "name": "Industrial Units(Factory & Warehouses)",
+   "description": "Machinery alignment, storage, workstations, material flow optimization",
+   "image": "1759851104.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 276,
+   "category": "Vastu Consultancy",
+   "sub_category": "Plot & Site Selection",
+   "sub_category_legacy_id": 55,
+   "type_group": "Plot Orientation & Shape Analysis",
+   "name": "Land Assessment(Plot Orientation & Shape Analysis)",
+   "description": "Optimal plot direction, shape, slope, and entry points",
+   "image": "1759851293.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 277,
+   "category": "Vastu Consultancy",
+   "sub_category": "Plot & Site Selection",
+   "sub_category_legacy_id": 55,
+   "type_group": "Soil, Water & Environment",
+   "name": "Site Evaluation(Soil, Water & Environment)",
+   "description": "Assessment of land energy, water source alignment, surrounding structures",
+   "image": "1759851358.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 278,
+   "category": "Vastu Consultancy",
+   "sub_category": "Energy & Environmental Vastu",
+   "sub_category_legacy_id": 56,
+   "type_group": "Natural Light & Airflow",
+   "name": "Lighting & Ventilation(Natural Light & Airflow)",
+   "description": "Placement of windows, skylights, ventilation openings",
+   "image": "1759851429.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 279,
+   "category": "Vastu Consultancy",
+   "sub_category": "Energy & Environmental Vastu",
+   "sub_category_legacy_id": 56,
+   "type_group": "Wall Colors & Finishes",
+   "name": "Colors & Materials(Wall Colors & Finishes)",
+   "description": "Choice of wall colors, flooring materials, decor elements",
+   "image": "1759851590.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 280,
+   "category": "Vastu Consultancy",
+   "sub_category": "Energy & Environmental Vastu",
+   "sub_category_legacy_id": 56,
+   "type_group": "Ponds, Fountains, Trees",
+   "name": "Water Bodies & Landscaping(Ponds, Fountains, Trees)",
+   "description": "Placement of water bodies, gardens, pathways, and outdoor elements",
+   "image": "1759851672.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 281,
+   "category": "Vastu Consultancy",
+   "sub_category": "Consultancy Reports & Recommendations",
+   "sub_category_legacy_id": 57,
+   "type_group": "Residential / Commercial Report",
+   "name": "Detailed Vastu Report(Residential / Commercial Report)",
+   "description": "Floor plans analysis, suggested corrections, layout recommendations",
+   "image": "1759851758.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 282,
+   "category": "Vastu Consultancy",
+   "sub_category": "Consultancy Reports & Recommendations",
+   "sub_category_legacy_id": 57,
+   "type_group": "Correction & Remedies",
+   "name": "Advisory & Implementation(Correction & Remedies)",
+   "description": "Placement changes, structural modifications, minor remedies, Yantras, or elements for energy balance",
+   "image": "1759851833.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 283,
+   "category": "Vastu Consultancy",
+   "sub_category": "Specialized Vastu Services",
+   "sub_category_legacy_id": 58,
+   "type_group": "Vastu for International Sites",
+   "name": "NRI & Overseas Properties(Vastu for International Sites)",
+   "description": "Remote assessment, floor plan analysis, advisory for global standards",
+   "image": "1759851924.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 284,
+   "category": "Vastu Consultancy",
+   "sub_category": "Specialized Vastu Services",
+   "sub_category_legacy_id": 58,
+   "type_group": "Existing Properties",
+   "name": "Renovation & Retrofitting(Existing Properties)",
+   "description": "Remedies for existing layout issues without major reconstruction",
+   "image": "1759852158.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 285,
+   "category": "Vastu Consultancy",
+   "sub_category": "Specialized Vastu Services",
+   "sub_category_legacy_id": 58,
+   "type_group": "Integrating Vastu with Design",
+   "name": "Combined Property Advisory(Integrating Vastu with Design)",
+   "description": "Coordination with architects, interior designers, and structural engineers",
+   "image": "1759852236.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 286,
+   "category": "Environmental Clearance",
+   "sub_category": "Project Categorization",
+   "sub_category_legacy_id": 59,
+   "type_group": "Manufacturing Units, Factories",
+   "name": "Industrial Projects(Manufacturing Units, Factories)",
+   "description": "Assessment under EIA notification, category determination (A/B), screening report preparation",
+   "image": "1759852297.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 287,
+   "category": "Environmental Clearance",
+   "sub_category": "Project Categorization",
+   "sub_category_legacy_id": 59,
+   "type_group": "Malls, Offices, IT Parks",
+   "name": "Commercial Projects(Malls, Offices, IT Parks)",
+   "description": "Identification of environmental impact, clearance requirements",
+   "image": "1759852421.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 288,
+   "category": "Environmental Clearance",
+   "sub_category": "Project Categorization",
+   "sub_category_legacy_id": 59,
+   "type_group": "Roads, Bridges, Airports",
+   "name": "Infrastructure Projects(Roads, Bridges, Airports)",
+   "description": "Preparation of feasibility and impact assessment reports",
+   "image": "1759852466.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 289,
+   "category": "Environmental Clearance",
+   "sub_category": "Environmental Impact Assessment (EIA)",
+   "sub_category_legacy_id": 60,
+   "type_group": "Air, Water, Soil & Noise",
+   "name": "Baseline Studies(Air, Water, Soil & Noise)",
+   "description": "Collecting samples, measuring existing environmental conditions",
+   "image": "1759852754.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 290,
+   "category": "Environmental Clearance",
+   "sub_category": "Environmental Impact Assessment (EIA)",
+   "sub_category_legacy_id": 60,
+   "type_group": "Construction & Operational Phase",
+   "name": "Impact Analysis(Construction & Operational Phase)",
+   "description": "Modeling emissions, effluent load, waste generation, resource consumption",
+   "image": "1759852790.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 291,
+   "category": "Environmental Clearance",
+   "sub_category": "Environmental Impact Assessment (EIA)",
+   "sub_category_legacy_id": 60,
+   "type_group": "Pollution Control & Waste Management",
+   "name": "Mitigation Measures(Pollution Control & Waste Management)",
+   "description": "Recommendations for air/water/soil pollution, green buffers, sustainable design",
+   "image": "1759852863.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 292,
+   "category": "Environmental Clearance",
+   "sub_category": "Clearance Documentation & Submission",
+   "sub_category_legacy_id": 61,
+   "type_group": "Project EC Application",
+   "name": "Environmental Clearance (EC)(Project EC Application)",
+   "description": "Preparing and submitting EC application to Ministry of Environment, Forests & Climate Change (MoEFCC) or State authorities",
+   "image": "1759853009.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 293,
+   "category": "Environmental Clearance",
+   "sub_category": "Clearance Documentation & Submission",
+   "sub_category_legacy_id": 61,
+   "type_group": "Pollution Control Board NOCs",
+   "name": "Consent to Establish / Operate (CET/ CTO)(Pollution Control Board NOCs)",
+   "description": "Submission of application to State Pollution Control Board, supporting documentation",
+   "image": "1759853078.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 294,
+   "category": "Environmental Clearance",
+   "sub_category": "Clearance Documentation & Submission",
+   "sub_category_legacy_id": 61,
+   "type_group": "Stakeholder Engagement",
+   "name": "Public Consultation(Stakeholder Engagement)",
+   "description": "Organizing public hearing, preparing summary of issues and mitigation plans",
+   "image": "1759854377.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 295,
+   "category": "Environmental Clearance",
+   "sub_category": "Regulatory Compliance & Monitoring",
+   "sub_category_legacy_id": 62,
+   "type_group": "Environmental Monitoring",
+   "name": "Compliance Reports(Environmental Monitoring)",
+   "description": "Quarterly/Annual reports on air, water, and noise quality",
+   "image": "1759854423.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 296,
+   "category": "Environmental Clearance",
+   "sub_category": "Regulatory Compliance & Monitoring",
+   "sub_category_legacy_id": 62,
+   "type_group": "Implementation & Audit",
+   "name": "Environmental Management Plan (EMP)(Implementation & Audit)",
+   "description": "Execution of EMP, monitoring waste treatment, energy efficiency measures",
+   "image": "1759854480.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 297,
+   "category": "Environmental Clearance",
+   "sub_category": "Regulatory Compliance & Monitoring",
+   "sub_category_legacy_id": 62,
+   "type_group": "Project Modifications",
+   "name": "Clearance Renewal & Amendments(Project Modifications)",
+   "description": "Renewals, expansion approvals, modifications in EC conditions",
+   "image": "1759854612.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 298,
+   "category": "Environmental Clearance",
+   "sub_category": "Specialized Environmental Services",
+   "sub_category_legacy_id": 63,
+   "type_group": "LEED, IGBC, GRIHA",
+   "name": "Green Building Certification(LEED, IGBC, GRIHA)",
+   "description": "Assisting in documentation, compliance, and certification process",
+   "image": "1759854718.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 299,
+   "category": "Environmental Clearance",
+   "sub_category": "Specialized Environmental Services",
+   "sub_category_legacy_id": 63,
+   "type_group": "Solid & Hazardous Waste",
+   "name": "Waste Management Advisory(Solid & Hazardous Waste)",
+   "description": "Guidelines for collection, segregation, disposal, recycling",
+   "image": "1759854924.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 300,
+   "category": "Environmental Clearance",
+   "sub_category": "Specialized Environmental Services",
+   "sub_category_legacy_id": 63,
+   "type_group": "Rainwater Harvesting & Solar",
+   "name": "Water & Energy Conservation(Rainwater Harvesting & Solar)",
+   "description": "Planning and implementation of sustainable water and energy solutions",
+   "image": "1759855015.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 301,
+   "category": "Environmental Clearance",
+   "sub_category": "Specialized Environmental Services",
+   "sub_category_legacy_id": 63,
+   "type_group": "Disaster & Contamination Risk",
+   "name": "Environmental Risk Assessment(Disaster & Contamination Risk)",
+   "description": "Identifying environmental risks, preparing mitigation and contingency plans",
+   "image": "1759941087.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 302,
+   "category": "Ground water Consultancy",
+   "sub_category": "Exploration & Assessment",
+   "sub_category_legacy_id": 64,
+   "type_group": "Site Investigation",
+   "name": "Hydrogeological Surveys(Site Investigation)",
+   "description": "Geophysical surveys, borehole siting, soil and rock characterization",
+   "image": "1759941158.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 303,
+   "category": "Ground water Consultancy",
+   "sub_category": "Exploration & Assessment",
+   "sub_category_legacy_id": 64,
+   "type_group": "Groundwater Potential",
+   "name": "Aquifer Mapping(Groundwater Potential)",
+   "description": "Identification of shallow & deep aquifers, recharge zones, water table mapping",
+   "image": "1759941195.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 304,
+   "category": "Ground water Consultancy",
+   "sub_category": "Exploration & Assessment",
+   "sub_category_legacy_id": 64,
+   "type_group": "Sampling & Analysis",
+   "name": "Water Quality Assessment(Sampling & Analysis)",
+   "description": "Testing for TDS, hardness, fluoride, nitrates, heavy metals, microbial contamination",
+   "image": "1759940918.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 305,
+   "category": "Ground water Consultancy",
+   "sub_category": "Borewell & Well Management",
+   "sub_category_legacy_id": 66,
+   "type_group": "Drilling & Construction Planning",
+   "name": "Borewell Design(Drilling & Construction Planning)",
+   "description": "Borehole depth, diameter, screen selection, casing and gravel packing design",
+   "image": "1759940885.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 306,
+   "category": "Ground water Consultancy",
+   "sub_category": "Exploration & Assessment",
+   "sub_category_legacy_id": 64,
+   "type_group": "Pumping Test & Yield Estimation",
+   "name": "Well Testing(Pumping Test & Yield Estimation)",
+   "description": "Determining sustainable yield, drawdown analysis, aquifer parameters",
+   "image": "1759940841.png",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 307,
+   "category": "Ground water Consultancy",
+   "sub_category": "Borewell & Well Management",
+   "sub_category_legacy_id": 66,
+   "type_group": "Well Cleaning & Repair",
+   "name": "Maintenance & Rehabilitation(Well Cleaning & Repair)",
+   "description": "Desilting, chemical treatment, repairing casing, rehabilitation of low-yield wells",
+   "image": "1759940342.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 308,
+   "category": "Ground water Consultancy",
+   "sub_category": "Regulatory & Compliance",
+   "sub_category_legacy_id": 37,
+   "type_group": "CGWA / State Water Authorities",
+   "name": "Permits & NOCs(CGWA / State Water Authorities)",
+   "description": "Applications for groundwater abstraction, NOC processing, renewals",
+   "image": "1759939294.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 309,
+   "category": "Ground water Consultancy",
+   "sub_category": "Regulatory & Compliance",
+   "sub_category_legacy_id": 37,
+   "type_group": "Pollution & Impact Assessment",
+   "name": "Environmental Compliance(Pollution & Impact Assessment)",
+   "description": "Ensuring compliance with environmental regulations, prevention of contamination",
+   "image": "1759939092.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 310,
+   "category": "Ground water Consultancy",
+   "sub_category": "Regulatory & Compliance",
+   "sub_category_legacy_id": 37,
+   "type_group": "Industrial & Municipal",
+   "name": "Water Use Policy Advisory(Industrial & Municipal)",
+   "description": "Groundwater usage policy, resource allocation, conflict resolution",
+   "image": "1759938931.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 311,
+   "category": "Ground water Consultancy",
+   "sub_category": "Monitoring & Data Analysis",
+   "sub_category_legacy_id": 69,
+   "type_group": "Water Level & Quality Monitoring",
+   "name": "Groundwater Monitoring(Water Level & Quality Monitoring)",
+   "description": "Installing observation wells, continuous monitoring, data logging",
+   "image": "1759938988.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 312,
+   "category": "Ground water Consultancy",
+   "sub_category": "Monitoring & Data Analysis",
+   "sub_category_legacy_id": 69,
+   "type_group": "Predictive Models",
+   "name": "Hydrogeological Modeling(Predictive Models)",
+   "description": "Simulation of groundwater flow, drawdown, and recharge potential",
+   "image": "1759938846.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 313,
+   "category": "Ground water Consultancy",
+   "sub_category": "Monitoring & Data Analysis",
+   "sub_category_legacy_id": 69,
+   "type_group": "Technical Reports",
+   "name": "Reporting & Advisory(Technical Reports)",
+   "description": "Hydrogeological reports, feasibility studies, sustainability recommendations",
+   "image": "1759938789.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 314,
+   "category": "Ground water Consultancy",
+   "sub_category": "Specific Services",
+   "sub_category_legacy_id": 70,
+   "type_group": "E-coli, Chemical Pollution",
+   "name": "Contamination & Remediation(E-coli, Chemical Pollution)",
+   "description": "Assessment of contamination sources, remediation planning",
+   "image": "1759938467.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 315,
+   "category": "Ground water Consultancy",
+   "sub_category": "Specific Services",
+   "sub_category_legacy_id": 70,
+   "type_group": "Large-scale Groundwater Planning",
+   "name": "NRI / Industrial Projects(Large-scale Groundwater Planning)",
+   "description": "Feasibility, abstraction planning, sustainable management",
+   "image": "1759938417.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": false,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 316,
+   "category": "Ground water Consultancy",
+   "sub_category": "Specific Services",
+   "sub_category_legacy_id": 70,
+   "type_group": "Groundwater Mapping",
+   "name": "GIS & Remote Sensing(Groundwater Mapping)",
+   "description": "Satellite imagery analysis, GIS-based aquifer mapping, recharge mapping",
+   "image": "1759938359.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": true,
+    "lump_sum": false
+   }
+  },
+  {
+   "legacy_id": 317,
+   "category": "Property Management & Caretaking",
+   "sub_category": "Building & Facility Management",
+   "sub_category_legacy_id": 25,
+   "type_group": "Key Handling service",
+   "name": "Key Handling service",
+   "description": "A key handling service provides professional security personnel with secure, off-site copies of your property keys, acting as first responders for emergencies like alarm activations, break-ins, or maintenance needs, ensuring rapid, safe response and handling tasks like opening/closing premises, eliminating risk for you and your staff.",
+   "image": "1766405250.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": false,
+    "site_visit_required": false,
+    "can_manage_property": false,
+    "lump_sum": true
+   }
+  },
+  {
+   "legacy_id": 319,
+   "category": "Construction Project Management",
+   "sub_category": "Bid Preparation / Evaluation and Procurement Assistant",
+   "sub_category_legacy_id": 73,
+   "type_group": "Drafts tender documents, preparation of BOQ including technical specifications, and terms & Conditions.",
+   "name": "Bid Preparation",
+   "description": "Drafts tender documents, preparation of BOQ including technical specifications, and terms & Conditions.",
+   "image": "1772451658.jpg",
+   "active": true,
+   "flags": {
+    "is_legal_service": true,
+    "site_visit_required": true,
+    "can_manage_property": true,
+    "lump_sum": false
+   }
+  }
+ ],
+ "units": [
+  "\tSquare Feet (sq ft)",
+  "\tSquare Meter (sq m)",
+  "\tGuntha / Gunta",
+  "\tAcre",
+  "\tSquare Inches (in²)",
+  "\tSquare Centimeters (cm²)",
+  "\tBigha / Biswa / Katha",
+  "\tSquare Yard (yd²)",
+  "\tCent",
+  "\tSquare Kilometer (km²)"
+ ],
+ "property_types": [
+  "\tRESIDENTIAL",
+  "\tCOMMERCIAL",
+  "\tINDUSTRIAL",
+  "\tHERITAGE",
+  "\tOTHERS",
+  "\tAnuj Property Type",
+  "\tNA"
+ ],
+ "property_sub_types": [
+  {
+   "parent": "1",
+   "type": "22",
+   "sub_type": "\tFlat-1BHK"
+  },
+  {
+   "parent": "1",
+   "type": "0",
+   "sub_type": "\tFlat-3BHK"
+  },
+  {
+   "parent": "1",
+   "type": "0",
+   "sub_type": "\tBunglow"
+  },
+  {
+   "parent": "1",
+   "type": "0",
+   "sub_type": "\tFlat-4BHK"
+  },
+  {
+   "parent": "1",
+   "type": "0",
+   "sub_type": "\tFlat-2BHK"
+  },
+  {
+   "parent": "2",
+   "type": "0",
+   "sub_type": "\tSHOP"
+  },
+  {
+   "parent": "1",
+   "type": "0",
+   "sub_type": "\tPlot"
+  },
+  {
+   "parent": "1",
+   "type": "0",
+   "sub_type": "\tPenthouse"
+  },
+  {
+   "parent": "7",
+   "type": "0",
+   "sub_type": "\tN/A"
+  },
+  {
+   "parent": "1",
+   "type": "0",
+   "sub_type": "\t5BHK"
+  },
+  {
+   "parent": "2",
+   "type": "22",
+   "sub_type": "\tOffice"
+  },
+  {
+   "parent": "1",
+   "type": "22",
+   "sub_type": "\t5BHK"
+  },
+  {
+   "parent": "3",
+   "type": "20",
+   "sub_type": "\tPlots"
+  }
+ ],
+ "property_parameters": [
+  "\tCarpet Area(Sq. Ft.)",
+  "\tNo. Of  Bedrooms",
+  "\tNo Of  Toilets",
+  "\tAge Of Building",
+  "\tLuggage Lift Availibility",
+  "\tFURNISHED / SEMI FURNISHED / EMPTY",
+  "\tNo Of Balcony",
+  "\ttest",
+  "\tNo Of Kitchen",
+  "\tLawn , Garden & Margin AREA (Sq.Ft)",
+  "\tApproach",
+  "\tAnuj Property Parameter Name",
+  "\tDrawing hall",
+  "\treception",
+  "\tbanquet hall",
+  "\tconference hall",
+  "\thome theatre",
+  "\tCONCEPT DRAING – BASIC PLAN LAYOUT",
+  "\tNo Of Living Rooms",
+  "\tAmenities",
+  "\tPlot Area",
+  "\tPlot Number",
+  "\tFloor",
+  "\tWash area",
+  "\tNET PLOT AREA"
+ ],
+ "static_homepage_blocks_to_make_dynamic": [
+  "NRI Helpdesk",
+  "Why Our Customers Trust Us",
+  "Live Stress Free Life",
+  "Tenant Verification",
+  "Possession Takeover Assistance",
+  "Our Team",
+  "How can We help?"
+ ],
+ "static_pages_with_hardcoded_services": {
+  "ourservices": [
+   "Property Legal Advisory",
+   "Property Management & Care taking",
+   "Architectural & Structural Design Services",
+   "Real Estate Consultancy",
+   "Property Development Services",
+   "Property Valuation",
+   "Vastu Consultancy Services",
+   "Property Loan Consultant",
+   "Property Insurance Consultant",
+   "Environmental Clearance",
+   "Ground water Consultancy"
+  ],
+  "nriservices": [
+   "NRI Health Care",
+   "NRI Tours & Travels",
+   "Manpower Supply",
+   "Global Helpdesk"
+  ]
+ },
+ "_review_needed": {
+  "services_without_category (category deleted in legacy)": [
+   "Basic Cleaning Type 1",
+   "outdoor cleaning type1",
+   "basic carpentary service1",
+   "Basic Cleaning",
+   "Deep Cleaning",
+   "Furniture Cleaning",
+   "Landscape",
+   "Outdoor Cleaning",
+   "Plumbing",
+   "Electric",
+   "Furniture Repair",
+   "Others.",
+   "Parking"
+  ],
+  "is_legal_service flag is set on non-legal services (e.g. 64 repair services) - treat as \"one-off service\", not legal": true,
+  "category names to tidy": [
+   "site visit",
+   "CONSULTING  SERVICES"
+  ]
+ }
+}

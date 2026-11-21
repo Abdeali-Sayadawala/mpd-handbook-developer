@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MPD Next Architecture Handbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a confident build plan for a small team; plain words, real numbers.
+   IDEA: an architect's blueprint for the new MPD that you can click through, piece by piece.
+   PICTURE: the system map: apps → API → data and services, each block clickable.
+   COLOUR and TYPE: ice ground, ink, hot pink for the one thing to notice; Space Grotesk + Inter.
+   LAYOUT: map first, then modules, job states, payments, vault, franchise toggle, cost calculator, roadmap. */
+:root{color-scheme:light dark;--bg:light-dark(#dff1f7,#06222e);--card:light-dark(#fff,#0c3141);--ink:light-dark(#06222e,#e3f3f8);--mute:light-dark(#3d5a66,#9dbdc9);--line:light-dark(#b9dbe6,#1d4a5c);--acc:#ff2e7e;--acc2:light-dark(#0a6f8a,#5cc6e4);--chip:light-dark(#eef8fb,#0f3a4c)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Space Grotesk",Inter,sans-serif;font-weight:600;line-height:1.08;text-wrap:balance;margin:0 0 .4em}
+h1{font-size:clamp(32px,5vw,50px)}h2{font-size:clamp(26px,3.4vw,36px)}h3{font-size:19px}
+p{max-width:70ch;margin:.3em 0 .8em}
+.band{padding:clamp(28px,4vw,60px) max(5vw,16px)}.wrap{max-width:1240px;margin:0 auto}.alt{background:var(--card)}
+nav.scroll{display:flex;gap:6px;overflow-x:auto;padding:10px max(5vw,16px);border-bottom:1px solid var(--line);background:var(--bg)}
+@media(min-width:900px){nav.scroll{position:sticky;top:0;z-index:5}}
+nav a{flex:none;color:var(--ink);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:99px;border:1px solid var(--line)}
+html{scroll-padding-top:72px}
+button{font:inherit;color:inherit;cursor:pointer;min-height:44px}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+.lede{font-size:18px;color:var(--mute)}
+.hero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:clamp(20px,3vw,44px);align-items:start}
+@media(max-width:900px){.hero{grid-template-columns:minmax(0,1fr)}}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pill{display:inline-block;font-size:13px;padding:3px 10px;border-radius:99px;background:var(--card);border:1px solid var(--line);white-space:nowrap}
+.pill.hot{background:var(--acc);border-color:var(--acc);color:#fff}
+.bp{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:10px}
+.tier{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.tier h4{grid-column:1/-1;margin:0;font-size:13px;color:var(--mute);font-weight:500}
+.blk{background:var(--chip);border:1.5px solid var(--line);border-radius:12px;padding:9px 11px;text-align:left;font-size:14.5px}
+.blk small{display:block;color:var(--mute);font-size:12.5px}
+.blk.on{border-color:var(--acc2);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc2) 25%,transparent)}
+.blk.core{background:var(--ink);color:var(--bg);border-color:var(--ink)}.blk.core small{color:inherit;opacity:.75}
+.down{text-align:center;color:var(--acc2);font-size:18px;line-height:1}
+.out{border-top:1px solid var(--line);padding-top:10px;min-height:96px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.alt .card,.alt .panel{background:var(--bg)}
+.card p{font-size:14px;margin:.2em 0;color:var(--mute)}
+.card button{all:unset;cursor:pointer;display:block}.card button:focus-visible{outline:3px solid var(--acc2);outline-offset:4px;border-radius:6px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px;margin-top:14px}
+@media(max-width:700px){.panel{grid-template-columns:minmax(0,1fr)}}
+.kv{font-size:14px}.kv div{padding:6px 0;border-bottom:1px solid var(--line)}.kv b{display:block;font-size:12px;color:var(--mute);font-weight:500}
+.lane{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}
+.st{border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:0 14px;font-size:14px}
+.st.on{background:var(--acc2);color:#fff;border-color:var(--acc2)}.ar{color:var(--mute)}
+.ctrl{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.ctrl button{background:var(--ink);color:var(--bg);border:0;border-radius:10px;padding:0 16px}
+.ctrl button.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.seq{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.seq li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px 10px 52px;position:relative}
+.seq li::before{content:counter(s);position:absolute;left:14px;top:10px;width:26px;height:26px;border-radius:50%;background:var(--acc2);color:#fff;font-weight:600;font-size:14px;display:grid;place-items:center}
+.seq li.key{border-color:var(--acc)}.seq li.key::before{background:var(--acc)}
+.tog{display:inline-flex;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;margin:10px 0}
+.tog button{border:0;background:transparent;padding:0 16px}.tog button.on{background:var(--ink);color:var(--bg)}
+table{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--card)}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:13px;color:var(--mute);font-weight:500}
+td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:800px){.calc{grid-template-columns:minmax(0,1fr)}}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.row label{font-size:15px}.row select{font:inherit;font-size:16px;padding:8px;border-radius:8px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);min-height:44px}
+.big{font:600 clamp(40px,6vw,64px)/1 "Space Grotesk",sans-serif}
+.meter{height:14px;border-radius:99px;background:var(--chip);border:1px solid var(--line);overflow:hidden;margin:12px 0 6px}
+.meter i{display:block;height:100%;background:var(--acc2);transition:width .3s}.meter i.over{background:var(--acc)}
+.road{display:grid;gap:8px}
+.ms{display:grid;grid-template-columns:62px minmax(0,1fr);gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-align:left}
+.ms b{font:600 22px/1 "Space Grotesk",sans-serif;color:var(--acc2)}.ms p{margin:.2em 0 0;font-size:14px;color:var(--mute)}
+.ms .done{display:none;font-size:14px;margin-top:6px}.ms.open .done{display:block}
+.note{font-size:13px;color:var(--mute)}code{overflow-wrap:anywhere;font-size:13px}
+.scroll{overflow-x:auto}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--mute)}.stack td:empty{display:none}}
+@media(prefers-reduced-motion:reduce){.meter i{transition:none}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<nav class="scroll" aria-label="Sections"><a href="#map">System map</a><a href="#modules">Modules</a><a href="#jobs">Job states</a><a href="#pay">Payments</a><a href="#vault">Document vault</a><a href="#franchise">Franchise</a><a href="#cost">Hosting cost</a><a href="#road">Roadmap</a></nav>
+
+<section class="band" id="map"><div class="wrap hero">
+<div>
+<h1>MPD Next: one backend, web and two app stores</h1>
+<p class="lede">The plan for rebuilding MyPropertyDoctors: a TypeScript stack, security built in, documents and proof for every job, all on one server in Mumbai for about ₹2,800 a month.</p>
+<div class="facts"><span class="pill">INR only</span><span class="pill">Franchise tree kept</span><span class="pill">Offline payments for builders</span><span class="pill">Document vault</span><span class="pill">Android + iOS + web</span></div>
+<p class="note" style="margin-top:16px">Select any block on the map to see what it does and why it was chosen.</p>
+</div>
+<div class="bp" role="group" aria-label="System map">
+<div class="tier" id="t1"><h4>Who uses it</h4></div><div class="down" aria-hidden="true">↓</div>
+<div class="tier" id="t2"><h4>Apps</h4></div><div class="down" aria-hidden="true">↓</div>
+<div class="tier" id="t3"><h4>Core</h4></div><div class="down" aria-hidden="true">↓</div>
+<div class="tier" id="t4"><h4>Data and outside services</h4></div>
+<div class="out" id="mapOut" aria-live="polite"></div>
+</div>
+</div></section>
+
+<section class="band alt" id="modules"><div class="wrap">
+<h2>14 modules, each with one job</h2>
+<p>Each module owns its own tables and rules. Modules talk through services and events, never by reading each other's tables. That's what stops the legacy copy-paste from coming back.</p>
+<div class="grid" id="modGrid"></div>
+<div class="panel" id="modOut"></div>
+</div></section>
+
+<section class="band" id="jobs"><div class="wrap">
+<h2>A job can only move one legal step at a time</h2>
+<p>Statuses are a fixed list, and one class decides who may move a job forward. Every move is logged and triggers the right notifications. The legacy master OTP is replaced by an audited ops override that needs a reason, a photo and a location.</p>
+<div class="lane" id="lane"></div>
+<div class="panel" id="jobOut"></div>
+<div class="ctrl"><button id="play">Play the job</button><button class="ghost" id="rst">Back to start</button></div>
+</div></section>
+
+<section class="band alt" id="pay"><div class="wrap">
+<h2>Money is only marked paid when it's proven: offline now, online in M8</h2>
+<div class="tog" role="group" aria-label="Payment path"><button data-p="offline" class="on">Offline (from M3)</button><button data-p="online">Online (M8)</button></div>
+<ol class="seq" id="paySeq"></ol>
+</div></section>
+
+<section class="band" id="vault"><div class="wrap">
+<h2>Document vault: every paper about the property, in one place</h2>
+<p>Each property gets ready-made folders. Files are private and checked before anyone can open them. Every view is logged.</p>
+<div class="grid" id="vaultGrid"></div>
+<div class="grid" style="margin-top:12px">
+<div class="card"><h3>Safe uploads</h3><p>Type checked from the file contents, 20 MB limit, virus scan before the file can be opened.</p></div>
+<div class="card"><h3>Private links</h3><p>Links expire after 5 minutes. Share a deed with a lawyer or bank using a link with an expiry date and view limit.</p></div>
+<div class="card"><h3>Expiry reminders</h3><p>Rent agreements, insurance and property-tax dates send reminders at the owner's local time.</p></div>
+<div class="card"><h3>Aadhaar and DPDP Act</h3><p>Only the masked Aadhaar is stored. Customers give consent and can request export or deletion.</p></div>
+</div>
+</div></section>
+
+<section class="band alt" id="franchise"><div class="wrap">
+<h2>Franchise: keep it now, with an option ready to pitch</h2>
+<div class="tog" role="group" aria-label="Franchise model"><button data-f="now" class="on">Launch model</button><button data-f="pitch">Proposal to pitch</button></div>
+<div class="panel" id="frOut"></div>
+</div></section>
+
+<section class="band" id="cost"><div class="wrap">
+<h2>Monthly hosting against the ₹5,000 budget</h2>
+<div class="calc">
+<div id="costRows"></div>
+<div class="card"><p>Estimated hosting per month</p><div class="big" id="total">₹0</div>
+<div class="meter" aria-hidden="true"><i id="bar"></i></div><p id="verdict"></p>
+<p class="note">At about ₹88 to the dollar. Not included: the store accounts (Google Play $25 once, Apple $99 a year), and from M8 the payment-gateway and WhatsApp/SMS fees. Check AWS prices before you buy.</p></div>
+</div>
+</div></section>
+
+<section class="band alt" id="road"><div class="wrap">
+<h2>Build roadmap: ten milestones, each one usable</h2>
+<p>Each milestone ends with something that works. Open one to see when it counts as done.</p>
+<div class="road" id="roadList"></div>
+<p class="note" style="margin-top:18px">Phase 2 draft v1, 20 Nov 2026. The full specification is in docs/new-system/README.md.</p>
+</div></section>
+
+<script>
+{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const blocks=[
+['t1','nri','NRI owner','abroad or in India','Signs up, adds properties and documents, buys plans, approves extra costs, gives OTPs, and reads reports, all from the phone.'],
+['t1','ops','MPD ops','admin console','Sets up masters and prices, runs onboarding, assigns jobs, records offline payments (needs a second approver), and watches SLAs.'],
+['t1','partner','Franchise & providers','territory-scoped','See only their own territory. Accept jobs, assign workers, and track earnings and payouts.'],
+['t1','worker','Field worker','mobile','Sees today’s jobs, checks the start OTP, follows the checklist, takes geo-tagged photos, requests extras, and closes with the end OTP.'],
+['t2','web','Website + web app','Next.js · 2 repos','mpd-global is the public website, built for search. Every service, photo and homepage section comes from the admin CMS and can be switched on or off. mpd-frontend is the customer portal and the staff and partner console.'],
+['t2','mobile','Mobile app','Expo, Android + iOS','One app. After login it opens the customer shell or the field shell depending on the user’s role. Built in the cloud, so no Mac is needed.'],
+['t3','api','API','NestJS + OpenAPI','The single entry point. Guards check identity, policies check role and territory, and Zod checks every input.'],
+['t3','worker2','Worker','pg-boss jobs','Sends notifications, schedules reminders, builds PDFs, processes webhooks, runs the nightly payment reconciliation and virus scans.'],
+['t4','pg','PostgreSQL','one source of truth','Real foreign keys, enum statuses, money in paise, an audit table. The job queue lives here too, so no Redis is needed.'],
+['t4','s3','S3 Mumbai','private files','Documents, photos and reports. Encrypted, opened only through short-lived links, and kept in India.'],
+['t4','rzp','Payments','offline now · online in M8','Until M8, ops records bank transfers and cheques, and a second admin approves them. Online payments are added in M8 through a gateway chosen then, built behind an interface so nothing else changes.'],
+['t4','msg','Email, push, in-app','SES · Expo · WhatsApp in M8','Sent through an outbox with retries, at the user’s local time. WhatsApp and SMS are added in M8 as extra channels.']
+];
+blocks.forEach(b=>{$('#'+b[0]).insertAdjacentHTML('beforeend',`<button class="blk ${b[0]=='t3'?'core':''}" data-b="${b[1]}" aria-pressed="false">${b[2]}<small>${b[3]}</small></button>`)});
+function showB(id){const b=blocks.find(x=>x[1]==id);$$('.blk').forEach(e=>{const on=e.dataset.b==id;e.classList.toggle('on',on);e.setAttribute('aria-pressed',on)});$('#mapOut').innerHTML=`<h3>${b[2]}</h3><p>${b[4]}</p>`}
+$$('.blk').forEach(e=>e.addEventListener('click',()=>showB(e.dataset.b)));showB('nri');
+
+const mods=[
+['Identity & access','One user per person, OTP + password, roles, 2-step login for admins.','users, user_roles, otp_challenges, refresh_tokens','Replaces 3 login systems and 6 user tables. Passwords are hashed (argon2id), never readable.'],
+['Organisations & territory','The franchise tree as data, with territories as pincode sets.','organisations, territories, territory_pincodes','Who sees what follows the tree, so a franchise never sees another franchise’s customers.'],
+['Geography & masters','States to pincodes, area units, property types and attributes.','pincodes, area_units, property_types','Seeded from the legacy data after removing test rows.'],
+['Customers & properties','Individuals, builders and their buyers. Properties and units.','customers, kyc_records, properties, property_parties','Owner and customer are one record. Co-owners and power-of-attorney holders are supported.'],
+['Leads & onboarding','Inquiry → site visit → quotation → activation.','inquiries, onboarding_cases, quotations','A state machine with SLA reminders to ops.'],
+['Catalogue & pricing','Services, form and checklist templates, price books, plans, discounts.','services, prices, plans, plan_items','One PricingService works out every price. The client never sends a price.'],
+['Subscriptions','Paid plans become a number of visits per service.','subscriptions, entitlements','Jobs are scheduled from what the customer has left. Renewal reminders are automatic.'],
+['Jobs','Scheduling, assignment, OTPs, checklist steps, evidence, extras, ratings.','jobs, job_events, job_otps, job_steps, job_evidence, job_extras','The checklist is copied onto each job, so editing a template never breaks jobs already running.'],
+['Billing & payments','Orders, payments, invoices, refunds, offline payments, webhooks.','orders, payments, invoices, webhook_inbox','Idempotent and verified. Offline payments need maker-checker approval.'],
+['Partner earnings','Commission rules and an earnings ledger per organisation, plus payouts.','commission_rules, earnings, payouts','Earnings are calculated automatically when a payment is captured.'],
+['Document vault','Folders, versions, expiries, share links, access log.','folders, documents, document_shares','A must-have from the business. Details in the vault section.'],
+['Messaging & notifications','Chat per job, templates, outbox, delivery log, preferences.','conversations, messages, outbox','Reminders are actually sent this time, with retries.'],
+['Reports & audit','Dashboards, exports, audit trail.','audit_events','Revenue, SLA, ratings, partner earnings.'],
+['Website CMS & catalogue','All 293 legacy services plus homepage sections. Name, photo, order, active and homepage toggles for each.','service_categories, services, media, content_blocks','Switch a service off and it disappears from the website and app within seconds. Customer data is never shown publicly.']
+];
+$('#modGrid').innerHTML=mods.map((m,i)=>`<div class="card"><button data-m="${i}"><h3>${m[0]}</h3><p>${m[1]}</p></button></div>`).join('');
+function showM(i){const m=mods[i];$('#modOut').innerHTML=`<div><h3>${m[0]}</h3><p>${m[1]}</p><p>${m[3]}</p></div><div class="kv"><div><b>Main tables</b><code>${m[2]}</code></div><div><b>Built in milestone</b>${['M0','M1','M1','M2','M4','M3','M3','M5','M3','M6','M2','M6','M6','M7'][i]}</div></div>`}
+$$('#modGrid button').forEach(b=>b.addEventListener('click',()=>{showM(+b.dataset.m);$('#modOut').scrollIntoView({block:'nearest'})}));showM(7);
+
+const st=[
+['Requested','Created from a plan visit, an add-on, a suggestion or a site visit.','System / customer'],
+['Accepted','A provider in the territory accepts it within the SLA. If it is declined, it goes back to the pool.','Provider'],
+['Scheduled','A date and time are agreed. The customer sees it in IST and in their own time zone.','Provider / ops'],
+['Assigned','A worker is picked. The worker gets a push, and the customer gets WhatsApp.','Provider'],
+['Started','The worker enters the start OTP the customer received. Location and time are recorded.','Worker + customer'],
+['In progress','The worker goes through the checklist and uploads before and after photos.','Worker'],
+['Awaiting extra payment','Extra work or material is proposed. The customer approves and pays in the app, then work continues.','Customer'],
+['Work done','The end OTP is verified. The inspection PDF is generated and filed in the vault.','Worker + customer'],
+['Verified','The provider or ops checks the evidence. Partner earnings are recorded.','Provider / ops'],
+['Closed','The customer rates the job. A follow-up service may be suggested.','Customer']
+];
+let si=0,tm=null;
+$('#lane').innerHTML=st.map((s,i)=>`<button class="st" data-i="${i}">${s[0]}</button>${i<st.length-1?'<span class="ar" aria-hidden="true">→</span>':''}`).join('');
+function showS(i){si=i;$$('.st').forEach(b=>b.classList.toggle('on',+b.dataset.i==i));const s=st[i];$('#jobOut').innerHTML=`<div><h3>${s[0]}</h3><p>${s[1]}</p></div><div class="kv"><div><b>Who moves it</b>${s[2]}</div><div><b>Logged in</b><code>job_events</code></div><div><b>Can be cancelled?</b>${i<4?'Yes, with a reason':'Only by ops, audited'}</div></div>`}
+function stop(){clearInterval(tm);tm=null;$('#play').textContent='Play the job'}
+$$('.st').forEach(b=>b.addEventListener('click',()=>{stop();showS(+b.dataset.i)}));
+$('#play').addEventListener('click',()=>{if(tm){stop();return}$('#play').textContent='Pause';tm=setInterval(()=>{if(si>=st.length-1){stop();return}showS(si+1)},1700)});
+$('#rst').addEventListener('click',()=>{stop();showS(0)});showS(0);
+
+const pay={online:[
+['Added in milestone M8','The payment provider is chosen then, on a new account. Nothing from the old app is reused.',1],
+['The app asks for an order','It only sends what is being bought. The server works out the price.',0],
+['The server creates the gateway order','The amount is stored in paise with an idempotency key, so a double tap can’t charge twice.',0],
+['The customer pays','Checkout on web or mobile.',0],
+['The server verifies the result','A tampered or faked success message is rejected.',1],
+['The signed webhook confirms it','The gateway’s webhook is the final word. Duplicate events are ignored.',1],
+['Paid triggers the next steps','Invoice created, plan activated or job unlocked, partner earnings recorded, receipt sent.',0],
+['Nightly reconciliation','Today’s gateway payments are compared with the database. Any mismatch goes to ops.',0]],
+offline:[
+['Ops creates the order','The same pricing rules apply. Used for everyone until M8, and for builders always (often ₹10–12 lakh).',0],
+['Ops records the payment','Bank transfer reference (UTR) or cheque number, date, and a proof document.',0],
+['A second admin approves','Maker-checker: the person who records a payment can never approve it.',1],
+['Paid triggers the same steps','The same invoice, activation and earnings flow as an online payment.',0],
+['Fully audited','Who recorded it, who approved it and the proof are all kept. This replaces the old silent bypass.',1]]};
+function drawPay(k){$$('#pay .tog button').forEach(b=>{const on=b.dataset.p==k;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});$('#paySeq').innerHTML=pay[k].map(s=>`<li class="${s[2]?'key':''}"><b>${s[0]}</b><br><span class="note">${s[1]}</span></li>`).join('')}
+$$('#pay .tog button').forEach(b=>b.addEventListener('click',()=>drawPay(b.dataset.p)));drawPay('offline');
+
+const folders=[['Ownership','Sale deed, title, mutation, encumbrance certificate'],['Tax & utilities','Property tax, electricity, water receipts'],['Legal & agreements','Power of attorney, rent and lease, maintenance contracts'],['KYC','Masked Aadhaar, PAN, passport or OCI. Visible to ops only'],['Inspection reports','PDFs created automatically after each visit'],['Job evidence','Before and after photos with time and location'],['Invoices','Every payment’s GST-ready invoice'],['Custom','Folders the owner creates']];
+$('#vaultGrid').innerHTML=folders.map(f=>`<div class="card"><h3>${f[0]}</h3><p>${f[1]}</p></div>`).join('');
+
+const fr={now:`<div><h3>Launch model: the hierarchy you have today</h3><p>MPD → Master franchise → Franchise → Service provider → Field worker. It is stored as an organisation tree with territories, so the levels are data rather than code.</p><p>Commission percentages per level and service category live in a rules table. Earnings are calculated from every captured payment and paid out monthly.</p></div><div class="kv"><div><b>Job routing</b>Provider mapped to the pincode</div><div><b>Margins</b>Shared through 3 partner layers</div><div><b>Changing later</b>Configuration + data migration, no rebuild</div></div>`,
+pitch:`<div><h3>Proposal: city partner + open vendor network</h3><p>One <b>city partner</b> owns each territory: sales, quality checks and owner relationships. Any <b>verified vendor</b> in that territory can take jobs for the services they're approved for. Jobs are offered to the best-rated available vendor, who has to accept within the SLA.</p><p>Fewer layers taking a margin means lower prices for NRIs and faster response, and cities can be added one at a time.</p></div><div class="kv"><div><b>Job routing</b>Auto-offer by rating and availability</div><div><b>Margins</b>Platform fee + partner override + vendor payout per job</div><div><b>Pitch it when</b>2–3 cities are live and there are ratings data to show</div></div>`};
+function drawF(k){$$('#franchise .tog button').forEach(b=>{const on=b.dataset.f==k;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});$('#frOut').innerHTML=fr[k]}
+$$('#franchise .tog button').forEach(b=>b.addEventListener('click',()=>drawF(b.dataset.f)));drawF('now');
+
+const FX=88;
+const items=[
+['server','App server (Lightsail Mumbai)',[['2 GB · $12',12],['4 GB · $24 (recommended)',24],['8 GB · $44',44]],1],
+['staging','Staging server',[['None (same box)',0],['2 GB, release weeks only · ~$4',4],['2 GB always on · $12',12]],0],
+['files','S3 storage + backups',[['Light · ₹150',150/FX],['Growing · ₹400',400/FX],['Heavy · ₹1,000',1000/FX]],0],
+['email','Email (SES) + DNS',[['₹200',200/FX]],0],
+['mon','Monitoring (Sentry, UptimeRobot)',[['Free tiers · ₹0',0],['Sentry Team · $26',26]],0]
+];
+$('#costRows').innerHTML=items.map(it=>`<div class="row"><label for="c-${it[0]}">${it[1]}</label><select id="c-${it[0]}">${it[2].map((o,i)=>`<option value="${o[1]}" ${i==it[3]?'selected':''}>${o[0]}</option>`).join('')}</select></div>`).join('');
+function calc(){const usd=items.reduce((s,it)=>s+ +$('#c-'+it[0]).value,0);const inr=Math.round(usd*FX/50)*50;
+$('#total').textContent='₹'+inr.toLocaleString('en-IN');const pct=Math.min(100,inr/5000*100);const bar=$('#bar');bar.style.width=pct+'%';bar.classList.toggle('over',inr>5000);
+$('#verdict').textContent=inr>5000?`₹${(inr-5000).toLocaleString('en-IN')} over budget. Drop a tier somewhere.`:`₹${(5000-inr).toLocaleString('en-IN')} under budget, about ${Math.round(pct)}% of it.`}
+$$('#costRows select').forEach(s=>s.addEventListener('change',calc));calc();
+
+const road=[
+['M0','Foundation','7 repos, shared CI/CD, SDK publishing, auth, roles, audit, deploy to Lightsail','A user can sign up and log in on web and mobile, and a push to main deploys safely.'],
+['M1','Masters, catalogue & website','Geography, franchise tree, territories, full service catalogue with admin editing, website homepage','Admin switches a service off and it disappears from the website within seconds.'],
+['M2','Customers, properties, vault','Profiles, masked KYC, properties and projects, document vault','An NRI adds a property and uploads a sale deed from the phone.'],
+['M3','Catalogue, pricing, orders','Services, price books, plans, offline payments (maker-checker), invoices','An approved payment for a plan creates a subscription and visit entitlements.'],
+['M4','Onboarding','Inquiry → site visit → quotation → activation','The full NRI journey works end to end.'],
+['M5','Jobs & field app','Scheduling, checklist engine, OTPs, evidence, extras, inspection PDF','A worker finishes a job on mobile, and the owner abroad sees the report.'],
+['M6','Comms, reports, earnings','Notifications, chat, reminders, dashboards, partner earnings','Reminders arrive on time, and partners see their earnings.'],
+['M7','Legal & professional','Intake form builder, professional job flow','Legal services can be bought and delivered in the app.'],
+['M8','Online payments & WhatsApp','Payment gateway and WhatsApp/SMS, providers chosen then','A customer pays online and gets WhatsApp updates.'],
+['M9','Migration & launch','Legacy import, UAT, store submission, go-live','Both apps are live in the stores and the legacy app is switched off.']
+];
+$('#roadList').innerHTML=road.map((r,i)=>`<button class="ms" data-i="${i}" aria-expanded="false"><b>${r[0]}</b><div><strong>${r[1]}</strong><p>${r[2]}</p><div class="done"><b style="font-size:13px;color:var(--acc)">Done when:</b> ${r[3]}</div></div></button>`).join('');
+$$('.ms').forEach(m=>m.addEventListener('click',()=>{const o=!m.classList.contains('open');m.classList.toggle('open',o);m.setAttribute('aria-expanded',o)}));
+}
+</script>
+</body>
+</html>

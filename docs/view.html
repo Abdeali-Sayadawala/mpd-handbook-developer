@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MPD documents</title>
+<style>
+:root{color-scheme:light dark;--bg:light-dark(#f4fafc,#06222e);--card:light-dark(#fff,#0c3141);--ink:light-dark(#06222e,#e3f3f8);--mute:light-dark(#40606c,#a5c3ce);--line:light-dark(#c4dfe8,#1d4a5c);--brand:light-dark(#0a6f8a,#5cc6e4);--chip:light-dark(#e6f3f8,#0f3a4c)}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;padding:10px max(4vw,14px);border-bottom:1px solid var(--line);background:var(--card);position:sticky;top:0}
+header a{color:var(--ink);text-decoration:none;font-size:14px;padding:7px 10px;border-radius:8px;border:1px solid var(--line)}
+header a[aria-current]{background:var(--brand);color:var(--bg);border-color:var(--brand)}
+header b{margin-right:auto}
+main{max-width:960px;margin:0 auto;padding:clamp(16px,4vw,40px) max(4vw,14px)}
+h1,h2,h3{line-height:1.2;text-wrap:balance}
+h2{margin-top:1.8em;padding-top:.3em;border-top:1px solid var(--line)}
+a{color:var(--brand)}
+table{border-collapse:collapse;display:block;overflow-x:auto;font-size:14.5px;margin:1em 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--chip)}
+code{background:var(--chip);border-radius:5px;padding:1px 5px;font:13.5px ui-monospace,Consolas,monospace}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow-x:auto}pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.3em 1em;border-left:4px solid var(--brand);background:var(--card)}
+.err{padding:14px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+</style>
+</head>
+<body>
+<header><b>MPD documents</b>
+<a href="../index.html">Architecture</a><a href="../status.html">What is built</a>
+<a href="?f=architecture/progress.md" data-f="architecture/progress.md">Progress</a>
+<a href="?f=architecture/README.md" data-f="architecture/README.md">Spec</a>
+<a href="?f=architecture/customers-and-pricing.md" data-f="architecture/customers-and-pricing.md">Customers &amp; pricing</a>
+<a href="?f=architecture/admin-hierarchy-and-dispatch.md" data-f="architecture/admin-hierarchy-and-dispatch.md">Hierarchy &amp; dispatch</a>
+<a href="?f=legacy/README.md" data-f="legacy/README.md">Legacy system</a>
+<a href="?f=../workspace/NEW-MACHINE.md" data-f="../workspace/NEW-MACHINE.md">New machine</a></header>
+<main id="out"><p>Loading…</p></main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script>
+// Renders a markdown file from this repository. Only files inside the repository can be shown.
+const params = new URLSearchParams(location.search);
+const file = params.get('f') || 'architecture/progress.md';
+const ok = /^(\.\.\/workspace\/|architecture\/|legacy\/)[\w./-]+\.md$/.test(file) && !file.includes('..', file.startsWith('../') ? 3 : 0);
+document.querySelectorAll('header a[data-f]').forEach(a => { if (a.dataset.f === file) a.setAttribute('aria-current', 'page'); });
+const out = document.getElementById('out');
+if (!ok) { out.innerHTML = '<div class="err">That document is not available.</div>'; }
+else {
+  fetch(file).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(md => {
+    out.innerHTML = marked.parse(md);
+    // links to other markdown files in this repo open in this viewer
+    out.querySelectorAll('a[href]').forEach(a => {
+      const h = a.getAttribute('href');
+      if (/^[\w./-]+\.md(#.*)?$/.test(h) && !h.startsWith('http')) {
+        const base = file.includes('/') ? file.slice(0, file.lastIndexOf('/') + 1) : '';
+        const target = new URL(h.split('#')[0], 'http://x/' + base).pathname.slice(1);
+        a.href = '?f=' + target + (h.includes('#') ? h.slice(h.indexOf('#')) : '');
+      }
+    });
+    document.title = (out.querySelector('h1')?.textContent || file) + ' · MPD documents';
+  }).catch(() => { out.innerHTML = '<div class="err">Could not load ' + file.replace(/[<>&]/g, '') + '. Open the folder in a local web server (for example <code>npx serve .</code>), a browser blocks reading files straight from disk.</div>'; });
+}
+</script>
+</body>
+</html>

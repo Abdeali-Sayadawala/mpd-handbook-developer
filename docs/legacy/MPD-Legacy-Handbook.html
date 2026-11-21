@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MPD Current System Handbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: clear field manual for a team about to rebuild; plain, exact, no hype.
+   IDEA: a clinic chart for the platform itself (MyPropertyDoctors): who's involved, the journey, the job lifecycle, the diagnosis.
+   PICTURE: a clickable map of everyone in the system, from the NRI owner abroad down to the field worker at the property.
+   COLOUR and TYPE: ice ground, ink text, one hot-pink accent for critical findings; Space Grotesk headings, Inter body.
+   LAYOUT: map first, then journey stepper, lifecycle player, module search, data, pricing, issues filter, glossary. */
+:root{color-scheme:light dark;--bg:light-dark(#dff1f7,#06222e);--card:light-dark(#ffffff,#0c3141);--ink:light-dark(#06222e,#e3f3f8);--mute:light-dark(#3d5a66,#9dbdc9);--line:light-dark(#b9dbe6,#1d4a5c);--acc:#ff2e7e;--acc2:light-dark(#0a6f8a,#5cc6e4);--chip:light-dark(#eef8fb,#0f3a4c)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Space Grotesk",Inter,sans-serif;font-weight:600;line-height:1.08;text-wrap:balance;margin:0 0 .4em}
+h1{font-size:clamp(32px,5vw,50px)}h2{font-size:clamp(26px,3.4vw,36px)}h3{font-size:19px}
+p{max-width:70ch;margin:.3em 0 .8em}
+.band{padding:clamp(28px,4vw,60px) max(5vw,16px)}.wrap{max-width:1240px;margin:0 auto}
+.alt{background:var(--card)}
+nav.scroll{display:flex;gap:6px;overflow-x:auto;padding:10px max(5vw,16px);border-bottom:1px solid var(--line);background:var(--bg)}
+@media(min-width:900px){nav.scroll{position:sticky;top:0;z-index:5}}
+nav a{flex:none;color:var(--ink);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:99px;border:1px solid var(--line)}
+nav a:hover,nav a:focus-visible{background:var(--chip)}
+html{scroll-padding-top:72px}
+button{font:inherit;color:inherit;cursor:pointer;min-height:44px}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+.lede{font-size:18px;color:var(--mute)}
+.stats{display:flex;flex-wrap:wrap;gap:10px 28px;margin:18px 0 0}
+.stat b{display:block;font:600 clamp(26px,3vw,34px)/1 "Space Grotesk",sans-serif}.stat span{font-size:13px;color:var(--mute)}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(20px,3vw,44px);align-items:start}
+@media(max-width:900px){.hero{grid-template-columns:minmax(0,1fr)}}
+.map{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.col{display:flex;flex-direction:column;gap:8px}.col h4{margin:0 0 2px;font-size:13px;color:var(--mute);font-weight:500}
+.node{text-align:left;background:var(--chip);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;position:relative}
+.node small{display:block;color:var(--mute);font-size:13px}
+.node.on{border-color:var(--acc2);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc2) 25%,transparent)}
+.chain .node:not(:last-child)::after{content:"";position:absolute;left:22px;bottom:-10px;height:9px;border-left:2px dashed var(--acc2)}
+.detail{grid-column:1/-1;border-top:1px solid var(--line);padding-top:12px;min-height:130px}
+.detail ul{margin:.3em 0 0;padding-left:1.1em}.detail li{margin:.15em 0}
+.pill{display:inline-block;font-size:13px;padding:2px 9px;border-radius:99px;background:var(--chip);border:1px solid var(--line);margin:2px 4px 2px 0;white-space:nowrap}
+.pill.crit{background:var(--acc);color:#fff;border-color:var(--acc)}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
+.steps button{background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:6px 12px;font-size:14px}
+.steps button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px}
+.alt .panel{background:var(--bg)}
+@media(max-width:700px){.panel{grid-template-columns:minmax(0,1fr)}}
+.kv{font-size:14px}.kv div{padding:6px 0;border-bottom:1px solid var(--line)}.kv b{display:block;font-size:12px;color:var(--mute);font-weight:500}
+.ctrl{display:flex;gap:8px;align-items:center;margin-top:12px}
+.ctrl button{background:var(--ink);color:var(--bg);border:0;border-radius:10px;padding:0 16px}
+.ctrl button.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.lane{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:16px 0}
+.st{border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:6px 14px;font-size:14px}
+.st.on{background:var(--acc2);color:#fff;border-color:var(--acc2)}
+.lane .ar{color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.alt .card{background:var(--bg)}
+.card p{font-size:14px;margin:.2em 0;color:var(--mute)}.card code{font-size:12.5px;color:var(--acc2)}
+input[type=search]{font-size:16px;width:min(420px,100%);padding:11px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.filters button{border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:0 14px;font-size:14px}
+.filters button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--card);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;color:var(--mute);font-weight:500}
+.note{font-size:13px;color:var(--mute)}
+.scroll{overflow-x:auto}code{overflow-wrap:anywhere}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--mute)}.stack td:empty{display:none}.map{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:no-preference){.st,.node,.steps button{transition:background .2s,border-color .2s,box-shadow .2s}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<nav class="scroll" aria-label="Sections">
+<a href="#people">People</a><a href="#journey">Owner journey</a><a href="#lifecycle">Job lifecycle</a><a href="#modules">Admin modules</a><a href="#pricing">Pricing &amp; plans</a><a href="#data">Data</a><a href="#issues">Diagnosis</a><a href="#glossary">Glossary</a>
+</nav>
+
+<section class="band" id="people"><div class="wrap hero">
+<div>
+<h1>How MyPropertyDoctors works today</h1>
+<p class="lede">An interactive guide to the current Laravel application: who uses it, how an NRI owner becomes a paying customer, how a field job runs, and what needs fixing before the rebuild.</p>
+<div class="stats">
+<div class="stat"><b>194</b><span>properties</span></div>
+<div class="stat"><b>193</b><span>service jobs</span></div>
+<div class="stat"><b>293</b><span>services in catalogue</span></div>
+<div class="stat"><b>40</b><span>staff &amp; partner users</span></div>
+<div class="stat"><b>183</b><span>pincodes served</span></div>
+</div>
+<p class="note" style="margin-top:16px">Counts are from the database dump of 20 Nov 2026. Select anyone on the map to see what they do.</p>
+</div>
+<div class="map" role="group" aria-label="People in MPD">
+<div class="col"><h4>Customers</h4><div id="custNodes" class="col"></div></div>
+<div class="col chain"><h4>MPD and partner network</h4><div id="staffNodes" class="col chain"></div></div>
+<div class="detail" id="roleDetail" aria-live="polite"></div>
+</div>
+</div></section>
+
+<section class="band alt" id="journey"><div class="wrap">
+<h2>The owner journey, from inquiry to active plan</h2>
+<p>This is the main path for an owner who signs up on the website. Go through it one step at a time.</p>
+<div class="steps" id="jSteps" role="tablist"></div>
+<div class="panel" id="jPanel"></div>
+<div class="ctrl"><button class="ghost" id="jPrev">Previous</button><button id="jNext">Next step</button></div>
+<p class="note" style="margin-top:14px">Two other paths exist. <b>Project owners</b> (builders) are created by the admin, and their payments skip the gateway. <b>Legal and one-off services</b> use dynamic form pages before payment.</p>
+</div></section>
+
+<section class="band" id="lifecycle"><div class="wrap">
+<h2>A service job, start to finish</h2>
+<p>Each job is a row in <code>service_purchases</code>. Its screens are built from admin-defined <b>pages</b> (start OTP, before photos, extras, after photos, end OTP, feedback), so different services can have different steps.</p>
+<div class="lane" id="lane"></div>
+<div class="panel" id="sPanel"></div>
+<div class="ctrl"><button id="play">Play the lifecycle</button><button class="ghost" id="reset">Back to start</button></div>
+</div></section>
+
+<section class="band alt" id="modules"><div class="wrap">
+<h2>Admin panel modules</h2>
+<p>Everything staff can do in <code>/admin</code>. What each user sees depends on their role and permissions.</p>
+<input type="search" id="mSearch" placeholder="Search modules, e.g. pincode, OTP, agreement" aria-label="Search modules">
+<div class="grid" id="mGrid" style="margin-top:14px"></div>
+<p class="note" id="mEmpty" hidden>No module matches that search.</p>
+</div></section>
+
+<section class="band" id="pricing"><div class="wrap">
+<h2>Prices are set per pincode</h2>
+<p>Every price depends on where the property is. That lets each franchise territory charge its own rates.</p>
+<div class="grid">
+<div class="card"><h3>Site-visit charge</h3><p>A flat fee per pincode (<code>pincodes.site_visit_charge</code>), paid before MPD inspects the property.</p></div>
+<div class="card"><h3>Plan price</h3><p>Plans A–D and Premium are priced per pincode in a JSON field (<code>pincodes.plans_price</code>). Validity is 6 or 12 months.</p></div>
+<div class="card"><h3>Service rate</h3><p>Service × pincode × area unit (sq ft, acre, guntha, bigha…): 2,799 rate rows, imported from Excel.</p></div>
+<div class="card"><h3>What a plan contains</h3><p>A plan holds services with a recurrence count (<code>plan_services</code>) plus free services. Each one becomes a job when the plan is paid.</p></div>
+<div class="card"><h3>Discounts and upsell</h3><p>Quantity discounts by date range (<code>plan_discounts</code>). Suggested follow-up services after a job. Coupons exist but have never been used.</p></div>
+<div class="card"><h3>Payment rails</h3><p>Razorpay Payment Links in INR. Updates go by WhatsApp through Interakt, currently fixed to +91 numbers.</p></div>
+</div>
+</div></section>
+
+<section class="band alt" id="data"><div class="wrap">
+<h2>What the database holds</h2>
+<p>70 tables with only 9 foreign keys. Grouped by purpose:</p>
+<div class="grid" id="dGrid"></div>
+</div></section>
+
+<section class="band" id="issues"><div class="wrap">
+<h2>Diagnosis: 11 critical risks, 13 architecture gaps, 16 open QA issues</h2>
+<p>Filter by type. The critical items are about money and personal data. Contain them now, even before the rebuild.</p>
+<div class="filters" id="iFilters"></div>
+<div class="scroll"><table class="stack"><thead><tr><th>Type</th><th>Problem</th><th>Where / impact</th></tr></thead><tbody id="iBody"></tbody></table></div>
+</div></section>
+
+<section class="band alt" id="glossary"><div class="wrap">
+<h2>Glossary</h2>
+<div class="grid" id="gGrid"></div>
+<p class="note" style="margin-top:20px">Phase 1 of the MPD modernisation, 20 Nov 2026. The full written documentation is in README.md. No personal data appears in this handbook.</p>
+</div></section>
+
+<script>
+{
+const $=s=>document.querySelector(s);
+const roles=[
+{id:'owner',side:'c',name:'NRI owner',sub:'owners table',login:'Link from inquiry, email OTP',does:['Sends an inquiry, then registers with KYC (PAN, Aadhaar, ID proof)','Adds property details, photos, videos and documents','Picks a plan and pays the site-visit charge','Gets a payment link for the final plan price'],note:'After paying, the owner is copied into the customers table.'},
+{id:'cust',side:'c',name:'Customer',sub:'customers table',login:'/login',does:['Dashboard of properties and upcoming plan services','Books add-on services and buys extra plan quantity','Gives the start and end OTP to the worker on site','Chats about a job, rates it, and sees agreements'],note:'Either an owner who has paid, or a buyer assigned by a project owner.'},
+{id:'proj',side:'c',name:'Project owner',sub:'owners.project_owner = 1',login:'Created by admin',does:['Builder or developer with many units under one parent property','Assigns customers to units and uploads their documents','Buys legal and other services for the project'],note:'Payments in this flow are marked paid without going through Razorpay.'},
+{id:'admin',side:'s',name:'Super admin',sub:'admins · type 1',login:'/admin/login',does:['Sets up masters: cities, pincodes, property types, units, services, plans','Prices site visits, plans and services per pincode','Runs site visits, sends payment links, assigns providers','Reports on revenue sharing, response time and ratings']},
+{id:'mf',side:'s',name:'Master franchise',sub:'admins · type 10 · 3 users',login:'/admin/login',does:['Regional partner that owns a set of cities and pincodes','Manages the franchises below it','Uploads KYC and contract documents for approval']},
+{id:'fr',side:'s',name:'Franchise',sub:'admins · type 9 · 5 users',login:'/admin/login',does:['Local partner under a master franchise','Sees the providers, jobs and customers in its area']},
+{id:'sp',side:'s',name:'Service provider',sub:'admins · type 11 · 13 users',login:'/admin/login (self-registers)',does:['Vendor company that gets jobs matched by pincode','Accepts jobs, sets the date and time, assigns a worker','Marks jobs "Completed By Service Provider"']},
+{id:'sw',side:'s',name:'Service worker',sub:'admins · type 12 · 18 users',login:'/admin/login',does:['Field technician who visits the property','Requests and checks the customer’s start OTP','Uploads before and after photos, adds extra work or material cost','Closes the job with the end OTP']}
+];
+const node=r=>`<button class="node" data-r="${r.id}" aria-pressed="false">${r.name}<small>${r.sub}</small></button>`;
+$('#custNodes').innerHTML=roles.filter(r=>r.side=='c').map(node).join('');
+$('#staffNodes').innerHTML=roles.filter(r=>r.side=='s').map(node).join('');
+function showRole(id){const r=roles.find(x=>x.id==id);document.querySelectorAll('.node').forEach(n=>{const on=n.dataset.r==id;n.classList.toggle('on',on);n.setAttribute('aria-pressed',on)});
+$('#roleDetail').innerHTML=`<h3>${r.name}</h3><span class="pill">Signs in: ${r.login}</span><ul>${r.does.map(d=>`<li>${d}</li>`).join('')}</ul>${r.note?`<p class="note">${r.note}</p>`:''}`}
+document.querySelectorAll('.node').forEach(n=>n.addEventListener('click',()=>showRole(n.dataset.r)));
+showRole('owner');
+
+const journey=[
+['Inquiry','Owner','Fills in the website inquiry form: name, phone, email, documents, and a convenient day and time.','inquiry','WhatsApp “inquiry_template” + email · admin notification','/inquiry'],
+['Register','Owner','Opens their personal link, verifies an email OTP and adds KYC: PAN, Aadhaar, ID proof, address.','owners','WhatsApp “owner_otp” + email','/owner_index/{inquiry}'],
+['Property','Owner','Chooses the property type and sub-type. The form fields come from the Property Master for that pincode. Adds area, rooms, building age, photos and videos.','o_properties','—','/owners/property'],
+['Choose plan','Owner','Sees the plans and prices for their pincode and picks one.','o_properties.selected_plan','—','/owners/plan'],
+['Site-visit fee','Owner','Pays the pincode’s site-visit charge through a Razorpay payment link.','transactions','“service_payment_success” on return','/owners/site'],
+['Site visit','Admin → worker','Admin assigns a worker, who inspects the property and fills in a condition report. The system generates a PDF.','site report (PDF)','Email to admin','/sitevisit/{…}'],
+['Final pricing','Admin','Admin updates the property with real photos and area, then sets the final plan price and first-time services.','o_properties.plans_price, first_time_services','—','/admin/sitevisit/{id}/edit'],
+['Payment link','Admin → owner','Admin sends the plan payment link.','transactions','WhatsApp “customer_plan_payment_link” + email','/admin/send-mail/{id}/{sp}'],
+['Activation','System','After payment, the owner is copied into customers, one job is created per included service and recurrence, and login details are sent.','customers, service_purchases, customer_plans','WhatsApp “customer_register” + password email','/plan-payment-successfull/{id}/{plan}'],
+['Customer life','Customer','Logs in to follow services, book add-ons, extend plans, chat, see agreements and rate jobs.','service_purchases, messages','Reminders (stored but not actually sent)','/profile']
+];
+let ji=0;
+$('#jSteps').innerHTML=journey.map((j,i)=>`<button role="tab" data-i="${i}">${i+1}. ${j[0]}</button>`).join('');
+function showJ(i){ji=i;const j=journey[i];document.querySelectorAll('#jSteps button').forEach(b=>{const on=+b.dataset.i==i;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});
+$('#jPanel').innerHTML=`<div><h3>${i+1}. ${j[0]}</h3><p>${j[2]}</p></div><div class="kv"><div><b>Who acts</b>${j[1]}</div><div><b>Data written</b><code>${j[3]}</code></div><div><b>Messages sent</b>${j[4]}</div><div><b>Screen / route</b><code>${j[5]}</code></div></div>`;
+$('#jPrev').disabled=i==0;$('#jNext').textContent=i==journey.length-1?'Start again':'Next step'}
+document.querySelectorAll('#jSteps button').forEach(b=>b.addEventListener('click',()=>showJ(+b.dataset.i)));
+$('#jNext').addEventListener('click',()=>showJ((ji+1)%journey.length));
+$('#jPrev').addEventListener('click',()=>showJ(Math.max(0,ji-1)));
+showJ(0);
+
+const states=[
+['Pending','Created when a plan is paid or a service is booked. Waiting for a service provider.','System',64],
+['Accepted','The service provider accepts the job in Service Acceptance, then sets the date and time and assigns a worker.','Service provider',9],
+['OTP Requested','On site, the worker asks for the start OTP, which goes to the customer by WhatsApp and email.','Worker',0],
+['OTP Verify','The customer reads out the OTP and the worker enters it. A hard-coded master OTP can also be used, which records “Static OTP Verify”. That is a security gap.','Worker + customer',0],
+['Service Started','The worker uploads before photos and works through the service’s dynamic pages.','Worker',0],
+['Process','Extra work or material was needed. A payment link goes to the customer, and the job waits until it is paid or skipped.','Worker → customer',0],
+['End OTP sent','The worker uploads after photos and requests the end OTP.','Worker',0],
+['Completed by worker','The end OTP is verified.','Worker + customer',1],
+['Completed by provider','The service provider confirms the job is done. Most finished jobs stop at this status.','Service provider',111],
+['Service Completed','Final close-out. The customer rates the job from 1 to 5 and can add a comment.','Admin / customer',8]
+];
+let si=0,timer=null;
+$('#lane').innerHTML=states.map((s,i)=>`<button class="st" data-i="${i}">${s[0]}</button>${i<states.length-1?'<span class="ar" aria-hidden="true">→</span>':''}`).join('');
+function showS(i){si=i;const s=states[i];document.querySelectorAll('.st').forEach(b=>b.classList.toggle('on',+b.dataset.i==i));
+$('#sPanel').innerHTML=`<div><h3>${s[0]}</h3><p>${s[1]}</p></div><div class="kv"><div><b>Who acts</b>${s[2]}</div><div><b>Jobs currently at this status</b>${s[3]||'—'}</div><div><b>Stored as</b><code>service_purchases.service_status</code> (free text)</div></div>`}
+document.querySelectorAll('.st').forEach(b=>b.addEventListener('click',()=>{stop();showS(+b.dataset.i)}));
+function stop(){clearInterval(timer);timer=null;$('#play').textContent='Play the lifecycle'}
+$('#play').addEventListener('click',()=>{if(timer){stop();return}$('#play').textContent='Pause';timer=setInterval(()=>{if(si>=states.length-1){stop();return}showS(si+1)},1800)});
+$('#reset').addEventListener('click',()=>{stop();showS(0)});
+showS(0);
+
+const mods=[
+['Dashboard & notifications','Totals and an in-app notification feed.','/admin, /admin/notification'],
+['User master & roles','Create staff of any type. Spatie roles: 6 roles, 90 permissions.','usermaster, roles, admins'],
+['Master franchise & franchise','Partner records, KYC and bank details. Contracts are approved or rejected.','masterfranchise, franchise, document-contract'],
+['Service catalogue','13 categories, 68 sub-categories, 293 services. Flags for legal, site-visit-required and lump-sum.','services-category, services-subcategory, services'],
+['Service rates per pincode','Rates for service × pincode × area unit. Excel import.','service-pincode-rates/{id}'],
+['Workflow page builder','Ordered pages and typed inputs per service. This drives the worker and legal screens.','service/page/{id}, services/input'],
+['Reminders & suggestions','Reminder rules (hours before) and follow-up service suggestions per service.','service/notification, service/suggestion'],
+['Service providers & workers','Vendors and technicians: police verification, agreement, bank details, status on or off.','serviceprovider, serviceworker'],
+['Service purchase (jobs)','The job board: assign provider, worker and date; before/after documents; extras; OTP screens.','service-purchase/*, start-service'],
+['Service acceptance','Where providers accept incoming jobs.','service-acceptance'],
+['Site visit','Pre-onboarding inspection, final pricing and sending the payment link.','sitevisit, send-mail'],
+['Customers','Customer view, properties, calendar of services, documents.','customers/*'],
+['Property owner onboarding','Admin-side onboarding of owners and project owners, multi-unit properties, legal services.','owner-and-propery/*, property-owner'],
+['City & pincode master','Pincodes with area, plan prices and site-visit charge. Import and export.','pincode, pincodeimport'],
+['Property master','Property types → sub-types → parameters → options, with per-pincode configuration.','propertymaster, propertyconfiguration'],
+['Units','sq ft, sq m, guntha, acre, bigha, cent and more.','unit'],
+['Subscription plans','Plans, included services with recurrence, free services, quantity discounts.','plan, plan/service, free-plan-service'],
+['Coupons','Discount codes per plan and state. Never used.','coupon'],
+['Agreements','Upload agreements and assign them up or down the partner hierarchy.','agreement*'],
+['Leads','Website inquiries, contact form, get-in-touch, newsletter.','inquiry, contact, get-in-touch'],
+['Messages','Chat per job between the customer and the partner chain, over Pusher.','messages, openchat'],
+['Reports','Revenue sharing, response time, service ratings.','revenue-sharing, response-time, service-rating'],
+['Tenants & testimonials','Built, but no data has ever been entered.','tenant, testimonial'],
+['IT support & tickets','Internal and support tickets with replies.','itsupport, supportticket']
+];
+function drawM(){const q=$('#mSearch').value.trim().toLowerCase();const list=mods.filter(m=>m.join(' ').toLowerCase().includes(q));
+$('#mGrid').innerHTML=list.map(m=>`<div class="card"><h3>${m[0]}</h3><p>${m[1]}</p><code>${m[2]}</code></div>`).join('');$('#mEmpty').hidden=list.length>0}
+$('#mSearch').addEventListener('input',drawM);drawM();
+
+const data=[
+['Identity','admins (all staff), owners, customers, tenants. 5 more tables are empty leftovers.'],
+['Access control','roles, permissions and their link tables (Spatie).'],
+['Geography','state, district, cities, pincodes, assign_pincodes (pincodes stored as comma text), m__cities, m__pincodes.'],
+['Property','o_properties (45 columns, several JSON blobs), images, videos, property masters, parameters, options, pincode configuration, units.'],
+['Catalogue & pricing','service categories and sub-categories, services, service_pincode_rates, plans, plan_services, plan_discounts, customer_plans, coupons.'],
+['Workflow engine','pages, page_inputs, service_notifications, suggestion_services.'],
+['Jobs','service_purchases: about 50 columns covering OTPs, timestamps, extras, files, rating and page_data JSON.'],
+['Money','transactions (amount and date stored as text), payment_details, webhook_responses (empty).'],
+['Comms','notifications, messages, message_conversations, support_tickets, inquiry, get_in_touches.']
+];
+$('#dGrid').innerHTML=data.map(d=>`<div class="card"><h3>${d[0]}</h3><p>${d[1]}</p></div>`).join('');
+
+const issues=[
+['Critical','Passwords stored in plain text for all owners and nearly all staff, and copied to customers','owners / admins / customers.pass_view'],
+['Critical','A public URL activates a plan and records “paid” without any payment check','GET /plan-payment-successfull/{id}/{plan}, /testing/{id}/{plan}'],
+['Critical','Payment success is trusted from the browser’s return URL. Razorpay signatures are never verified','returnUrl handlers, webhook trait'],
+['Critical','Extra-service payments are marked paid without ever reaching the gateway','PaymentLinkTrait, /service-purchase/payment/{id}'],
+['Critical','A hard-coded master OTP starts a job without the customer','ServiceStartController'],
+['Critical','A payment key and the WhatsApp token are in source code. Rotate both','Admin/HomeController.php, config/app.php'],
+['Critical','A database dump with personal data and a DB admin tool are committed to git','database/*.sql, adminer.php'],
+['Critical','KYC documents (PAN, Aadhaar) are downloadable without login','routes/fetch.php, files under public/'],
+['Critical','Owner onboarding routes have no auth middleware','routes/owner.php'],
+['Critical','Debug leftovers in production: session-flush route, stack traces shown','/fue, error pages'],
+['Critical','Uploads accept any file type, including executables','Most admin forms'],
+['Architecture','Identity split across 3 logins and 5+ tables. Owner records are duplicated into customers','Data drifts, hard to build a mobile login'],
+['Architecture','Only 9 foreign keys. Varchar IDs, comma lists, money as text, JSON blobs for core data','Integrity bugs, slow reporting'],
+['Architecture','Job status is free text with no state machine','Inconsistent statuses'],
+['Architecture','Controllers up to 1,500 lines. Payment logic copied about 8 times','Fixes don’t reach every copy'],
+['Architecture','The reminder scheduler only flips a flag and never sends anything','Customers miss services'],
+['Architecture','Not NRI-ready: +91 only, INR only, no time zones','Owners abroad miss WhatsApp messages'],
+['Architecture','No API, so a mobile app cannot be built on it','Needs a new backend'],
+['Architecture','129 of 161 transactions stuck at “pending”. No reconciliation','Unclear revenue'],
+['Architecture','Deploy is a bare git pull. Migrations don’t match the live schema','Risky releases'],
+['Architecture','Validation missing in many forms','Bad data'],
+['Architecture','Dead code and empty modules (demo, unused, tenants, coupons)','Confusion'],
+['Architecture','Schema typos (frist_name, refrence_id, configration…)','Carried into every query'],
+['Architecture','Test data in production (test plan, test property type)','Wrong prices shown'],
+['QA','Agreement: upline dropdown shows “no user role found”','High'],['QA','Service purchase detail has no back navigation','Medium'],['QA','Messages 404 shows backend code','High'],['QA','Duplicate service category names allowed','Medium'],['QA','Sub-category: empty required fields refresh the page silently','High'],['QA','Add service: description required but empty accepted','Medium'],['QA','Add service: any file type accepted as an image','High'],['QA','Franchise edit: weak input and file validation','Medium'],['QA','Master franchise: any document type accepted','High'],['QA','Service provider: executables accepted','High'],['QA','Tenant: no validation','High'],['QA','Customer calendar exposes backend code','High'],['QA','Service worker create throws an error','High'],['QA','Property owner: no image requirement, any file type','High'],['QA','IT support: wrong bank-detail validation','Medium'],['QA','Testimonials: empty required fields accepted','Medium']
+];
+let f='All';const types=['All','Critical','Architecture','QA'];
+$('#iFilters').innerHTML=types.map(t=>`<button data-t="${t}">${t} (${t=='All'?issues.length:issues.filter(i=>i[0]==t).length})</button>`).join('');
+function drawI(){document.querySelectorAll('#iFilters button').forEach(b=>{b.classList.toggle('on',b.dataset.t==f);b.setAttribute('aria-pressed',b.dataset.t==f)});
+$('#iBody').innerHTML=issues.filter(i=>f=='All'||i[0]==f).map(i=>`<tr><td><span class="pill ${i[0]=='Critical'?'crit':''}">${i[0]}</span></td><td>${i[1]}</td><td>${i[2]}</td></tr>`).join('')}
+document.querySelectorAll('#iFilters button').forEach(b=>b.addEventListener('click',()=>{f=b.dataset.t;drawI()}));drawI();
+
+const gloss=[['NRI','Non-Resident Indian: the main customer, who owns property in India but lives abroad.'],['MF / F','Master franchise and franchise: regional and local partners who own territories of pincodes.'],['SP / SW','Service provider (vendor company) and service worker (technician).'],['Service purchase','One job: a single service delivery on a property.'],['Plan','A subscription bundle of recurring services, priced per pincode.'],['Site visit','The paid first inspection that sets the final plan price.'],['Project owner','A builder with many units who assigns buyers (customers) to them.'],['Page / page input','Admin-defined workflow screens and fields for a service.'],['Start / end OTP','One-time codes the customer gives the worker to prove the visit started and ended.'],['Waybook','The code’s name for the Razorpay webhook.']];
+$('#gGrid').innerHTML=gloss.map(g=>`<div class="card"><h3>${g[0]}</h3><p>${g[1]}</p></div>`).join('');
+}
+</script>
+</body>
+</html>

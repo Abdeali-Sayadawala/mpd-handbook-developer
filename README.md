@@ -32,4 +32,5 @@ Scaffold created 20-Nov-2026. Roadmap: Updated at the end of every milestone.
 - `index.html`: architecture overview (system map, modules, job states, payments, vault, franchise model, cost, roadmap).
 - `status.html`: what is built today, how to run it, backend modules, flows, rules the tests enforce, screens, hierarchy and dispatch, operating the console, what is next.
 Update `status.html` at the end of every milestone step, together with `docs/architecture/progress.md` and the repo CLAUDE.md files.
-
+- `docs/`: **all project documentation, in Git**: `architecture/` (spec, customers-and-pricing, admin-hierarchy-and-dispatch, progress, interactive handbook), `legacy/` (the old app), `seed/` (the 293-service catalogue). Open `docs/view.html` to read the markdown files as web pages (needs a local server, for example `npx serve .`).
+- `workspace/`: the workspace-root `CLAUDE.md` and `README.md`, `NEW-MACHINE.md` (continue from any machine) and `setup.ps1` (clones the other repos).
