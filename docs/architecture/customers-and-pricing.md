@@ -115,12 +115,38 @@ input:  service, property (→ pincode, built-up area), quantity (if the rate ty
 - The client never sends a price. The order stores the whole quote as a snapshot (`order_lines`).
 - **Plans** (bundles) keep `plan_prices` per pincode in the same way.
 
-### 4.4b Plans and subscriptions (BUILT, M3.3b)
-- **Plans are admin-made.** A plan has a name, descriptions, a duration in months, an on/off switch, and a list of services with a number of **visits** each. Its price is set per pincode (with a default) in the same dated price books as service prices (`plan_prices`).
-- **Buying:** a customer chooses a plan for a property. The server prices it, creates an order of purpose PLAN with one plan line, and a **subscription** that waits for payment. The subscription keeps a snapshot of the plan (visits per service and duration), so later edits never change it.
-- **Life cycle:** PENDING_PAYMENT → ACTIVE when the order is paid (starts that day in India, ends on the day before the same date `duration` months later) → EXPIRED after its last day. Cancelling the unpaid order cancels it.
+### 4.4b Plans and subscriptions (BUILT, M3.3b; pricing rule changed by the owner on 21-Nov-2026)
+**A plan has no typed-in price. Its price is calculated for each property** from the services in it.
+
+An admin makes a plan: a name, descriptions, a duration in months, an on/off switch, **a list of services**, and for each service
+- **how many times it is done during the plan** (its **recurrence**, `visits`, 1 to 100) and an optional note such as "every 3 months";
+- **how many units each time**, only for a service charged per hour, day, visit… (`quantity_per_visit`);
+- an optional **discount percent on that service** (0 to 99.99);
+
+plus an optional **discount percent on the whole plan**.
+
+**Calculation** (`PricingService.quotePlan`, server-side, whole paise, every step rounded half up):
+```
+for each service in the plan:
+    one visit  = the service's own price for this property (4.4):
+                   lump sum              -> the amount
+                   per area              -> the property's area, converted to the rate's unit, x the amount
+                   per hour/day/visit... -> the quantity set in the plan x the amount
+                 with the service's minimum charge applied to ONE visit
+    gross      = one visit x visits
+    discount   = gross x the service's discount %
+    net        = gross - discount
+subtotal       = sum of the nets
+plan discount  = subtotal x the plan's discount %
+TOTAL          = subtotal - plan discount
+```
+- A plan made **only of lump-sum services has a fixed price** everywhere. Services charged by size make the price follow the property.
+- The plan is sold at a property **only if every service in it can be priced there** (a price in that pincode or a default, the property area known where a service is priced by area). A switched-off service blocks the plan until it is back on or removed. A missing property area is reported to the customer (the plan is shown with that note). A service that is "not bookable online" is allowed inside a plan, because an admin put it there on purpose.
+- Admins see the result with **"Try a price"**: choose a pincode and a size and read the full breakdown (`POST /v1/admin/plans/:id/estimate`).
+- **Buying:** the customer chooses a plan for a property and sees the same breakdown. The order (purpose PLAN, one plan line) keeps the **whole breakdown** as its snapshot, and a **subscription** is created that waits for payment with entitlements copied from the plan (visits per service). Later edits to the plan, a service price or a discount never change what was bought.
+- **Life cycle:** PENDING_PAYMENT → ACTIVE when the order is paid (starts that day in India, ends the day before the same date `duration` months later) → EXPIRED after its last day. Cancelling the unpaid order cancels it.
 - **Entitlements** (`total`, `used`) count the visits left per service. They are used up when a job is requested (M5).
-- Same **purchaser rule** as orders (both directions) and a duplicate warning if the same plan already runs.
+- Same **purchaser rule** as orders (both directions) and a duplicate warning if the same plan already runs on the property.
 - Customers can still **buy any service on demand** without a plan.
 - Not built: member discounts on add-on services (the legacy quantity discounts).
 

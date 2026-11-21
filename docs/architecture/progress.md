@@ -2,7 +2,7 @@
 
 Last updated: 21-Nov-2026 (after M3.3b plans and subscriptions). Branch `develop` in every repo. Update this file at the end of every milestone step, together with the two handbooks and the repo `CLAUDE.md` files.
 
-**Size today:** 169 API endpoints, 14 database migrations, 292 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
+**Size today:** 167 API endpoints, 15 database migrations, 301 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
 
 ## Milestones
 
@@ -17,7 +17,7 @@ Last updated: 21-Nov-2026 (after M3.3b plans and subscriptions). Branch `develop
 | M3.1 Rate types and prices by pincode | Rate types, price books (draft, publish, retire), prices per pincode, default, minimum charge | ✅ |
 | M3.2 Quotes | `PricingService` and `POST /v1/quotes` | ✅ |
 | M3.3 Orders | Orders with purchaser control, duplicate warning, quote snapshots, offers (what a customer can buy), staff queue | ✅ |
-| M3.3b Plans and subscriptions | Admin-made plans (services with visits, months, price per pincode), subscriptions with entitlements, property history across owners | ✅ (member discounts on add-on services not built) |
+| M3.3b Plans and subscriptions | Admin-made plans: services with recurrence, per-service and whole-plan discounts; the price is calculated per property; subscriptions with entitlements; property history across owners | ✅ (member discounts on add-on services not built) |
 | M3.4 Offline payments | Maker-checker; the only way an order becomes PAID | planned |
 | M5.0 Providers and workers choose services | See [admin-hierarchy-and-dispatch.md](admin-hierarchy-and-dispatch.md) | planned |
 | TOTP two-step login | Moved to **M9**, a hard gate before real data or money | deferred |
@@ -30,7 +30,7 @@ Last updated: 21-Nov-2026 (after M3.3b plans and subscriptions). Branch `develop
 | `health` | Liveness and readiness | |
 | `masters` | States, cities, districts, pincodes (area names, switched on/off), area units, property types and their questions. Public and admin | states, cities, pincodes, area_units, property_types, property_attributes |
 | `orgs-territory` | Organisation tree, territories (named groups of pincodes), staff invites and members, the availability rule (a pincode is available when switched on AND an active, staffed provider covers it), coverage screens | organisations, territories, territory_pincodes, staff_invites |
-| `catalogue` | Categories, sub-categories, services, public catalogue, revalidation of the website; **pricing admin** (rate types, price books, prices by pincode) and **`PricingService` / quotes / offers**; **plans (admin) and plan prices** | service_categories, service_sub_categories, services, rate_types, price_books, service_prices, plans, plan_items, plan_prices |
+| `catalogue` | Categories, sub-categories, services, public catalogue, revalidation of the website; **pricing admin** (rate types, price books, prices by pincode) and **`PricingService` / quotes / offers**; **plans (admin) and the plan price calculation** | service_categories, service_sub_categories, services, rate_types, price_books, service_prices, plans, plan_items |
 | `content` | Homepage blocks, FAQs, testimonials, team, with revalidation | content_blocks, faqs, testimonials, team_members |
 | `customers-properties` | Customer profile and kind, properties, property parties (owner history), **projects and units**, staff customer views | customers, properties, property_parties, projects |
 | `vault` | Documents (folders, versions, locks), 5-minute file links, share links, access log; `Storage` and `VirusScanner` ports | folders, documents, document_versions, document_shares, document_access_log |
@@ -44,7 +44,7 @@ Not built yet: payments, onboarding, jobs (so visits cannot be used up yet), mes
 ## Frontend (`mpd-frontend`)
 
 - **Customer portal:** `/dashboard`, `/properties` (+new, +[id], +[id]/services to buy), `/orders`, `/properties/[id]/plans`, `/properties/[id]/history`, `/documents` (vault), `/kyc`, `/projects` (+[id], +units/new, for project owners only), `/profile`. Auth: `/login`, `/signup`, `/verify`, `/forgot-password`, `/reset-password`. Public: `/owner-invite`, `/files/<token>`, `/shared/<token>`.
-- **Staff console (`/admin/...`):** login, forgot/reset, accept-invite; dashboard, customers (+detail, set up as project owner), KYC review, owner registrations, orders, catalogue, pricing (service prices, plans, price lists, rate types), content (homepage text, team, FAQs, testimonials), organisations, staff, masters.
+- **Staff console (`/admin/...`):** login, forgot/reset, accept-invite; dashboard, customers (+detail, set up as project owner), KYC review, owner registrations, orders, catalogue, pricing (service prices, plans with a "try a price" tool, price lists, rate types), content (homepage text, team, FAQs, testimonials), organisations, staff, masters.
 - Menus are filtered by role (cosmetic; the backend decides).
 
 ## Website (`mpd-global`)
@@ -59,7 +59,7 @@ Homepage sections read content blocks, catalogue, team, FAQs and testimonials fr
 - A price is only ever computed on the server; extra price fields in a request are rejected.
 - Whole paise only; half-up rounding; draft and retired price lists never used.
 - **Purchaser control:** either the property owner or the project owner may buy; only the purchaser can change what they bought, in both directions; the other party sees it exists but not its price; strangers get 404; ops can cancel with a recorded reason. A change of owner does not take over earlier purchases.
-- **Plans** are made and priced by admins, never fixed in code. A subscription keeps what it was sold with (visits per service, duration); it starts when its order is paid, ends after its last day, and is cancelled with its unpaid order. Same purchaser rule as orders.
+- **Plans** are made by admins, never fixed in code, and **have no typed-in price**: the price is calculated per property from each service's own price x how many times it is done, less service and plan discounts (rounded half up to the paisa). A plan of only lump-sum services is fixed. The order keeps the whole breakdown; a subscription keeps its visits, starts when its order is paid, ends after its last day, and is cancelled with its unpaid order. Same purchaser rule as orders.
 - **Property history** (`GET /v1/properties/:id/history`) belongs to the property, not the owner: orders, plans and ownership changes stay when the owner changes. A new owner sees them without the previous owner's name or prices. Jobs, reports and photos join it in M5; their files must belong to the property (not to one owner's vault) so a new owner can open them.
 - An order stores its full quote; later price changes never alter it. An order becomes PAID only through the payments step (`markPaid`).
 - Every change is audited.

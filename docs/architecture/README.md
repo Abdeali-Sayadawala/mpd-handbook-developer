@@ -184,7 +184,7 @@ checklist_templates(id, service_id, version, steps jsonb, published_at)    -- fi
 rate_types(id, code unique, name, basis enum[LUMP_SUM, PER_AREA, PER_QUANTITY], unit_label, area_unit_id null, min_quantity, max_quantity, quantity_step, is_active, sort)
 price_books(id, name, status enum[DRAFT, PUBLISHED, RETIRED], valid_from, valid_to)
 service_prices(id, price_book_id, service_id, pincode_id null = default, amount_paise, min_charge_paise null, is_active) -- unique (book, service, pincode)
-plans(id, name, duration_months, active) ; plan_items(plan_id, service_id, visits int, is_free) ; plan_prices(plan_id, pincode_id null, amount_paise)
+plans(id, name, slug, duration_months, discount_percent, sort, is_active) ; plan_items(plan_id, service_id, visits int, quantity_per_visit null, discount_percent, frequency_note)   -- the plan price is CALCULATED per property from the services' own prices (customers-and-pricing.md §4.4b); there is no plan price table
 discounts(id, scope, rule jsonb, starts_at, ends_at)
 
 subscriptions(id, customer_id, property_id, purchased_by_customer_id, payer_customer_id, plan_id, starts_on, ends_on, status, order_id)   -- only the purchaser may change it (§4.2)
