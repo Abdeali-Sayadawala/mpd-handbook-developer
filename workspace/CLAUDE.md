@@ -61,7 +61,7 @@ Full legacy detail: `mpd-handbook-developer/docs/legacy/README.md`. Full target 
 - `mpd-handbook-developer/docs/architecture/admin-hierarchy-and-dispatch.md`: roles, areas (pincodes), services a provider offers, how a request reaches providers (open pool, first accept wins), what each level sees.
 - `mpd-handbook-developer/docs/architecture/progress.md`: what is built today (modules, routes, rules enforced by tests, known gaps).
 - `mpd-handbook-developer/docs/legacy/README.md`: the old system and its problems.
-- `mpd-handbook-developer/` and `mpd-handbook/`: the two HTML handbooks (developer / user guide).
+- `mpd-handbook-developer/` (private, read from GitHub or locally) and `mpd-handbook/` (public user guide, live at https://abdeali-sayadawala.github.io/mpd-handbook/ via GitHub Pages; never put internal material in it): the two HTML handbooks.
 
 ## Admin hierarchy and job dispatch (described by the owner 21-Nov-2026; full text in `mpd-handbook-developer/docs/architecture/admin-hierarchy-and-dispatch.md`)
 - **Super admin** (owner) → **Master franchise** (one city) → **Franchise** (an area inside the city) → **Service provider** (contractor, one or many workers, many services, many areas) → **Service worker**. Invites: admin/ops → MF → (franchise →) provider → worker. A higher role manages only its own branch.
