@@ -82,7 +82,7 @@ td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 <script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
 </head>
 <body>
-<nav class="scroll" aria-label="Sections"><a href="#map">System map</a><a href="#modules">Modules</a><a href="#jobs">Job states</a><a href="#pay">Payments</a><a href="#vault">Document vault</a><a href="#franchise">Franchise</a><a href="#cost">Hosting cost</a><a href="#road">Roadmap</a></nav>
+<nav class="scroll" aria-label="Sections"><a href="#map">System map</a><a href="#modules">Modules</a><a href="#jobs">Job states</a><a href="#pay">Payments</a><a href="#vault">Document vault</a><a href="#franchise">Franchise</a><a href="#cost">Hosting cost</a><a href="#road">Roadmap</a><a href="status.html">What is built →</a></nav>
 
 <section class="band" id="map"><div class="wrap hero">
 <div>
@@ -153,7 +153,7 @@ td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 <h2>Build roadmap: ten milestones, each one usable</h2>
 <p>Each milestone ends with something that works. Open one to see when it counts as done.</p>
 <div class="road" id="roadList"></div>
-<p class="note" style="margin-top:18px">Phase 2 draft v1, 20 Nov 2026. The full specification is in docs/new-system/README.md.</p>
+<p class="note" style="margin-top:18px">Updated 21 Nov 2026. ✓ done, ▶ in progress. Details of what exists: <a href="status.html">what is built</a>. The full specification is in docs/architecture/.</p>
 </div></section>
 
 <script>
@@ -238,7 +238,7 @@ $$('#pay .tog button').forEach(b=>b.addEventListener('click',()=>drawPay(b.datas
 const folders=[['Ownership','Sale deed, title, mutation, encumbrance certificate'],['Tax & utilities','Property tax, electricity, water receipts'],['Legal & agreements','Power of attorney, rent and lease, maintenance contracts'],['KYC','Masked Aadhaar, PAN, passport or OCI. Visible to ops only'],['Inspection reports','PDFs created automatically after each visit'],['Job evidence','Before and after photos with time and location'],['Invoices','Every payment’s GST-ready invoice'],['Custom','Folders the owner creates']];
 $('#vaultGrid').innerHTML=folders.map(f=>`<div class="card"><h3>${f[0]}</h3><p>${f[1]}</p></div>`).join('');
 
-const fr={now:`<div><h3>Launch model: the hierarchy you have today</h3><p>MPD → Master franchise → Franchise → Service provider → Field worker. It is stored as an organisation tree with territories, so the levels are data rather than code.</p><p>Commission percentages per level and service category live in a rules table. Earnings are calculated from every captured payment and paid out monthly.</p></div><div class="kv"><div><b>Job routing</b>Provider mapped to the pincode</div><div><b>Margins</b>Shared through 3 partner layers</div><div><b>Changing later</b>Configuration + data migration, no rebuild</div></div>`,
+const fr={now:`<div><h3>Launch model: the hierarchy you have today</h3><p>MPD → Master franchise (a city) → Franchise (an area in the city) → Service provider → Service worker. It is stored as an organisation tree with territories (named groups of pincodes), so the levels are data rather than code. A new request goes to an open pool: every provider who covers the pincode and offers the service can see it, and the first to accept gets it. The franchise and master franchise above can see it too. The provider then assigns one of its own workers. See <a href="status.html#org">hierarchy and dispatch</a>.</p><p>Commission percentages per level and service category live in a rules table. Earnings are calculated from every captured payment and paid out monthly.</p></div><div class="kv"><div><b>Job routing</b>Open pool: every eligible provider sees it, first to accept wins</div><div><b>Areas</b>Pincodes, grouped into named territories</div><div><b>Margins</b>Shared through 3 partner layers</div></div>`,
 pitch:`<div><h3>Proposal: city partner + open vendor network</h3><p>One <b>city partner</b> owns each territory: sales, quality checks and owner relationships. Any <b>verified vendor</b> in that territory can take jobs for the services they're approved for. Jobs are offered to the best-rated available vendor, who has to accept within the SLA.</p><p>Fewer layers taking a margin means lower prices for NRIs and faster response, and cities can be added one at a time.</p></div><div class="kv"><div><b>Job routing</b>Auto-offer by rating and availability</div><div><b>Margins</b>Platform fee + partner override + vendor payout per job</div><div><b>Pitch it when</b>2–3 cities are live and there are ratings data to show</div></div>`};
 function drawF(k){$$('#franchise .tog button').forEach(b=>{const on=b.dataset.f==k;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});$('#frOut').innerHTML=fr[k]}
 $$('#franchise .tog button').forEach(b=>b.addEventListener('click',()=>drawF(b.dataset.f)));drawF('now');
@@ -258,12 +258,12 @@ $('#verdict').textContent=inr>5000?`₹${(inr-5000).toLocaleString('en-IN')} ove
 $$('#costRows select').forEach(s=>s.addEventListener('change',calc));calc();
 
 const road=[
-['M0','Foundation','7 repos, shared CI/CD, SDK publishing, auth, roles, audit, deploy to Lightsail','A user can sign up and log in on web and mobile, and a push to main deploys safely.'],
-['M1','Masters, catalogue & website','Geography, franchise tree, territories, full service catalogue with admin editing, website homepage','Admin switches a service off and it disappears from the website within seconds.'],
-['M2','Customers, properties, vault','Profiles, masked KYC, properties and projects, document vault','An NRI adds a property and uploads a sale deed from the phone.'],
-['M3','Catalogue, pricing, orders','Services, price books, plans, offline payments (maker-checker), invoices','An approved payment for a plan creates a subscription and visit entitlements.'],
+['M0 ✓','Foundation','7 repos, shared CI/CD, SDK publishing, auth, roles, audit, deploy to Lightsail','A user can sign up and log in on web and mobile, and a push to main deploys safely.'],
+['M1 ✓','Masters, catalogue & website','Geography, franchise tree, territories, full service catalogue with admin editing, website homepage','Admin switches a service off and it disappears from the website within seconds.'],
+['M2 ✓','Customers, properties, vault','Profiles, masked KYC, properties and projects, document vault','An NRI adds a property and uploads a sale deed from the phone.'],
+['M3 ▶','Catalogue, pricing, orders','Rate types and pincode prices ✓, quotes ✓, then orders, subscriptions, offline payments (maker-checker), invoices','An approved payment for a plan creates a subscription and visit entitlements.'],
 ['M4','Onboarding','Inquiry → site visit → quotation → activation','The full NRI journey works end to end.'],
-['M5','Jobs & field app','Scheduling, checklist engine, OTPs, evidence, extras, inspection PDF','A worker finishes a job on mobile, and the owner abroad sees the report.'],
+['M5','Jobs & field app','Providers and workers choose services, open job pool with first-accept, scheduling, checklist engine, OTPs, evidence, extras, inspection PDF','A worker finishes a job on mobile, and the owner abroad sees the report.'],
 ['M6','Comms, reports, earnings','Notifications, chat, reminders, dashboards, partner earnings','Reminders arrive on time, and partners see their earnings.'],
 ['M7','Legal & professional','Intake form builder, professional job flow','Legal services can be bought and delivered in the app.'],
 ['M8','Online payments & WhatsApp','Payment gateway and WhatsApp/SMS, providers chosen then','A customer pays online and gets WhatsApp updates.'],

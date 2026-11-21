@@ -3,7 +3,7 @@
 A private HTML handbook for developers: how the 7 repos fit together, code structure, API contract (openapi.json) and generated clients, data model, state machines, deployment, runbooks and decisions (ADRs).
 
 ## Repo-specific rules
-- Update the handbook in the same week a milestone finishes.
+- Update the handbook in the same week a milestone finishes: `status.html` (what is built, how to run, rules, next) and the roadmap in `index.html`. Keep it in step with `../docs/architecture/progress.md`.
 - No secrets, no customer data, no production URLs with tokens.
 
 ## Rules that apply in every MPD repo

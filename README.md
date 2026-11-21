@@ -27,3 +27,9 @@ mpd-backend · mpd-frontend · mpd-mobile · mpd-global · mpd-infra · mpd-hand
 
 ## Status
 Scaffold created 20-Nov-2026. Roadmap: Updated at the end of every milestone.
+
+## Pages
+- `index.html`: architecture overview (system map, modules, job states, payments, vault, franchise model, cost, roadmap).
+- `status.html`: what is built today, how to run it, backend modules, flows, rules the tests enforce, screens, hierarchy and dispatch, operating the console, what is next.
+Update `status.html` at the end of every milestone step, together with `docs/architecture/progress.md` and the repo CLAUDE.md files.
+

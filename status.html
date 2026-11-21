@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MPD Next: what is built</title>
+<style>
+/* VOICE: a build log for the next developer; plain words, exact names.
+   IDEA: one page that says what exists today, how to run it, the rules the tests enforce, and what is next. */
+:root{color-scheme:light dark;--bg:light-dark(#eef7fa,#06222e);--card:light-dark(#fff,#0c3141);--ink:light-dark(#06222e,#e3f3f8);--mute:light-dark(#3d5a66,#9dbdc9);--line:light-dark(#b9dbe6,#1d4a5c);--acc:#ff2e7e;--acc2:light-dark(#0a6f8a,#5cc6e4);--chip:light-dark(#e3f1f6,#0f3a4c);--ok:light-dark(#0b7a4b,#6fe0aa)}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Inter,sans-serif;overflow-x:clip}
+h1,h2,h3{line-height:1.15;text-wrap:balance;margin:0 0 .4em}
+h1{font-size:clamp(30px,5vw,44px)}h2{font-size:clamp(24px,3.2vw,32px);margin-top:1.6em}h3{font-size:18px;margin-top:1.2em}
+p,li{max-width:74ch}
+a{color:var(--acc2)}
+.wrap{max-width:1100px;margin:0 auto;padding:clamp(20px,4vw,48px) max(5vw,16px)}
+nav.top{display:flex;gap:6px;flex-wrap:wrap;padding:10px max(5vw,16px);border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:5}
+nav.top a{text-decoration:none;color:var(--ink);font-size:14px;padding:8px 12px;border-radius:99px;border:1px solid var(--line)}
+.lede{font-size:18px;color:var(--mute)}
+.pill{display:inline-block;font-size:12.5px;padding:2px 10px;border-radius:99px;background:var(--card);border:1px solid var(--line);margin-right:4px;white-space:nowrap}
+.pill.ok{color:var(--ok);border-color:var(--ok)}.pill.next{color:#fff;background:var(--acc);border-color:var(--acc)}.pill.later{color:var(--mute)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin:.6em 0 1em;display:block;overflow-x:auto}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{font-size:12.5px;color:var(--mute);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+code,pre{font:13.5px/1.5 ui-monospace,Consolas,monospace;background:var(--chip);border-radius:6px}
+code{padding:1px 6px}
+pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.note{border-left:4px solid var(--acc);padding:8px 14px;background:var(--card);border-radius:0 10px 10px 0;margin:14px 0}
+:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Sections">
+<a href="index.html">← Architecture</a><a href="#progress">Progress</a><a href="#run">Run it</a><a href="#modules">Backend modules</a><a href="#rules">Rules enforced</a><a href="#screens">Screens</a><a href="#org">Hierarchy & dispatch</a><a href="#ops">Operating the console</a><a href="#next">Next</a>
+</nav>
+<main class="wrap">
+<h1>What is built, as of 21 Nov 2026</h1>
+<p class="lede">M0 to M2 and the first two steps of M3 are done. This page is the current state; the plan is on the <a href="index.html">architecture page</a>. The full written spec lives in <code>docs/architecture/</code> (README, customers-and-pricing, admin-hierarchy-and-dispatch, progress).</p>
+<p><span class="pill ok">146 endpoints</span><span class="pill ok">13 migrations</span><span class="pill ok">239 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
+
+<h2 id="progress">Progress</h2>
+<table>
+<tr><th>Step</th><th>What</th><th>State</th></tr>
+<tr><td>M0 Foundation</td><td>7 repos, CI templates, Docker dev DB, auth (OTP, password, refresh), roles, audit, Sentry</td><td><span class="pill ok">done</span> AWS deploy not applied until the client demo</td></tr>
+<tr><td>M1</td><td>Masters, organisations and territories, staff invites, 293-service catalogue with admin editing, website content, public website</td><td><span class="pill ok">done</span></td></tr>
+<tr><td>M2.1</td><td>Customer profile, properties with type-driven questions, availability per property</td><td><span class="pill ok">done</span></td></tr>
+<tr><td>M2.2</td><td>Document vault: folders, versions, 5-minute links, share links, access log</td><td><span class="pill ok">done</span> local disk, S3 later</td></tr>
+<tr><td>M2.3</td><td>KYC: masked identity numbers, vault-backed scans, staff review</td><td><span class="pill ok">done</span></td></tr>
+<tr><td>M2.4</td><td>Project owners, projects, units, owner registration with proof, ops review, invitation</td><td><span class="pill ok">done</span> claim-a-unit not built</td></tr>
+<tr><td>M3.1</td><td>Rate types, price books, prices per pincode</td><td><span class="pill ok">done</span></td></tr>
+<tr><td>M3.2</td><td>Quotes (<code>PricingService</code>, <code>POST /v1/quotes</code>)</td><td><span class="pill ok">done</span></td></tr>
+<tr><td>M3.3</td><td>Orders and subscriptions, purchaser control</td><td><span class="pill next">next</span></td></tr>
+<tr><td>M3.4</td><td>Offline maker-checker payments</td><td><span class="pill later">planned</span></td></tr>
+<tr><td>M5.0 and job pool</td><td>Providers and workers choose services; open job pool</td><td><span class="pill later">planned</span></td></tr>
+<tr><td>TOTP</td><td>Two-step login for super admin and ops</td><td><span class="pill later">deferred to M9, a hard gate before real data or money</span></td></tr>
+</table>
+
+<h2 id="run">Run it on a 16 GB Windows laptop</h2>
+<pre>
+# one time
+docker compose -f docker-compose.dev.yml up -d      # in mpd-backend: Postgres only
+pnpm install                                        # in each repo
+pnpm prisma migrate deploy && pnpm db:seed          # in mpd-backend (seed is safe to repeat)
+
+# every day (three terminals)
+mpd-backend   : pnpm dev          # API on :4000, Swagger at /docs
+mpd-frontend  : pnpm dev          # console + portal on :3000
+mpd-global    : pnpm dev -p 3001  # public website
+
+# checks
+mpd-backend   : pnpm lint && pnpm test:e2e && pnpm openapi:export
+mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
+</pre>
+<ul>
+<li><b>Dev admin:</b> the email and password come from <code>mpd-backend/.env</code> (<code>SEED_ADMIN_EMAIL</code>, <code>SEED_ADMIN_PASSWORD</code>). Staff sign in at <code>/admin/login</code>, customers at <code>/login</code>.</li>
+<li><b>Email is console-only.</b> Invitation and OTP emails appear in the API terminal.</li>
+<li><b>Change order:</b> backend, then <code>pnpm openapi:export</code>, then <code>pnpm api:generate</code> in the apps, then fix type errors.</li>
+<li><b>Windows gotchas:</b> stop the API before <code>prisma generate</code> (the engine file is locked). Do not run <code>pnpm build</code> in the frontend while its dev server runs. <code>prisma migrate dev</code> refuses enum changes without a terminal, so write the SQL by hand and run <code>migrate deploy</code>.</li>
+<li>Files uploaded in development go to <code>mpd-backend/.storage/</code> (git-ignored).</li>
+</ul>
+
+<h2 id="modules">Backend modules</h2>
+<table>
+<tr><th>Module</th><th>Does</th><th>Main tables</th></tr>
+<tr><td><code>identity</code></td><td>Signup with email OTP, login (separate customer and staff audiences), refresh, password reset, <code>Mailer</code> port</td><td>users, user_roles, otp_challenges, refresh_tokens</td></tr>
+<tr><td><code>masters</code></td><td>States, cities, pincodes (area names, on/off), area units, property types and questions</td><td>states, cities, pincodes, area_units, property_types, property_attributes</td></tr>
+<tr><td><code>orgs-territory</code></td><td>Organisation tree, territories (named groups of pincodes), staff invites, the availability rule</td><td>organisations, territories, territory_pincodes, staff_invites</td></tr>
+<tr><td><code>catalogue</code></td><td>Categories, services, public catalogue, website revalidation, <b>pricing admin</b>, <b><code>PricingService</code> and quotes</b></td><td>service_categories, services, rate_types, price_books, service_prices</td></tr>
+<tr><td><code>content</code></td><td>Homepage blocks, FAQs, testimonials, team</td><td>content_blocks, faqs, testimonials, team_members</td></tr>
+<tr><td><code>customers-properties</code></td><td>Customers, properties, owner history, projects and units</td><td>customers, properties, property_parties, projects</td></tr>
+<tr><td><code>vault</code></td><td>Documents, versions, locks, 5-minute links, share links, access log; <code>Storage</code> and <code>VirusScanner</code> ports</td><td>folders, documents, document_versions, document_shares, document_access_log</td></tr>
+<tr><td><code>kyc</code></td><td>Identity records and staff review</td><td>kyc_records</td></tr>
+<tr><td><code>assignments</code></td><td>Registering a property owner for a unit, review, invitation</td><td>property_assignments, assignment_documents</td></tr>
+</table>
+<div class="note"><b>Import direction (keeps modules free of cycles):</b> <code>vault</code> uses <code>customers-properties</code>. <code>kyc</code> and <code>assignments</code> use <code>vault</code> and <code>customers-properties</code>. <code>catalogue</code> uses <code>customers-properties</code>, <code>masters</code> and <code>orgs-territory</code>. Nothing imports <code>kyc</code> or <code>assignments</code>. A module never reads another module's tables; it calls that module's service.</div>
+
+<h3>Key flows</h3>
+<div class="grid">
+<div class="card"><b>Vault upload</b><p>Multipart upload, file type read from the bytes (PDF, JPG, PNG, HEIC, DOCX), 20 MB, SHA-256 de-dup per folder, scan, stored under a generated key. A document can be <i>locked</i> (<code>locked_reason</code>) while KYC or an owner registration relies on it. Opening a file is a 5-minute signed token; sharing is a hashed token with expiry and a view limit. Every view is logged.</p></div>
+<div class="card"><b>KYC</b><p>Customer uploads a scan to the KYC folder, then submits it with a number. Only a masked number is kept (Aadhaar: last 4 digits only; a full number is refused). Ops verify or reject with a reason. The customer is VERIFIED when any identity document is verified.</p></div>
+<div class="card"><b>Owner registration</b><p>Project owner (set up by ops) creates a project and units, registers an owner with details and proof, submits. Ops approve (or the project skips review) and an invitation email goes out (single use, 14 days, hash stored). The invited person sets a password or signs in, becomes the registered owner, and gets a copy of the proof. A change of owner is always reviewed and keeps history.</p></div>
+<div class="card"><b>Quote</b><p><code>POST /v1/quotes {serviceId, propertyId, quantity?}</code>. Checks: property active and visible to the caller, service active and bookable online, area available, a price exists (pincode price, else default, from the book live today in India). Lump sum = amount; per area = area converted to the rate's unit times the amount; per quantity checks min, max and step. Total = max(minimum, quantity × price), half-up to whole paise. Refusals are HTTP 422 with a <code>reason</code>.</p></div>
+</div>
+
+<h2 id="rules">Rules the tests enforce today</h2>
+<ul>
+<li>Another customer's property, document, KYC record or registration is <b>404</b>, never 403.</li>
+<li>Staff endpoints are limited by role (<code>@Roles</code>) and the org tree (<code>PolicyService</code>, roles read from the database on every call).</li>
+<li>OTPs, invitation tokens and share tokens are stored hashed. Passwords are argon2id.</li>
+<li>Only masked identity numbers are stored. Uploads are checked by contents.</li>
+<li>One active owner per property, also as a database partial unique index.</li>
+<li>A price is computed only on the server. Extra price fields in a request are rejected. Money is whole paise, exact decimals, half-up.</li>
+<li>Draft and retired price lists are never used. Published lists cannot be edited.</li>
+<li>Every change writes an audit event.</li>
+</ul>
+
+<h2 id="screens">Screens</h2>
+<table>
+<tr><th>Portal</th><th>Pages</th></tr>
+<tr><td>Customer (<code>/</code>)</td><td>dashboard, properties (+ new, edit), documents, KYC, projects (project owners), profile; login, signup, verify, forgot/reset password; <code>/owner-invite</code>; <code>/files/&lt;token&gt;</code>, <code>/shared/&lt;token&gt;</code></td></tr>
+<tr><td>Staff (<code>/admin</code>)</td><td>login, forgot/reset, accept-invite; dashboard, customers (+ detail), KYC review, owner registrations, catalogue, pricing, website content, organisations, staff, masters</td></tr>
+</table>
+<p>Menus are filtered by role in <code>src/lib/nav.ts</code>. That is only cosmetic; the backend is the real check.</p>
+
+<h2 id="org">Hierarchy, areas and job dispatch</h2>
+<p><b>Described by the owner on 21 Nov 2026.</b> The organisation tree is built; provider/worker service selection and the job pool are planned (M5). Full text: <code>docs/architecture/admin-hierarchy-and-dispatch.md</code>.</p>
+<ul>
+<li><b>Super admin</b> (owner) → <b>Master franchise</b> (one city) → <b>Franchise</b> (an area in that city) → <b>Service provider</b> (contractor with workers) → <b>Service worker</b>.</li>
+<li><b>Invites:</b> admin and ops invite master franchises; a master franchise invites franchises and providers; a franchise invites providers; a provider invites workers. Each level sees and manages only its own branch.</li>
+<li><b>Areas are pincodes</b>, grouped into named <i>territories</i>. Area names are labels. A child's pincodes must lie inside its parent's.</li>
+<li><b>Available to customers</b> = pincode switched on AND an active, staffed provider covers it.</li>
+<li><b>Planned dispatch:</b> a bought service becomes a request in an <b>open pool</b>. Every eligible provider (covers the pincode and offers the service) sees it, as do the franchise, master franchise and ops above. The first provider to accept wins (one atomic update). Upline can nudge. The provider then assigns one of its own workers who offers the service.</li>
+<li><b>Proposed, awaiting the owner's yes:</b> one master franchise per city, one franchise per pincode, many providers per pincode; upline can also assign directly; customer details hidden until accepted; an acceptance time limit with escalation.</li>
+</ul>
+
+<h2 id="ops">Operating the console (for the team)</h2>
+<ol>
+<li><b>Set up the network:</b> Organisations → add a master franchise, then franchises and providers under it; give each a territory (pincodes). Staff → invite the person (they get a link, choose a password).</li>
+<li><b>Open an area:</b> Masters → Pincodes → switch the pincode on. It only shows as available once an active, staffed provider covers it.</li>
+<li><b>Set up prices:</b> Pricing → Rate types (how things are charged). Price lists → New (or copy) a draft. Service prices → for each service choose how it is charged, set a default, a minimum and any pincode prices. Publish from a date.</li>
+<li><b>Review identity documents:</b> KYC review → open the scan, verify or reject with a reason.</li>
+<li><b>Builders and societies:</b> Customers → open the customer → "Set up as a project owner". They then create projects and register owners. You review each registration under Owner registrations and approve it; the owner gets an email invitation.</li>
+<li><b>Website content:</b> Website content and Catalogue. Saving updates the public site within seconds.</li>
+</ol>
+
+<h2 id="next">Next</h2>
+<ol>
+<li><b>M3.3</b> orders and subscriptions: who bought and who pays on every order, the purchaser-only change rule in both directions, a warning before buying something already bought for the property, the quote stored as a snapshot.</li>
+<li><b>M3.4</b> offline maker-checker payments.</li>
+<li><b>M5.0</b> providers and workers choose their services, then the job pool.</li>
+</ol>
+
+<h2>Known gaps</h2>
+<ul>
+<li>Email is console-only until the outbox and SES arrive (M6).</li>
+<li>The virus scanner is a no-op in development. ClamAV is required before production.</li>
+<li>Files are on local disk. S3 is added at the AWS step.</li>
+<li>GitHub Actions workflows are blocked until the <code>mpd-infra</code> repo allows other repos to call its workflows.</li>
+<li>The documentation folder <code>D:\MPDv2\docs</code> is not in a git repo. Back it up.</li>
+</ul>
+</main>
+</body>
+</html>
