@@ -47,6 +47,8 @@ Rules
 
 ## 3. Purchaser control: the party that bought a service controls it
 
+**Status (21-Nov-2026): BUILT for orders** (`PurchaserPolicy`, both directions, tested). Subscriptions, service requests and jobs will call the same policy when they are built.
+
 > **Either side can buy for the property. Whoever bought a service is the only one who can change it.**
 
 - **Who may buy or subscribe** for a property: its **property owner** (OWNER party) and the **project owner** of its project. Nobody else.
@@ -98,6 +100,8 @@ A **rate type** says *how a service is charged*. Admins create and edit them. Ex
 Prices live in a **price book** with `valid_from` / `valid_to`. A new book can be prepared in advance (draft → published) so a price change starts on a date without editing live prices. **Orders keep a snapshot** of the price they were sold at, so later changes never alter what was agreed.
 
 ### 4.4 How a price is worked out (`PricingService`, server-side only)
+
+**Status: BUILT** (`POST /v1/quotes`, `GET /v1/properties/:id/offers`, and orders re-price on the server).
 ```
 input:  service, property (→ pincode, built-up area), quantity (if the rate type asks for it), date
 1. service must be active, and the area must be available   (pincode switched on AND a provider present)

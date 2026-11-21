@@ -39,7 +39,7 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <main class="wrap">
 <h1>What is built, as of 21 Nov 2026</h1>
 <p class="lede">M0 to M2 and the first two steps of M3 are done. This page is the current state; the plan is on the <a href="index.html">architecture page</a>. The full written spec lives in <code>docs/architecture/</code> (README, customers-and-pricing, admin-hierarchy-and-dispatch, progress).</p>
-<p><span class="pill ok">146 endpoints</span><span class="pill ok">13 migrations</span><span class="pill ok">239 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
+<p><span class="pill ok">155 endpoints</span><span class="pill ok">12 migrations</span><span class="pill ok">268 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
 
 <h2 id="progress">Progress</h2>
 <table>
@@ -52,7 +52,8 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <tr><td>M2.4</td><td>Project owners, projects, units, owner registration with proof, ops review, invitation</td><td><span class="pill ok">done</span> claim-a-unit not built</td></tr>
 <tr><td>M3.1</td><td>Rate types, price books, prices per pincode</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M3.2</td><td>Quotes (<code>PricingService</code>, <code>POST /v1/quotes</code>)</td><td><span class="pill ok">done</span></td></tr>
-<tr><td>M3.3</td><td>Orders and subscriptions, purchaser control</td><td><span class="pill next">next</span></td></tr>
+<tr><td>M3.3</td><td>Orders with purchaser control, duplicate warnings, quote snapshots, offers, staff queue</td><td><span class="pill ok">done</span></td></tr>
+<tr><td>M3.3b</td><td>Plans and subscriptions (visit entitlements)</td><td><span class="pill next">next</span></td></tr>
 <tr><td>M3.4</td><td>Offline maker-checker payments</td><td><span class="pill later">planned</span></td></tr>
 <tr><td>M5.0 and job pool</td><td>Providers and workers choose services; open job pool</td><td><span class="pill later">planned</span></td></tr>
 <tr><td>TOTP</td><td>Two-step login for super admin and ops</td><td><span class="pill later">deferred to M9, a hard gate before real data or money</span></td></tr>
@@ -94,6 +95,7 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 <tr><td><code>vault</code></td><td>Documents, versions, locks, 5-minute links, share links, access log; <code>Storage</code> and <code>VirusScanner</code> ports</td><td>folders, documents, document_versions, document_shares, document_access_log</td></tr>
 <tr><td><code>kyc</code></td><td>Identity records and staff review</td><td>kyc_records</td></tr>
 <tr><td><code>assignments</code></td><td>Registering a property owner for a unit, review, invitation</td><td>property_assignments, assignment_documents</td></tr>
+<tr><td><code>orders</code></td><td>Orders and lines, the status machine, <code>PurchaserPolicy</code>, duplicate warnings, staff queue</td><td>orders, order_lines, order_events</td></tr>
 </table>
 <div class="note"><b>Import direction (keeps modules free of cycles):</b> <code>vault</code> uses <code>customers-properties</code>. <code>kyc</code> and <code>assignments</code> use <code>vault</code> and <code>customers-properties</code>. <code>catalogue</code> uses <code>customers-properties</code>, <code>masters</code> and <code>orgs-territory</code>. Nothing imports <code>kyc</code> or <code>assignments</code>. A module never reads another module's tables; it calls that module's service.</div>
 
@@ -102,6 +104,7 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 <div class="card"><b>Vault upload</b><p>Multipart upload, file type read from the bytes (PDF, JPG, PNG, HEIC, DOCX), 20 MB, SHA-256 de-dup per folder, scan, stored under a generated key. A document can be <i>locked</i> (<code>locked_reason</code>) while KYC or an owner registration relies on it. Opening a file is a 5-minute signed token; sharing is a hashed token with expiry and a view limit. Every view is logged.</p></div>
 <div class="card"><b>KYC</b><p>Customer uploads a scan to the KYC folder, then submits it with a number. Only a masked number is kept (Aadhaar: last 4 digits only; a full number is refused). Ops verify or reject with a reason. The customer is VERIFIED when any identity document is verified.</p></div>
 <div class="card"><b>Owner registration</b><p>Project owner (set up by ops) creates a project and units, registers an owner with details and proof, submits. Ops approve (or the project skips review) and an invitation email goes out (single use, 14 days, hash stored). The invited person sets a password or signs in, becomes the registered owner, and gets a copy of the proof. A change of owner is always reviewed and keeps history.</p></div>
+<div class="card"><b>Order</b><p>Customer picks services on a property (<code>GET /v1/properties/:id/offers</code>), previews (<code>POST /v1/orders/preview</code>: prices, what cannot be bought, duplicate warnings), then places it. The server re-prices every line and stores the quote with the line. Buyers for a property: its registered owner (or, for a standalone property, whoever added it) and the project owner. Status: PENDING_PAYMENT → PAID or CANCELLED, each move written to <code>order_events</code>.</p></div>
 <div class="card"><b>Quote</b><p><code>POST /v1/quotes {serviceId, propertyId, quantity?}</code>. Checks: property active and visible to the caller, service active and bookable online, area available, a price exists (pincode price, else default, from the book live today in India). Lump sum = amount; per area = area converted to the rate's unit times the amount; per quantity checks min, max and step. Total = max(minimum, quantity × price), half-up to whole paise. Refusals are HTTP 422 with a <code>reason</code>.</p></div>
 </div>
 
@@ -112,6 +115,7 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 <li>OTPs, invitation tokens and share tokens are stored hashed. Passwords are argon2id.</li>
 <li>Only masked identity numbers are stored. Uploads are checked by contents.</li>
 <li>One active owner per property, also as a database partial unique index.</li>
+<li><b>Purchaser control:</b> only the purchaser changes what they bought (property owner and project owner, both directions); the other party sees it exists but not the price; strangers get 404; ops cancel with a recorded reason. An order keeps its quote, and only the payments step can mark it PAID.</li>
 <li>A price is computed only on the server. Extra price fields in a request are rejected. Money is whole paise, exact decimals, half-up.</li>
 <li>Draft and retired price lists are never used. Published lists cannot be edited.</li>
 <li>Every change writes an audit event.</li>
@@ -120,8 +124,8 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 <h2 id="screens">Screens</h2>
 <table>
 <tr><th>Portal</th><th>Pages</th></tr>
-<tr><td>Customer (<code>/</code>)</td><td>dashboard, properties (+ new, edit), documents, KYC, projects (project owners), profile; login, signup, verify, forgot/reset password; <code>/owner-invite</code>; <code>/files/&lt;token&gt;</code>, <code>/shared/&lt;token&gt;</code></td></tr>
-<tr><td>Staff (<code>/admin</code>)</td><td>login, forgot/reset, accept-invite; dashboard, customers (+ detail), KYC review, owner registrations, catalogue, pricing, website content, organisations, staff, masters</td></tr>
+<tr><td>Customer (<code>/</code>)</td><td>dashboard, properties (+ new, edit, buy services), orders, documents, KYC, projects (project owners), profile; login, signup, verify, forgot/reset password; <code>/owner-invite</code>; <code>/files/&lt;token&gt;</code>, <code>/shared/&lt;token&gt;</code></td></tr>
+<tr><td>Staff (<code>/admin</code>)</td><td>login, forgot/reset, accept-invite; dashboard, customers (+ detail), KYC review, owner registrations, orders, catalogue, pricing, website content, organisations, staff, masters</td></tr>
 </table>
 <p>Menus are filtered by role in <code>src/lib/nav.ts</code>. That is only cosmetic; the backend is the real check.</p>
 
@@ -148,8 +152,8 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 
 <h2 id="next">Next</h2>
 <ol>
-<li><b>M3.3</b> orders and subscriptions: who bought and who pays on every order, the purchaser-only change rule in both directions, a warning before buying something already bought for the property, the quote stored as a snapshot.</li>
-<li><b>M3.4</b> offline maker-checker payments.</li>
+<li><b>M3.3b</b> plans and subscriptions: plan bundles with visits (entitlements) and discounts, subscriptions under the same purchaser rule.</li>
+<li><b>M3.4</b> offline maker-checker payments (the only way an order becomes PAID).</li>
 <li><b>M5.0</b> providers and workers choose their services, then the job pool.</li>
 </ol>
 

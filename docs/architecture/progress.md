@@ -1,8 +1,8 @@
 # Build progress: what exists today
 
-Last updated: 21-Nov-2026 (after M3.2). Branch `develop` in every repo. Update this file at the end of every milestone step, together with the two handbooks and the repo `CLAUDE.md` files.
+Last updated: 21-Nov-2026 (after M3.3 orders). Branch `develop` in every repo. Update this file at the end of every milestone step, together with the two handbooks and the repo `CLAUDE.md` files.
 
-**Size today:** 146 API endpoints, 13 database migrations, 239 automated end-to-end tests (all passing), 0 lint errors.
+**Size today:** 155 API endpoints, 12 database migrations, 268 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
 
 ## Milestones
 
@@ -16,8 +16,9 @@ Last updated: 21-Nov-2026 (after M3.2). Branch `develop` in every repo. Update t
 | M2.4 Projects and owner registration | Project owners, projects, units, owner registration with proof, ops review, emailed invitation, ownership history | ✅ (claim-a-unit by an individual owner not built yet) |
 | M3.1 Rate types and prices by pincode | Rate types, price books (draft, publish, retire), prices per pincode, default, minimum charge | ✅ |
 | M3.2 Quotes | `PricingService` and `POST /v1/quotes` | ✅ |
-| M3.3 Orders and subscriptions | Purchaser control, duplicate warning, quote snapshots | next |
-| M3.4 Offline payments | Maker-checker | planned |
+| M3.3 Orders | Orders with purchaser control, duplicate warning, quote snapshots, offers (what a customer can buy), staff queue | ✅ |
+| M3.3b Plans and subscriptions | Plan bundles with visits (entitlements), discounts, subscriptions with the same purchaser rule | next |
+| M3.4 Offline payments | Maker-checker; the only way an order becomes PAID | planned |
 | M5.0 Providers and workers choose services | See [admin-hierarchy-and-dispatch.md](admin-hierarchy-and-dispatch.md) | planned |
 | TOTP two-step login | Moved to **M9**, a hard gate before real data or money | deferred |
 
@@ -35,14 +36,15 @@ Last updated: 21-Nov-2026 (after M3.2). Branch `develop` in every repo. Update t
 | `vault` | Documents (folders, versions, locks), 5-minute file links, share links, access log; `Storage` and `VirusScanner` ports | folders, documents, document_versions, document_shares, document_access_log |
 | `kyc` | Identity records (masked numbers only), staff review, scan links logged under the reviewer | kyc_records |
 | `assignments` | Project owner registers a property owner: proof, ops review, invitation, acceptance, revoke | property_assignments, assignment_documents |
+| `orders` | Orders and lines (the quote is kept with the order), the order status machine and events, `PurchaserPolicy` (only the purchaser changes what they bought; both directions; ops override with a reason), duplicate warnings, staff queue | orders, order_lines, order_events |
 | `common` | Auth guards, roles decorator, `PolicyService` (org tree and rank rules), audit, Prisma, queue (pg-boss), storage, dates | audit_events, media |
 
-Not built yet: onboarding, orders, subscriptions, payments, jobs, messaging/outbox, reports, earnings.
+Not built yet: plans and subscriptions, payments, onboarding, jobs, messaging/outbox, reports, earnings.
 
 ## Frontend (`mpd-frontend`)
 
-- **Customer portal:** `/dashboard`, `/properties` (+new, +[id]), `/documents` (vault), `/kyc`, `/projects` (+[id], +units/new, for project owners only), `/profile`. Auth: `/login`, `/signup`, `/verify`, `/forgot-password`, `/reset-password`. Public: `/owner-invite`, `/files/<token>`, `/shared/<token>`.
-- **Staff console (`/admin/...`):** login, forgot/reset, accept-invite; dashboard, customers (+detail, set up as project owner), KYC review, owner registrations, catalogue, pricing (service prices, price lists, rate types), content (homepage text, team, FAQs, testimonials), organisations, staff, masters.
+- **Customer portal:** `/dashboard`, `/properties` (+new, +[id], +[id]/services to buy), `/orders`, `/documents` (vault), `/kyc`, `/projects` (+[id], +units/new, for project owners only), `/profile`. Auth: `/login`, `/signup`, `/verify`, `/forgot-password`, `/reset-password`. Public: `/owner-invite`, `/files/<token>`, `/shared/<token>`.
+- **Staff console (`/admin/...`):** login, forgot/reset, accept-invite; dashboard, customers (+detail, set up as project owner), KYC review, owner registrations, orders, catalogue, pricing (service prices, price lists, rate types), content (homepage text, team, FAQs, testimonials), organisations, staff, masters.
 - Menus are filtered by role (cosmetic; the backend decides).
 
 ## Website (`mpd-global`)
@@ -56,6 +58,8 @@ Homepage sections read content blocks, catalogue, team, FAQs and testimonials fr
 - One active owner per property (also enforced by the database).
 - A price is only ever computed on the server; extra price fields in a request are rejected.
 - Whole paise only; half-up rounding; draft and retired price lists never used.
+- **Purchaser control:** either the property owner or the project owner may buy; only the purchaser can change what they bought, in both directions; the other party sees it exists but not its price; strangers get 404; ops can cancel with a recorded reason. A change of owner does not take over earlier purchases.
+- An order stores its full quote; later price changes never alter it. An order becomes PAID only through the payments step (`markPaid`).
 - Every change is audited.
 
 ## Known gaps and notes
