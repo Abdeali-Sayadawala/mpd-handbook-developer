@@ -240,7 +240,7 @@ Transitions live in one `JobStateMachine` class with guards (who may move it, wh
 `NEW_INQUIRY → CONTACTED → REGISTERED (OTP verified) → PROPERTY_ADDED → SITE_VISIT_PAID → SITE_VISIT_DONE → QUOTED → ACCEPTED → PAID → ACTIVE` (+ `LOST` with reason). SLA timers raise reminders to ops.
 
 ### 6.3 Order / payment
-Offline (from M3): `CREATED → PROOF_SUBMITTED → APPROVED (maker-checker) → PAID` · online (M8): `CREATED → PENDING → PAID | FAILED | EXPIRED`.
+Offline (**BUILT, M3.4**): the order is `PENDING_PAYMENT → PAID | CANCELLED`; a payment goes `PROOF_SUBMITTED → APPROVED (a different admin) | REJECTED | WITHDRAWN`, and only APPROVED marks the order PAID · online (M8): `CREATED → PENDING → PAID | FAILED | EXPIRED`.
 
 ### 6.4 Property assignment (project owner registers a property owner)
 `DRAFT → PENDING_REVIEW (proof attached) → APPROVED (ops) → INVITED → ACTIVE (owner accepted)` · `REJECTED` (with reason) · `REVOKED` (ops only) · `EXPIRED` (invitation not accepted in 14 days, can be re-sent). Details in [customers-and-pricing.md](customers-and-pricing.md) §2.
@@ -250,7 +250,7 @@ Offline (from M3): `CREATED → PROOF_SUBMITTED → APPROVED (maker-checker) →
 ## 7. Payments (INR)
 **Rule for every phase:** the server works out every amount through `PricingService`; the client never sends a price. Amounts are integer paise. An order becomes PAID only through one of the two paths below, and both emit the same `PaymentCaptured` event (→ invoice → activate subscription / unlock job → accrue partner earnings → notify).
 
-**7.1 Offline payments (built in M3, used until M8, and kept for builders permanently)**
+**7.1 Offline payments (BUILT in M3.4, used until M8, and kept for builders permanently)**
 1. Ops creates the order (same pricing rules), or the customer's order shows "Pay by bank transfer" with MPD's bank details.
 2. Ops records the payment: amount, UTR / cheque number, date, and a proof document (stored in the vault).
 3. **A second admin approves it (maker-checker).** The person who records a payment can never approve it.
@@ -362,7 +362,7 @@ One-time costs: Google Play developer account US$25, Apple Developer Program US$
 | **M0 Foundation** | Create the 7 repos, shared CI templates + Terraform (mpd-infra), API client generation (openapi.json → apps), Docker dev DB, Prisma schema v1, auth (OTP + password + refresh), roles, audit, Sentry, deploy to Lightsail | A user can sign up, log in on web and mobile, and the deploy pipeline works |
 | **M1 Masters, orgs, catalogue CMS, website** | Geography, units, property types, organisations + territories, staff invites, master-data import, **full service catalogue seeded from legacy (293 services) with admin editing (name, photo, active/inactive, homepage)**, content blocks, **mpd-global homepage live on staging** | Ops can set up a territory and a provider. Admin switches a service off and it disappears from the website within seconds |
 | **M2 Customers, properties, vault** | **M2.1** customer profiles + properties ✅ · **M2.2** document vault ✅ (local storage first, S3 later) · **M2.3** KYC ✅ (masked, documents in the vault) · **M2.4** ✅ projects, units and **property-owner registration with proof, ops review and invitation** (§4.2) | An NRI can add a property and upload documents from the phone. A builder can register an owner for a unit and the owner accepts it |
-| **M3 Catalogue, pricing, orders** | **M3.1 ✅ / M3.2 ✅** rate types, price books and prices by pincode (§4.3)**, `PricingService` quotes, plans, discounts, orders and subscriptions with the **purchaser-control rule (§4.2)**, **offline payments (maker-checker)**, invoices | Paying for a plan creates a subscription + entitlements |
+| **M3 Catalogue, pricing, orders** | **M3.1 ✅ / M3.2 ✅ / M3.3 ✅ / M3.3b ✅ / M3.4 ✅** rate types, price books and prices by pincode (§4.3)**, `PricingService` quotes, plans, discounts, orders and subscriptions with the **purchaser-control rule (§4.2)**, **offline payments (maker-checker)**, invoices | Paying for a plan creates a subscription + entitlements |
 | **M4 Onboarding** | Inquiry → case → site visit → quotation → payment → activation | The full NRI journey works end to end |
 | **M5 Jobs & field app** | **M5.0 providers and workers choose their services, area overlap rules**, then the job pool (eligible providers see a request, first accept wins, upline can nudge/assign, provider assigns a worker; [admin-hierarchy-and-dispatch.md](admin-hierarchy-and-dispatch.md)), scheduling, assignment, checklist engine, OTPs, evidence, extras, ratings, inspection PDF | A worker completes a job on mobile and the customer sees the report |
 | **M6 Comms & reports** | Outbox + all triggers, chat, reminders, dashboards, SLA, partner earnings & payouts | Reminders arrive, and partners see their earnings |
