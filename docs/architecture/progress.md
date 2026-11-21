@@ -1,8 +1,8 @@
 # Build progress: what exists today
 
-Last updated: 22-Nov-2026 (after the mandatory site visit and batch payments). Branch `develop` in every repo. Update this file at the end of every milestone step, together with the two handbooks and the repo `CLAUDE.md` files.
+Last updated: 22-Nov-2026 (after M5.0a area rules and M5.0b provider and worker services). Branch `develop` in every repo. Update this file at the end of every milestone step, together with the two handbooks and the repo `CLAUDE.md` files.
 
-**Size today:** 200 API endpoints, 18 database migrations, 367 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
+**Size today:** 207 API endpoints, 19 database migrations, 377 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
 
 ## Milestones
 
@@ -21,7 +21,9 @@ Last updated: 22-Nov-2026 (after the mandatory site visit and batch payments). B
 | M3.4 Offline payments | Ops record money received with proof; a different admin approves; only approval marks the order paid and starts a plan | ✅ (invoices and receipts as documents not built; partial/instalment payments not built) |
 | M4 Onboarding | Website inquiry form, cases assigned to the franchise of the area, pipeline with optional paid site visit, priced quotation (services or one plan, optional discount), acceptance creates the order, paying it makes the customer active | ✅ (captcha and reminders later; the site visit is a plain order until jobs exist in M5) |
 | M4b Site visit first, batches | Every property must have a site visit (a paid order, completed by ops with corrections) before anything else can be bought; verified facts are locked for owners; project owners buy for many properties and pay once (maker-checker on the batch) | ✅ |
-| M5.0 Providers and workers choose services | See [admin-hierarchy-and-dispatch.md](admin-hierarchy-and-dispatch.md) | planned |
+| M5.0a Area rules | A franchise never overlaps another franchise; one master franchise per city (enforced when territories are saved) | ✅ |
+| M5.0b Provider and worker services | A provider chooses its services, a worker a subset; the upline can switch a provider's service off with a reason; Services dialogs in Organisations and People | ✅ |
+| M5.0c Provider-franchise links | A provider registered under several franchises (see [admin-hierarchy-and-dispatch.md](admin-hierarchy-and-dispatch.md)) | next |
 | TOTP two-step login | Moved to **M9**, a hard gate before real data or money | deferred |
 
 ## Backend modules (`mpd-backend/src/modules/`)
@@ -64,6 +66,7 @@ Homepage sections read content blocks, catalogue, team, FAQs and testimonials fr
 - **Purchaser control:** either the property owner or the project owner may buy; only the purchaser can change what they bought, in both directions; the other party sees it exists but not its price; strangers get 404; ops can cancel with a recorded reason. A change of owner does not take over earlier purchases.
 - **Plans** are made by admins, never fixed in code, and **have no typed-in price**: the price is calculated per property from each service's own price x how many times it is done, less service and plan discounts (rounded half up to the paisa). A plan of only lump-sum services is fixed. The order keeps the whole breakdown; a subscription keeps its visits, starts when its order is paid, ends after its last day, and is cancelled with its unpaid order. Same purchaser rule as orders.
 - **Property history** (`GET /v1/properties/:id/history`) belongs to the property, not the owner: orders, plans and ownership changes stay when the owner changes. A new owner sees them without the previous owner's name or prices. Jobs, reports and photos join it in M5; their files must belong to the property (not to one owner's vault) so a new owner can open them.
+- **Areas and services (M5.0):** a pincode is held by at most one franchise and a city by one master franchise; a worker can only have services their provider offers (database rule), removing a service from a provider removes it from its workers, only the upline (never the provider) can suspend a service, and a worker's list is private to them, their provider and the upline.
 - **Site visit and batches:** nothing but the site visit can be priced for an unverified property (services and plans); a site visit is completed once, only against a paid site-visit order for that property; verified facts cannot be edited by the owner; a batch orders nothing unless every property can be ordered; one payment per batch must equal the unpaid total, and approval pays every order and starts every plan together; a batch is visible only to its purchaser.
 - **Onboarding:** a case only moves along allowed steps (an event for each); a franchise or master franchise sees only the cases of its own area and can only read and add notes; an offer is priced by the server and one is open per case (also a database rule); accepting it creates the order at the quoted price; the case becomes active when that order is paid; internal notes never reach the customer; the public form always answers the same way.
 - **Maker-checker payments:** the admin who records a payment can never approve or reject it (also a database rule); only approval marks the order PAID (and starts a plan) in one transaction; the amount must equal the order total; a bank reference or a proof slip is used once; one payment waits per order and one is approved per order; an order with a payment waiting cannot be cancelled; the proof is filed in the payer's vault (Payment receipts), locked, and every view of it is logged.

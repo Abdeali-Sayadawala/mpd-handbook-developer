@@ -37,7 +37,7 @@ How it is organised (**BUILT**, `territories` + `territory_pincodes`):
 **DECIDED rules on areas (owner, 21-Nov-2026):**
 - A **master franchise** runs one city. One master franchise per city.
 - A **franchise** can hold **one or many pincodes and one or many areas** (several territories). Its pincodes must be inside its master franchise's.
-- **A franchise can never overlap another franchise.** A pincode belongs to at most one franchise. (This is the only exclusive level.) **Not enforced in code yet** (planned with M5.0): today two franchises can be given the same pincode.
+- **A franchise can never overlap another franchise.** A pincode belongs to at most one franchise. (This is the only exclusive level.) **Enforced in code (M5.0a, 22-Nov-2026):** creating or changing a franchise territory is refused (409) if a pincode already belongs to another franchise; two master franchises cannot hold pincodes of the same city. Providers overlap freely.
 - A **service provider** also holds one or many pincodes and areas, chosen from the list of pincodes of its franchise.
 - **Service providers may overlap freely**, including several providers in the same pincode under the same franchise. That is what lets a request reach all of them (§5).
 
@@ -48,12 +48,12 @@ How it is organised (**BUILT**, `territories` + `territory_pincodes`):
 
 **What this changes in the data model (PLANNED, M5.0):** today an organisation has a single parent, so a provider sits under one franchise. We add `provider_franchise_links(provider_org_id, franchise_org_id, status[PENDING, ACTIVE, REMOVED])`. The provider keeps its original parent (the franchise that first invited it). Coverage rows get the franchise they are covered through, and the existing rule becomes "every provider pincode must be inside the territory of a franchise that has an ACTIVE link". The availability rule, invitations and visibility use the links.
 
-## 3. Services a provider offers (PLANNED, start of M5)
+## 3. Services a provider offers (BUILT, M5.0b, 22-Nov-2026)
 
 - A **service provider chooses its pincodes/areas** (§2) **and then the services it offers** from the catalogue (one or many). What it offers is *services × its areas*. (**DECIDED:** simple on purpose. If a provider needs "service A in area 1 only", we can add a per-area exception later without changing the rest.)
 - A **service worker chooses which of the provider's services they can do** (a subset). A worker never sees services the provider does not offer.
 - An upline (franchise, master franchise, ops) can switch a provider's service off with a reason (audited), for example when a provider failed quality checks.
-- Data (PLANNED): `provider_services(org_id, service_id, status)` and `worker_services(user_id, service_id)`.
+- **Built:** `provider_services(org_id, service_id, status ACTIVE|SUSPENDED, suspended_reason)` and `worker_services(user_id, org_id, service_id)`; a composite foreign key makes a worker service impossible unless the provider offers it, and removing a service from the provider removes it from its workers. API: `GET/PUT /v1/orgs/:orgId/services`, `POST .../:serviceId/suspend|resume`, `GET/PUT /v1/workers/:userId/services`. Who may change: the provider's own admin or anyone above it (admins anywhere); switching one off is the upline only, never the provider itself; a worker reads and changes only their own list (their provider and the upline too); only services switched on in the catalogue can be added. Console: Organisations → a provider's **Services**, and People → a worker's **Services**. Still planned: provider-franchise links (M5.0c) and using these tables to decide which providers see a request (job pool).
 
 ## 4. Which providers are "eligible" for a request
 
@@ -113,8 +113,9 @@ Accepting is a single guarded update (`UPDATE jobs SET provider_org_id = :org, s
 | Step | What | Milestone |
 |---|---|---|
 | Hierarchy, invites, territories, availability | **BUILT** | M1 |
-| Area rules (one MF per city, a franchise never overlaps another franchise), providers registered under more than one franchise | DECIDED | with M5.0 |
-| Providers and workers choose their services; upline can switch off | PLANNED | **M5.0** (first step of M5) |
+| Area rules: one MF per city, a franchise never overlaps another franchise | **BUILT** | M5.0a |
+| Providers registered under more than one franchise (`provider_franchise_links`) | DECIDED | M5.0c, next |
+| Providers and workers choose their services; upline can switch off | **BUILT** | M5.0b |
 | Job pool, accept, decline, nudge, assign provider, assign worker | PLANNED | M5 |
 | Notifications to providers and upline, escalation timers | PLANNED | M6 |
 | Orders and subscriptions (what creates the job) | in progress | M3.3 |
