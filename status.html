@@ -39,7 +39,7 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <main class="wrap">
 <h1>What is built, as of 21 Nov 2026</h1>
 <p class="lede">M0 to M2 and the first two steps of M3 are done. This page is the current state; the plan is on the <a href="index.html">architecture page</a>. The full written spec lives in <code>docs/architecture/</code> (README, customers-and-pricing, admin-hierarchy-and-dispatch, progress).</p>
-<p><span class="pill ok">173 endpoints</span><span class="pill ok">16 migrations</span><span class="pill ok">319 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
+<p><span class="pill ok">194 endpoints</span><span class="pill ok">17 migrations</span><span class="pill ok">351 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
 
 <h2 id="progress">Progress</h2>
 <table>
@@ -55,6 +55,7 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <tr><td>M3.3</td><td>Orders with purchaser control, duplicate warnings, quote snapshots, offers, staff queue</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M3.3b</td><td>Admin-made plans with a calculated price (recurrence, service and plan discounts), subscriptions with visit entitlements, property history across owners</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M3.4</td><td>Offline payments with maker-checker (record with proof, a different admin approves, only approval marks the order paid)</td><td><span class="pill ok">done</span></td></tr>
+<tr><td>M4</td><td>Onboarding: website form, cases by area, optional paid site visit, quotation, acceptance creates the order, payment makes the customer active</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M5.0 and job pool</td><td>Providers and workers choose services; open job pool</td><td><span class="pill later">planned</span></td></tr>
 <tr><td>TOTP</td><td>Two-step login for super admin and ops</td><td><span class="pill later">deferred to M9, a hard gate before real data or money</span></td></tr>
 </table>
@@ -94,6 +95,7 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 <tr><td><code>customers-properties</code></td><td>Customers, properties, owner history, projects and units</td><td>customers, properties, property_parties, projects</td></tr>
 <tr><td><code>vault</code></td><td>Documents, versions, locks, 5-minute links, share links, access log; <code>Storage</code> and <code>VirusScanner</code> ports</td><td>folders, documents, document_versions, document_shares, document_access_log</td></tr>
 <tr><td><code>kyc</code></td><td>Identity records and staff review</td><td>kyc_records</td></tr>
+<tr><td><code>onboarding</code></td><td>Inquiries, cases, status machine, quotations, accepting an offer</td><td>onboarding_cases, case_events, case_notes, quotations, quotation_lines</td></tr>
 <tr><td><code>assignments</code></td><td>Registering a property owner for a unit, review, invitation</td><td>property_assignments, assignment_documents</td></tr>
 <tr><td><code>orders</code></td><td>Orders and lines, the status machine, <code>PurchaserPolicy</code>, duplicate warnings, staff queue, plan purchases, subscriptions, property history</td><td>orders, order_lines, order_events, subscriptions, entitlements, payments</td></tr>
 </table>
@@ -104,6 +106,7 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 <div class="card"><b>Vault upload</b><p>Multipart upload, file type read from the bytes (PDF, JPG, PNG, HEIC, DOCX), 20 MB, SHA-256 de-dup per folder, scan, stored under a generated key. A document can be <i>locked</i> (<code>locked_reason</code>) while KYC or an owner registration relies on it. Opening a file is a 5-minute signed token; sharing is a hashed token with expiry and a view limit. Every view is logged.</p></div>
 <div class="card"><b>KYC</b><p>Customer uploads a scan to the KYC folder, then submits it with a number. Only a masked number is kept (Aadhaar: last 4 digits only; a full number is refused). Ops verify or reject with a reason. The customer is VERIFIED when any identity document is verified.</p></div>
 <div class="card"><b>Owner registration</b><p>Project owner (set up by ops) creates a project and units, registers an owner with details and proof, submits. Ops approve (or the project skips review) and an invitation email goes out (single use, 14 days, hash stored). The invited person sets a password or signs in, becomes the registered owner, and gets a copy of the proof. A change of owner is always reviewed and keeps history.</p></div>
+<div class="card"><b>Onboarding case</b><p>A website inquiry (<code>POST /v1/public/inquiries</code>) or a staff-made case starts a case, assigned to the franchise whose territory holds the pincode. Statuses: NEW_INQUIRY, CONTACTED, REGISTERED (account linked by the same email), PROPERTY_ADDED, optional SITE_VISIT_PAID / SITE_VISIT_DONE (an order for a SITE_VISIT service), QUOTED, ACCEPTED, ACTIVE, LOST. A quotation is services or one plan, priced by the server, with an optional discount and reason; accepting it creates the order at the quoted price and the case becomes ACTIVE when that order is paid. The case module catches up with orders when a case is read. Franchises see their area read-only plus notes.</p></div>
 <div class="card"><b>Payment (maker-checker)</b><p>Staff open an unpaid order and record the money (<code>POST /v1/admin/orders/:id/payments</code>, multipart: amount, mode, reference, date, proof file). The amount must equal the order total. The proof is filed in the payer's vault (Payment receipts, locked). The payment waits as PROOF_SUBMITTED. A <b>different</b> admin approves (<code>/approve</code>) or rejects with a reason; the maker can only withdraw. Approval, in one transaction, marks the order PAID and starts a plan subscription. Database rules back this up: maker cannot be checker, one open and one approved payment per order, a reference used once.</p></div>
 <div class="card"><b>Order</b><p>Customer picks services on a property (<code>GET /v1/properties/:id/offers</code>), previews (<code>POST /v1/orders/preview</code>: prices, what cannot be bought, duplicate warnings), then places it. The server re-prices every line and stores the quote with the line. Buyers for a property: its registered owner (or, for a standalone property, whoever added it) and the project owner. Status: PENDING_PAYMENT → PAID or CANCELLED, each move written to <code>order_events</code>.</p></div>
 <div class="card"><b>Plan and subscription</b><p>Admins make plans: services, how many times each is done (recurrence), a discount per service, a discount for the whole plan. <b>There is no plan price to type in.</b> For each property the price is calculated: per service, the price of one visit (lump sum, or area x price, or the quantity set in the plan x price, minimum applied) x times, less its discount; then the plan discount. A customer buys it (<code>POST /v1/orders/plan</code>): an order of purpose PLAN that keeps the full breakdown, plus a subscription with entitlements copied from the plan. Paying the order starts the subscription; its end date is the last day of the period. <code>GET /v1/properties/:id/history</code> merges orders, plans and ownership changes for the property whoever owned it, hiding a previous owner's name and prices.</p></div>
@@ -127,7 +130,7 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 <table>
 <tr><th>Portal</th><th>Pages</th></tr>
 <tr><td>Customer (<code>/</code>)</td><td>dashboard, properties (+ new, edit, buy services, plans, history), orders, documents, KYC, projects (project owners), profile; login, signup, verify, forgot/reset password; <code>/owner-invite</code>; <code>/files/&lt;token&gt;</code>, <code>/shared/&lt;token&gt;</code></td></tr>
-<tr><td>Staff (<code>/admin</code>)</td><td>login, forgot/reset, accept-invite; dashboard, customers (+ detail), KYC review, owner registrations, orders (record payment), payments (approve or reject), catalogue, pricing (service prices, plans, price lists, rate types), website content, organisations, staff, masters</td></tr>
+<tr><td>Staff (<code>/admin</code>)</td><td>login, forgot/reset, accept-invite; dashboard, customers (+ detail), onboarding (cases, case detail), KYC review, owner registrations, orders (record payment), payments (approve or reject), catalogue, pricing (service prices, plans, price lists, rate types), website content, organisations, staff, masters</td></tr>
 </table>
 <p>Menus are filtered by role in <code>src/lib/nav.ts</code>. That is only cosmetic; the backend is the real check.</p>
 
@@ -154,7 +157,7 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 
 <h2 id="next">Next</h2>
 <ol>
-<li><b>M4</b> onboarding (inquiry, site visit, quotation, activation), then <b>M5.0</b> providers and workers choose services and the job pool.</li>
+<li><b>M5.0</b> providers and workers choose their services (and the area rules), then the job pool, the field app and the checklist engine.</li>
 <li><b>M5.0</b> providers and workers choose their services, then the job pool.</li>
 </ol>
 

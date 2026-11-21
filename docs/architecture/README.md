@@ -170,7 +170,7 @@ property_assignments(id, property_id, project_id, invitee_*, relation, status en
 assignment_documents(assignment_id, document_id)   -- proof that the property belongs to the invited owner
 
 inquiries(id, name, phone_e164, email, source, message, status, assigned_org_id)
-onboarding_cases(id, inquiry_id, customer_id, property_id, status enum, site_visit_job_id → jobs, quotation_id)
+onboarding_cases(id, ref_code, name, email, phone_e164, country, pincode_id, source, status enum, assigned_org_id, customer_id, property_id, site_visit_order_id, order_id, lost_reason, last_activity_at) ; case_events ; case_notes   -- one table for the inquiry and the case (built)
 quotations(id, case_id, items jsonb snapshot, total_paise, valid_until, status)
 
 service_categories(id, name, slug unique, short_desc, long_desc, image_media_id, icon, sort, is_active, show_on_homepage, is_featured, seo_title, seo_desc, legacy_id)
@@ -236,8 +236,24 @@ How a request reaches providers, who may nudge or assign, and what each level ca
 
 Transitions live in one `JobStateMachine` class with guards (who may move it, which checks must pass). Every move writes `job_events` and emits a domain event that triggers notifications.
 
-### 6.2 Onboarding case
-`NEW_INQUIRY → CONTACTED → REGISTERED (OTP verified) → PROPERTY_ADDED → SITE_VISIT_PAID → SITE_VISIT_DONE → QUOTED → ACCEPTED → PAID → ACTIVE` (+ `LOST` with reason). SLA timers raise reminders to ops.
+### 6.2 Onboarding case (BUILT, M4)
+A prospect's journey to a paying customer is one `onboarding_case` (the website form, a phone call or a referral all start the same case).
+```
+NEW_INQUIRY ─► CONTACTED ─► REGISTERED ─► PROPERTY_ADDED ─┬─► SITE_VISIT_PAID ─► SITE_VISIT_DONE ─┐
+   │ (or straight to REGISTERED if they         (a paid site visit is optional:                  ├─► QUOTED ─► ACCEPTED ─► ACTIVE
+   │  already have an account)                   ops can skip it with a reason) ─────────────────┘      (customer      (order PAID)
+   any open state ─► LOST (with a reason) ─► CONTACTED (reopened)                                         accepts)
+   ACCEPTED ─► QUOTED if the order is cancelled (a new offer can be made)
+```
+- **Intake:** `POST /v1/public/inquiries` (no sign-in, rate limited, a hidden field traps robots, always the same answer). The same email asking again within 30 days is one case plus a note. A captcha (Turnstile) is still to be added before launch.
+- **Area:** the case goes to the **franchise (else master franchise) whose territory holds the pincode**. Operations and super admin see every case and run it; a franchise or master franchise sees the cases of its own area, can read them, add notes and mark the first contact, and nothing else.
+- **Account:** when the prospect signs up with the same (verified) email and opens "Getting started", the case is linked to them. Staff can also link a customer by hand.
+- **Site visit (optional):** operations charge for it as an order for a service of kind SITE_VISIT; when the order is paid the case moves to SITE_VISIT_PAID by itself; operations mark it done with a note. Or skip it with a reason.
+- **Quotation:** services (with quantities where charged per hour, day, visit) **or exactly one plan**, **priced by the server** (`PricingService`), plus an optional discount percent with a required reason, valid 1 to 60 days (default 14). Sending a new one withdraws the open one (database rule: one open offer per case). The customer sees how it was made and accepts or declines.
+- **Acceptance creates the order** at the price quoted, with the discount (`orders.discount_paise`); a plan offer also creates the subscription. The order then follows the normal payment flow (7.1); when it is paid the case becomes ACTIVE by itself.
+- **Staying in step with orders:** the case module never reads orders directly; it asks the orders module and catches up when a case is read (paid site visit, paid or cancelled accepted order).
+- **Needs attention:** a new inquiry older than a day, or an open case with no activity for 3 days (reminders arrive with the outbox in M6).
+- Every move is a `case_events` row; every action is audited. Internal notes are never shown to the customer.
 
 ### 6.3 Order / payment
 Offline (**BUILT, M3.4**): the order is `PENDING_PAYMENT → PAID | CANCELLED`; a payment goes `PROOF_SUBMITTED → APPROVED (a different admin) | REJECTED | WITHDRAWN`, and only APPROVED marks the order PAID · online (M8): `CREATED → PENDING → PAID | FAILED | EXPIRED`.
@@ -363,7 +379,7 @@ One-time costs: Google Play developer account US$25, Apple Developer Program US$
 | **M1 Masters, orgs, catalogue CMS, website** | Geography, units, property types, organisations + territories, staff invites, master-data import, **full service catalogue seeded from legacy (293 services) with admin editing (name, photo, active/inactive, homepage)**, content blocks, **mpd-global homepage live on staging** | Ops can set up a territory and a provider. Admin switches a service off and it disappears from the website within seconds |
 | **M2 Customers, properties, vault** | **M2.1** customer profiles + properties ✅ · **M2.2** document vault ✅ (local storage first, S3 later) · **M2.3** KYC ✅ (masked, documents in the vault) · **M2.4** ✅ projects, units and **property-owner registration with proof, ops review and invitation** (§4.2) | An NRI can add a property and upload documents from the phone. A builder can register an owner for a unit and the owner accepts it |
 | **M3 Catalogue, pricing, orders** | **M3.1 ✅ / M3.2 ✅ / M3.3 ✅ / M3.3b ✅ / M3.4 ✅** rate types, price books and prices by pincode (§4.3)**, `PricingService` quotes, plans, discounts, orders and subscriptions with the **purchaser-control rule (§4.2)**, **offline payments (maker-checker)**, invoices | Paying for a plan creates a subscription + entitlements |
-| **M4 Onboarding** | Inquiry → case → site visit → quotation → payment → activation | The full NRI journey works end to end |
+| **M4 Onboarding ✅** | Inquiry → case → site visit → quotation → payment → activation | The full NRI journey works end to end |
 | **M5 Jobs & field app** | **M5.0 providers and workers choose their services, area overlap rules**, then the job pool (eligible providers see a request, first accept wins, upline can nudge/assign, provider assigns a worker; [admin-hierarchy-and-dispatch.md](admin-hierarchy-and-dispatch.md)), scheduling, assignment, checklist engine, OTPs, evidence, extras, ratings, inspection PDF | A worker completes a job on mobile and the customer sees the report |
 | **M6 Comms & reports** | Outbox + all triggers, chat, reminders, dashboards, SLA, partner earnings & payouts | Reminders arrive, and partners see their earnings |
 | **M7 Legal/professional services** | Intake form builder, document checklists, professional job flow | Legal services can be bought and delivered |
