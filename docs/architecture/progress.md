@@ -1,8 +1,8 @@
 # Build progress: what exists today
 
-Last updated: 22-Nov-2026 (after M5.0a area rules and M5.0b provider and worker services). Branch `develop` in every repo. Update this file at the end of every milestone step, together with the two handbooks and the repo `CLAUDE.md` files.
+Last updated: 22-Nov-2026 (after M5.0c provider-franchise links). Branch `develop` in every repo. Update this file at the end of every milestone step, together with the two handbooks and the repo `CLAUDE.md` files.
 
-**Size today:** 207 API endpoints, 19 database migrations, 377 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
+**Size today:** 214 API endpoints, 20 database migrations, 387 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
 
 ## Milestones
 
@@ -23,7 +23,7 @@ Last updated: 22-Nov-2026 (after M5.0a area rules and M5.0b provider and worker 
 | M4b Site visit first, batches | Every property must have a site visit (a paid order, completed by ops with corrections) before anything else can be bought; verified facts are locked for owners; project owners buy for many properties and pay once (maker-checker on the batch) | ✅ |
 | M5.0a Area rules | A franchise never overlaps another franchise; one master franchise per city (enforced when territories are saved) | ✅ |
 | M5.0b Provider and worker services | A provider chooses its services, a worker a subset; the upline can switch a provider's service off with a reason; Services dialogs in Organisations and People | ✅ |
-| M5.0c Provider-franchise links | A provider registered under several franchises (see [admin-hierarchy-and-dispatch.md](admin-hierarchy-and-dispatch.md)) | next |
+| M5.0c Provider-franchise links | A provider registered under several franchises: ask, accept or reject, end (pincodes only that franchise covered are taken off); a provider holds only pincodes of franchises that accepted it | ✅ |
 | TOTP two-step login | Moved to **M9**, a hard gate before real data or money | deferred |
 
 ## Backend modules (`mpd-backend/src/modules/`)

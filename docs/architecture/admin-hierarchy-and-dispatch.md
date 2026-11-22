@@ -46,7 +46,9 @@ How it is organised (**BUILT**, `territories` + `territory_pincodes`):
 2. To work in a pincode **outside its franchise**, the provider must **register under the franchise that runs that pincode** (the franchise accepts it). A provider can therefore be registered under **more than one franchise**, and it only sees and serves the pincodes covered through a franchise that has accepted it.
 3. Each franchise sees only the provider's activity in its own pincodes.
 
-**What this changes in the data model (PLANNED, M5.0):** today an organisation has a single parent, so a provider sits under one franchise. We add `provider_franchise_links(provider_org_id, franchise_org_id, status[PENDING, ACTIVE, REMOVED])`. The provider keeps its original parent (the franchise that first invited it). Coverage rows get the franchise they are covered through, and the existing rule becomes "every provider pincode must be inside the territory of a franchise that has an ACTIVE link". The availability rule, invitations and visibility use the links.
+**BUILT (M5.0c, 22-Nov-2026):** `provider_franchise_links(provider_org_id, franchise_org_id, status PENDING|ACTIVE|REMOVED, reason)`. A new provider is registered under the franchise it is created below (a permanent ACTIVE link; existing providers were back-filled). The provider, or anyone above it, asks another franchise (`POST /v1/orgs/:providerId/franchise-links`); that franchise, or anyone above it, accepts or rejects with a reason (`/v1/franchise-links/:id/accept|reject`); either side can end it (`/end`, a reason is needed for an active one), which **takes the pincodes only that franchise covered off the provider**. A provider can hold only pincodes inside the area of its own franchise or of a franchise that accepted it. `GET /v1/franchises/directory` lists franchise names to choose from. Console: Organisations → **Franchises** (provider) and **Providers** (franchise). Franchises still do not see a linked provider's people; what they see of its work comes with the job pool (by pincode). Original design notes:
+
+**What this changes in the data model (was PLANNED):** today an organisation has a single parent, so a provider sits under one franchise. We add `provider_franchise_links(provider_org_id, franchise_org_id, status[PENDING, ACTIVE, REMOVED])`. The provider keeps its original parent (the franchise that first invited it). Coverage rows get the franchise they are covered through, and the existing rule becomes "every provider pincode must be inside the territory of a franchise that has an ACTIVE link". The availability rule, invitations and visibility use the links.
 
 ## 3. Services a provider offers (BUILT, M5.0b, 22-Nov-2026)
 
@@ -114,7 +116,7 @@ Accepting is a single guarded update (`UPDATE jobs SET provider_org_id = :org, s
 |---|---|---|
 | Hierarchy, invites, territories, availability | **BUILT** | M1 |
 | Area rules: one MF per city, a franchise never overlaps another franchise | **BUILT** | M5.0a |
-| Providers registered under more than one franchise (`provider_franchise_links`) | DECIDED | M5.0c, next |
+| Providers registered under more than one franchise (`provider_franchise_links`) | **BUILT** | M5.0c |
 | Providers and workers choose their services; upline can switch off | **BUILT** | M5.0b |
 | Job pool, accept, decline, nudge, assign provider, assign worker | PLANNED | M5 |
 | Notifications to providers and upline, escalation timers | PLANNED | M6 |
