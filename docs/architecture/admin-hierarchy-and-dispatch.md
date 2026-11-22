@@ -65,7 +65,10 @@ A provider is eligible for a job when **all** are true:
 3. It has **selected the service** (§3).
 4. (Later) it is not suspended and has capacity.
 
-## 5. How a request reaches people and gets accepted (PLANNED, M5)
+## 5. How a request reaches people and gets accepted (pool BUILT, M5.1; field work PLANNED)
+
+**BUILT (M5.1, 22-Nov-2026):** `jobs`, `job_events`, `job_declines`. A job is made for every PAID service line (`order_lines`, one job each; a paid site visit is a SITE_VISIT job) and for every visit a plan owner requests (`POST /v1/me/jobs/request-visit`, one entitlement visit used atomically, given back if the job is cancelled; urgent = 30 minutes). Jobs are made by `JobsService.sync()` when jobs are read, so a payment never needs to know about jobs. **Eligible** = organisation live with staff, holds the pincode, offers the service (not suspended), and has not turned the job down. `GET /v1/jobs/pool`, `POST /v1/jobs/:id/accept` (one guarded update: exactly one provider wins, the others get 409), `/decline`, `/release` (back to the pool, not for that provider), `/assign-worker` (own active worker who can do the service; changeable until work starts), `/assign-provider` and `/nudge` (franchise, master franchise or operations; the reason is recorded; a nudge only a record until messaging, at most one per 15 minutes), `/cancel` (operations). Privacy: in the pool no customer, no name, no full address; after accept the provider, its workers and the upline see them. Visibility: operations all, franchise and master franchise the jobs whose pincode is in their territories, a provider its own jobs, a worker theirs. Status changes only through `assertTransition` (`job-state.ts`); the field steps (EN_ROUTE to VERIFIED) are listed but have no transitions yet (M5.2). Until the field app exists, completing a site visit on the property (operations) closes its job. Overdue (still in the pool after the SLA) is a flag; alerts need messaging (M6). Console: **Jobs board**; customers: **Service requests**.
+
 
 ```
  customer buys a service for a property  ─►  a job is created: REQUESTED, in the POOL for that pincode + service

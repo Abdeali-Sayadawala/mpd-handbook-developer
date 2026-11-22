@@ -39,7 +39,7 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <main class="wrap">
 <h1>What is built, as of 21 Nov 2026</h1>
 <p class="lede">M0 to M2 and the first two steps of M3 are done. This page is the current state; the plan is on the <a href="index.html">architecture page</a>. The full written spec lives in <code>docs/architecture/</code> (README, customers-and-pricing, admin-hierarchy-and-dispatch, progress).</p>
-<p><span class="pill ok">214 endpoints</span><span class="pill ok">20 migrations</span><span class="pill ok">387 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
+<p><span class="pill ok">230 endpoints</span><span class="pill ok">21 migrations</span><span class="pill ok">406 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
 
 <h2 id="progress">Progress</h2>
 <table>
@@ -59,7 +59,8 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <tr><td>M4b</td><td>Mandatory site visit per property (assess and correct details) before any other purchase; batches of orders for several properties paid with one payment</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M5.0a, M5.0b</td><td>Area rules (no franchise overlap, one master franchise per city); providers and workers choose their services, upline can switch off</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M5.0c</td><td>Providers registered under several franchises (ask, accept, end)</td><td><span class="pill ok">done</span></td></tr>
-<tr><td>M5 job pool</td><td>Open job pool, first accept wins, assign a worker</td><td><span class="pill later">next</span></td></tr>
+<tr><td>M5.1</td><td>Job pool: paid services and plan visits become jobs; first eligible provider to accept gets it; upline nudges or picks; provider assigns a worker</td><td><span class="pill ok">done</span></td></tr>
+<tr><td>M5.2</td><td>Doing the work: schedule, on the way, start and end OTP, checklist, photos, extra work, verify</td><td><span class="pill later">next</span></td></tr>
 <tr><td>TOTP</td><td>Two-step login for super admin and ops</td><td><span class="pill later">deferred to M9, a hard gate before real data or money</span></td></tr>
 </table>
 
@@ -160,7 +161,7 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 
 <h2 id="next">Next</h2>
 <ol>
-<li><b>The job pool</b>, then the field app and the checklist engine.</li>
+<li><b>M5.2</b> the work itself (schedule, OTPs, checklist, photos, extra work), then the field app.</li>
 </ol>
 
 <h2>Known gaps</h2>
