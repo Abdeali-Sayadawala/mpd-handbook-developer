@@ -1,0 +1,449 @@
+/* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
+   Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
+window.GUIDE = {
+  updated: "23 Nov 2026",
+
+  groups: [
+    { id: "head", name: "Head office" },
+    { id: "network", name: "Franchise network" },
+    { id: "customers", name: "Customers (what they see)" }
+  ],
+
+  roles: [
+    /* ------------------------------------------------------------------ head office */
+    {
+      id: "super_admin", group: "head", name: "Super admin", icon: "👑",
+      short: "The owner of the platform. Sees everything and can do everything.",
+      youAre: "You run the whole business. You set up the services and prices, build the franchise network, and you are the final safety net for money.",
+      reportsTo: "Nobody. You are at the top.",
+      manages: "Everything: operations staff, master franchises, the catalogue, prices, the website, the list of pincodes.",
+      menu: [
+        { group: "Overview", items: [{ label: "Dashboard", what: "A quick look at the day." }] },
+        { group: "Customers", items: [
+          { label: "Customers", what: "Everyone who has registered. Open one to see their properties, orders and documents." },
+          { label: "KYC review", what: "Identity checks waiting for a person to approve or reject." },
+          { label: "Owner registrations", what: "Builders registering a property owner for a unit, with proof. You approve before the owner is invited." },
+          { label: "Onboarding", what: "Every inquiry and prospect, from the first contact to a paying customer." }
+        ] },
+        { group: "Operations", items: [
+          { label: "Site visits", what: "Paid site visits waiting to be done. Mark one done after the visit." },
+          { label: "Jobs board", what: "The job pool and every job. Nudge providers, give a job to a provider, or cancel." },
+          { label: "Service catalogue", what: "The list of services shown on the website and in the app." },
+          { label: "Pricing", what: "Rate types, price lists per pincode, service prices and plans." }
+        ] },
+        { group: "Money", items: [
+          { label: "Orders", what: "What customers bought. Record the payment you received here." },
+          { label: "Payments", what: "Payments waiting for a second person to approve." },
+          { label: "Earnings", what: "Partner earnings.", soon: true }
+        ] },
+        { group: "Network", items: [
+          { label: "Organisations", what: "The tree of master franchises, franchises and providers, with their areas and services." },
+          { label: "Staff", what: "People in each organisation, and invitations." },
+          { label: "Masters", what: "Pincodes, cities, units and property types. Switch pincodes on or off." }
+        ] },
+        { group: "Insight & content", items: [
+          { label: "Website content", what: "Homepage sections, questions and answers, testimonials, team." },
+          { label: "Reports", what: "Reports.", soon: true },
+          { label: "Audit log", what: "Who did what.", soon: true }
+        ] }
+      ],
+      tasks: "HEAD_OFFICE",
+      cannot: [
+        "Approve a payment that you recorded yourself. A different person must.",
+        "Change a property's facts as a customer. After a site visit those facts are locked for owners; staff correct them."
+      ],
+      tips: [
+        "Only a super admin can invite another super admin.",
+        "Every action is recorded with your name. Use clear reasons when the screen asks for one."
+      ]
+    },
+    {
+      id: "ops", group: "head", name: "Operations", icon: "🛠️",
+      short: "Runs the day-to-day: customers, payments, site visits, jobs.",
+      youAre: "You keep things moving. You answer inquiries, arrange site visits, record and approve payments, make offers, and step in when a job is stuck.",
+      reportsTo: "The super admin.",
+      manages: "Customers, onboarding, orders, payments, site visits, job dispatch, catalogue and prices.",
+      menu: "SAME_AS:super_admin",
+      tasks: "HEAD_OFFICE",
+      cannot: [
+        "Approve a payment you recorded. Ask a colleague.",
+        "Invite a super admin (only a super admin can).",
+        "Change an organisation's own area from inside it: areas are set by the level above."
+      ],
+      tips: [
+        "Two people for money: one records, another approves. Plan your shifts so there is always a second person.",
+        "When a job has waited too long it shows Overdue. Open it and use Ask providers to take it, or give it to a provider yourself."
+      ]
+    },
+
+    /* ------------------------------------------------------------------ network */
+    {
+      id: "master_franchise", group: "network", name: "Master franchise", icon: "🏙️",
+      short: "Runs one city. Builds the franchises and providers in it.",
+      youAre: "You run one city for MPD. You decide which franchises look after which parts of the city and you keep an eye on every job and inquiry there.",
+      reportsTo: "Head office (super admin and operations).",
+      manages: "Franchises and providers in your city, and your city's pincodes.",
+      menu: [
+        { group: "Overview", items: [{ label: "Dashboard", what: "A quick look." }] },
+        { group: "Customers", items: [{ label: "Onboarding", what: "Inquiries in your city. You can read them, add notes and mark that you contacted the person." }] },
+        { group: "Operations", items: [{ label: "Jobs board", what: "Every job in your city's pincodes. Nudge providers or give a job to one." }] },
+        { group: "Network", items: [
+          { label: "Organisations", what: "Your franchises and providers: add them, set their areas, choose providers' services." },
+          { label: "Staff", what: "Invite people into the franchises and providers you manage." }
+        ] }
+      ],
+      tasks: [
+        { id: "mf_franchise", title: "Add a franchise and give it an area", where: "Organisations", steps: [
+          "Open Organisations and find your master franchise row.",
+          "Press the + button on it to add a Franchise. Give it a name and save.",
+          "On the new franchise press the map icon (Territories) and add an area: a name and the pincodes it will look after.",
+          "Choose only pincodes inside your city. A pincode can belong to only one franchise: if another franchise already has it, the screen tells you which."
+        ], tips: ["An area name is only a label. What counts are the pincodes."] },
+        { id: "mf_invite", title: "Invite the person who will run a franchise or provider", where: "Staff", steps: [
+          "Open Staff and press Invite.",
+          "Choose the organisation, the role and enter their name and email.",
+          "They get an email with a one-time link to set their password. Until they accept, the invitation shows under Waiting to join."
+        ] },
+        { id: "mf_watch", title: "See what is happening in your city", where: "Onboarding and Jobs board", steps: [
+          "Onboarding lists inquiries from your city. Open one to read it, add an internal note, or mark that you contacted the person.",
+          "Jobs board shows every job in your pincodes. Overdue jobs are flagged.",
+          "Open a job to see who has it and its history."
+        ] },
+        { id: "mf_dispatch", title: "Help a job nobody has taken", where: "Jobs board", steps: [
+          "Open the job and read the history.",
+          "Press Ask providers to take it. They are reminded (a record for now, messages come later).",
+          "Or choose an eligible provider from the list and press Assign. You must write a reason.",
+          "You cannot cancel a job. Ask operations."
+        ] }
+      ],
+      cannot: [
+        "See other cities.",
+        "Make two master franchises for the same city.",
+        "Change an inquiry beyond notes and marking contacted. Operations run the case."
+      ],
+      tips: ["Your franchises cannot overlap each other. Providers can."]
+    },
+    {
+      id: "franchise", group: "network", name: "Franchise", icon: "📍",
+      short: "Runs an area (some pincodes) of a city. Accepts providers.",
+      youAre: "You look after an area of the city. You decide which service providers work for you and you watch the inquiries and jobs in your pincodes.",
+      reportsTo: "Your master franchise.",
+      manages: "Service providers under you, and your pincodes.",
+      menu: [
+        { group: "Overview", items: [{ label: "Dashboard", what: "A quick look." }] },
+        { group: "Customers", items: [{ label: "Onboarding", what: "Inquiries in your pincodes (read, notes, mark contacted)." }] },
+        { group: "Operations", items: [{ label: "Jobs board", what: "Every job in your pincodes." }] },
+        { group: "Network", items: [
+          { label: "Organisations", what: "Your providers, their areas and services, and requests from other providers to join you." },
+          { label: "Staff", what: "Invite people into your providers." }
+        ] }
+      ],
+      tasks: [
+        { id: "fr_provider", title: "Add a service provider", where: "Organisations", steps: [
+          "Open Organisations and find your franchise.",
+          "Press + to add a Service provider. Give it a name.",
+          "Press the map icon on the provider to set its pincodes. Only pincodes inside your area are allowed.",
+          "Providers may overlap each other: two providers can look after the same pincode.",
+          "Press Services on the provider to choose what it offers (or ask the provider to).",
+          "Invite the provider's admin from Staff."
+        ] },
+        { id: "fr_accept", title: "Accept a provider from another franchise", where: "Organisations → Providers (on your franchise row)", steps: [
+          "A provider that wants to work in your pincodes asks to register under you.",
+          "Open Organisations and press Providers on your franchise row.",
+          "Waiting requests show Accept and Reject. Reject needs a reason.",
+          "Once you accept, that provider can hold your pincodes. If you end the registration later, it loses the pincodes only you covered."
+        ], tips: ["The provider keeps its own franchise too. Each franchise sees only its own pincodes."] },
+        { id: "fr_switch", title: "Switch off a service for a provider", where: "Organisations → Services", steps: [
+          "Press Services on the provider.",
+          "Beside the service press Switch off and write a reason (for example a failed quality check).",
+          "The provider stops seeing new jobs for it and its workers lose it. Press Switch on to restore it."
+        ], tips: ["The provider cannot do this to itself."] },
+        { id: "fr_dispatch", title: "Help a job nobody has taken", where: "Jobs board", steps: [
+          "Open the job, then press Ask providers to take it, or give it to an eligible provider with a reason."
+        ] }
+      ],
+      cannot: [
+        "Take a pincode that another franchise already has.",
+        "Cancel a job (operations do that).",
+        "See jobs outside your pincodes."
+      ],
+      tips: ["Your area can be one pincode or many. You can hold the same pincode in two named areas; it is still yours."]
+    },
+    {
+      id: "provider_admin", group: "network", name: "Service provider (admin)", icon: "🧰",
+      short: "A contractor. Accepts jobs from the pool and gives them to its workers.",
+      youAre: "You run a company that does the work. You choose which services you offer, you accept jobs that come up, and you give each job to one of your workers.",
+      reportsTo: "Your franchise.",
+      manages: "Your workers and what you and they can do.",
+      menu: [
+        { group: "Overview", items: [{ label: "Dashboard", what: "A quick look." }] },
+        { group: "Operations", items: [{ label: "Jobs board", what: "My pool: jobs you could take. All jobs: the ones you have." }] },
+        { group: "Network", items: [
+          { label: "Organisations", what: "Your own organisation: Services you offer and Franchises you are registered under." },
+          { label: "Staff", what: "Your workers: invite them and choose what each can do." }
+        ] }
+      ],
+      tasks: [
+        { id: "sp_services", title: "Choose the services you offer", where: "Organisations → Services", steps: [
+          "Open Organisations, find your company and press Services.",
+          "Tick every service you can do. Search by name.",
+          "Press Save. You will see new jobs for these services in your area."
+        ], tips: ["If your franchise switches a service off you will see why. You cannot switch it on yourself."] },
+        { id: "sp_pool", title: "Take a job from the pool", where: "Jobs board → My pool", steps: [
+          "Open Jobs board. My pool lists jobs waiting for a provider in your area for services you offer.",
+          "You see the service, the area, the type and size of the property, and how long you have to accept. You do not see the customer's name, phone or full address yet.",
+          "Press Accept. The first provider to accept gets the job. If someone was faster you are told it is taken.",
+          "Press Turn down if you do not want it: it disappears from your pool only."
+        ], tips: ["Overdue means it has waited too long. Accepting quickly keeps customers happy."] },
+        { id: "sp_worker", title: "Give the job to a worker", where: "Jobs board → Open", steps: [
+          "Open the job you accepted. You now see the customer and the full address.",
+          "Choose a worker from the list. Only your active workers who can do this service are listed.",
+          "Press Assign. You can change the worker until the work starts.",
+          "If nobody is listed, open Staff and tick that service for a worker (Services button)."
+        ] },
+        { id: "sp_back", title: "Give a job back", where: "Jobs board → Open", steps: [
+          "If you cannot do it, press Give back to the pool and write why.",
+          "It returns to the pool for other providers, not for you."
+        ] },
+        { id: "sp_invite", title: "Invite a worker", where: "Staff", steps: [
+          "Open Staff, press Invite, choose your company, the role Field worker, their name and email.",
+          "Once they accept, press Services beside them and tick what they can do. They can only get services you offer."
+        ] },
+        { id: "sp_franchise", title: "Work in an area of another franchise", where: "Organisations → Franchises", steps: [
+          "Press Franchises on your company.",
+          "Choose the franchise that runs that area and press Ask.",
+          "Wait for that franchise to accept. After that your area can include its pincodes (the level above you sets your pincodes)."
+        ] }
+      ],
+      cannot: [
+        "See the customer before you accept.",
+        "Switch a service back on after your franchise switched it off.",
+        "Set your own pincodes. Your franchise sets them (ask them)."
+      ],
+      tips: ["Other providers see the same pool. Speed matters."]
+    },
+    {
+      id: "field_worker", group: "network", name: "Service worker", icon: "👷",
+      short: "Does the visit at the property.",
+      youAre: "You are the person who goes to the property. Your provider gives you jobs.",
+      reportsTo: "Your service provider.",
+      manages: "Nothing. You see only jobs given to you.",
+      menu: [
+        { group: "Operations", items: [{ label: "Jobs board", what: "Only the jobs your provider gave you, with the customer and address." }] }
+      ],
+      tasks: [
+        { id: "fw_jobs", title: "See my jobs", where: "Jobs board", steps: [
+          "Open Jobs board. You see only jobs assigned to you.",
+          "Open one to see the service, the customer's name and phone, and the full address."
+        ] },
+        { id: "fw_services", title: "Which jobs I can be given", where: "Ask your provider admin", steps: [
+          "Your provider admin ticks the services you can do under Staff → Services.",
+          "You only get jobs for those services."
+        ] },
+        { id: "fw_work", title: "Do the visit: start, checklist, photos, finish", where: "Coming soon", soon: true, steps: [
+          "Coming soon: tell us you are on the way, start with a code from the customer, follow the checklist, take before and after photos, finish with a second code.",
+          "For a site visit you will also correct the property's details here."
+        ] }
+      ],
+      cannot: ["See other workers' jobs, other customers, or anything outside your jobs."],
+      tips: ["Never share a customer's phone number or address."]
+    },
+
+    /* ------------------------------------------------------------------ customers */
+    {
+      id: "property_owner", group: "customers", name: "Property owner", icon: "🏠",
+      short: "A customer with a house or flat. Usually an NRI.",
+      youAre: "You own a property in India and want it looked after.",
+      reportsTo: "—", manages: "Your own properties, orders and documents.",
+      menu: [
+        { group: "Overview", items: [{ label: "Dashboard", what: "Home." }, { label: "Getting started", what: "Your request, and any offer we have sent you to accept." }] },
+        { group: "My property", items: [{ label: "Properties", what: "Your properties. Each has Services, Plans and History." }, { label: "Documents", what: "Your private vault." }] },
+        { group: "Services", items: [{ label: "Orders", what: "What you bought and whether it is paid." }, { label: "Service requests", what: "Where your paid services and plan visits stand." }] }
+      ],
+      tasks: [
+        { id: "po_start", title: "Get started", where: "Properties", steps: [
+          "Add your property (address, pincode, type, size).",
+          "Book the site visit first. A person visits, checks the property and corrects the details. You pay for it like any service.",
+          "After the visit you can choose services or a plan."
+        ] },
+        { id: "po_pay", title: "Pay", where: "Orders", steps: [
+          "Pay by bank transfer, cheque, UPI or cash as our team tells you.",
+          "Our team records the payment with proof and a second person approves it. Your order then shows Paid."
+        ] },
+        { id: "po_requests", title: "Follow a service or ask for a plan visit", where: "Service requests", steps: [
+          "Each paid service shows here with where it stands.",
+          "For a plan visit press Request a visit (or Urgent)."
+        ] }
+      ],
+      cannot: ["Change what a builder bought for your unit.", "Edit the address, pincode, type or area after the site visit."],
+      tips: []
+    },
+    {
+      id: "project_owner", group: "customers", name: "Project owner", icon: "🏗️",
+      short: "A builder or society with many units.",
+      youAre: "You build or manage many units and pay MPD offline.",
+      reportsTo: "—", manages: "Your projects and their units.",
+      menu: [
+        { group: "My property", items: [{ label: "Projects", what: "Your projects and units. Register an owner for a unit with proof." }] },
+        { group: "Services", items: [{ label: "Buy for several properties", what: "Choose units, then the same services or one plan for all, and pay once." }] }
+      ],
+      tasks: [
+        { id: "pr_owner", title: "Register an owner for a unit", where: "Projects", steps: [
+          "Open the project, then the unit, and add the owner with proof documents.",
+          "Our team reviews it, then the owner is invited by email and accepts."
+        ] },
+        { id: "pr_bulk", title: "Buy for many units and pay once", where: "Orders → Buy for several properties", steps: [
+          "Tick the units. Each needs its site visit done first.",
+          "Choose the services or one plan and press Show me the price.",
+          "Place the orders. Our team records one payment for the whole batch and a second person approves it."
+        ] }
+      ],
+      cannot: ["Change what the owner of a unit bought for themselves."],
+      tips: []
+    }
+  ],
+
+  /* Tasks shared by Super admin and Operations */
+  headOfficeTasks: [
+    { id: "ho_case", title: "Take an inquiry all the way to a paying customer", where: "Onboarding", steps: [
+      "Open Onboarding. New inquiries are at the top and are already assigned to the franchise whose area they are in.",
+      "Open the case. Press Mark contacted after you speak to them.",
+      "When they sign up with the same email, the case links to them by itself. You can also link by hand.",
+      "Choose their property. Then arrange the site visit (next task). Nothing else can be offered before it.",
+      "After the visit, press Make an offer: add services (or one plan), an optional discount with a reason, and how many days it stays open. The server works out the price.",
+      "The customer accepts under Getting started. An order is created at that price.",
+      "Record and approve its payment (see Record a payment). When it is paid the case becomes Active."
+    ], tips: ["Mark Lost with a reason if it goes nowhere. You can reopen it later.", "Internal notes are never shown to the customer."] },
+    { id: "ho_visit_order", title: "Arrange a site visit for a customer", where: "Onboarding → the case", steps: [
+      "In the case press Arrange site visit, choose the site-visit service and give a reason.",
+      "This makes an order for the customer. Record its payment as usual.",
+      "When it is paid the visit appears under Site visits and in the job pool."
+    ] },
+    { id: "ho_visit_done", title: "Complete a site visit", where: "Site visits", steps: [
+      "Open Site visits: paid visits waiting for someone to go.",
+      "After the visit press Visit done. Write what was found.",
+      "Fill in only the details that were wrong on file (address, pincode, area). Leave the rest empty.",
+      "Complete the visit. The property is now verified, the owner can buy services and plans, and the checked facts are locked for the owner."
+    ], tips: ["A site visit can be completed only once, and only against its paid order."] },
+    { id: "ho_record", title: "Record a payment you received", where: "Orders → Waiting for payment", steps: [
+      "Open Orders, tab Waiting for payment, and find the order (search by reference).",
+      "Press Record payment. If the order belongs to a batch, the button says Record batch payment and covers every order in it.",
+      "The amount is filled in and must equal the total. Choose how it was paid and enter the reference (UTR, cheque number or UPI reference). Choose the date the money arrived.",
+      "Attach the proof: the bank slip, cheque image or screenshot.",
+      "Save. The order is not paid yet. A different person must approve it."
+    ], tips: ["The same reference or slip cannot be used twice."] },
+    { id: "ho_approve", title: "Approve (or reject) a payment", where: "Payments", steps: [
+      "Open Payments. Payments waiting for approval are listed with who recorded them.",
+      "Open the proof and compare it with the bank statement.",
+      "Press Approve to mark the order paid (a plan then starts, and the paid services become jobs). Or Reject with a reason: the order stays unpaid.",
+      "If the buttons are missing you recorded this payment yourself. A colleague must approve it. You can Withdraw your own mistake."
+    ] },
+    { id: "ho_kyc", title: "Review an identity check", where: "KYC review", steps: [
+      "Open KYC review and a waiting record.",
+      "Look at the scan (the link works for five minutes) and the masked number.",
+      "Approve, or reject with a reason."
+    ] },
+    { id: "ho_reg", title: "Review an owner registered by a builder", where: "Owner registrations", steps: [
+      "Open a registration. Read the proof documents.",
+      "Approve to send the owner an invitation by email, or reject with a reason."
+    ] },
+    { id: "ho_dispatch", title: "Help a job nobody has taken", where: "Jobs board", steps: [
+      "Open Jobs board and choose All jobs or Waiting for a provider. Overdue jobs are flagged.",
+      "Open the job: see who is eligible. Press Ask providers to take it, or choose a provider and Assign with a reason.",
+      "To cancel a job that has not started press Cancel the job and write why. A plan visit goes back into the customer's plan."
+    ], tips: ["Cancelling a job the customer paid for does not refund anything by itself. Handle the money separately."] },
+    { id: "ho_catalogue", title: "Add or change a service and its price", where: "Service catalogue and Pricing", steps: [
+      "In Service catalogue add or edit the service: name, descriptions, picture, active, show on homepage.",
+      "In Pricing, pick its rate type (for example per sq ft or lump sum).",
+      "Make or edit a price list (draft), set the price per pincode, then publish it. Only one list is live at a time.",
+      "A service can be bought only if it is active, available in the area and priced there."
+    ], tips: ["Inactive means hidden from new bookings. Existing jobs are not affected."] },
+    { id: "ho_plan", title: "Make a plan", where: "Pricing → Plans", steps: [
+      "Add the services in the plan and how many times each is done (the recurrence).",
+      "Optionally a discount on a service and a discount on the whole plan.",
+      "There is no typed-in price: it is worked out for each property from its prices and size. Use Try a price to check one."
+    ] },
+    { id: "ho_network", title: "Build the network", where: "Organisations, Staff, Masters", steps: [
+      "In Masters switch on the pincodes you will serve.",
+      "In Organisations add a Master franchise (one per city) and give it territories.",
+      "The master franchise adds franchises, who add providers. Providers choose their services.",
+      "Invite people from Staff. A pincode is available to customers only when it is switched on AND an active provider with staff covers it."
+    ] },
+    { id: "ho_site", title: "Edit the website", where: "Website content", steps: [
+      "Change homepage sections, questions and answers, testimonials and the team.",
+      "Saving updates the public website."
+    ] }
+  ],
+
+  /* The journey of one request, step by step */
+  journey: [
+    { actor: "Customer", title: "Asks on the website", screen: "Website form", text: "A person fills in the Talk to us form: name, email, country, pincode and what they need.",
+      sees: { "Operations": "A new case appears in Onboarding.", "Franchise": "If the pincode is in your area, the case is yours to read.", "Customer": "A thank-you message." } },
+    { actor: "Operations", title: "Contacts them", screen: "Onboarding", text: "Someone calls or emails, adds a note and marks the case Contacted.",
+      sees: { "Franchise": "You can add notes and mark contacted too.", "Customer": "—" } },
+    { actor: "Customer", title: "Creates an account and adds the property", screen: "Getting started → Properties", text: "They sign up with the same email, so the case links to them, then add their property.",
+      sees: { "Operations": "The case moves to Registered, then Property added.", "Customer": "Getting started shows what is next." } },
+    { actor: "Operations", title: "Arranges the site visit", screen: "Onboarding → Arrange site visit", text: "Every property starts with a site visit. An order for it is made for the customer.",
+      sees: { "Customer": "The site-visit order appears in Orders.", "Operations": "Waiting for payment." } },
+    { actor: "Two people", title: "The visit is paid", screen: "Orders, then Payments", text: "One person records the money with proof. A different person approves. Only then is it paid.",
+      sees: { "Operations": "The first records, the second approves.", "Customer": "Order shows Paid." } },
+    { actor: "Providers", title: "The visit job is in the pool", screen: "Jobs board → My pool", text: "Every provider that covers the pincode and offers the service sees it. The first to accept gets it.",
+      sees: { "Provider": "You see the area and property type. No name or address yet.", "Franchise": "You see it too and can nudge.", "Customer": "Service requests: finding a provider." } },
+    { actor: "Provider", title: "Accepts and gives it to a worker", screen: "Jobs board → Open", text: "After accepting, the customer and address are visible. The provider picks one of its workers who can do the service.",
+      sees: { "Worker": "The job appears in their list.", "Customer": "Service requests: a person has been assigned." } },
+    { actor: "Operations", title: "The visit is done", screen: "Site visits → Visit done", text: "Today operations record the visit and correct the details. (Soon the worker does this on the job.) The property is now verified.",
+      sees: { "Customer": "They can now choose services and plans.", "Operations": "The job closes by itself." } },
+    { actor: "Operations", title: "Makes an offer", screen: "Onboarding → Make an offer", text: "Services or one plan, priced by the server for that property, with an optional discount and reason.",
+      sees: { "Customer": "Getting started shows the price breakdown. They accept or decline.", "Operations": "Waiting for the customer." } },
+    { actor: "Two people", title: "The order is paid", screen: "Orders, then Payments", text: "Same two-person rule. A plan starts when paid. The customer becomes Active.",
+      sees: { "Customer": "Orders show Paid. The plan shows visits left.", "Operations": "Case is Active." } },
+    { actor: "Providers", title: "Each paid service becomes a job", screen: "Jobs board", text: "Same pool, same first-to-accept. For plan visits the customer presses Request a visit.",
+      sees: { "Customer": "Service requests shows each one.", "Provider": "Accept, then assign a worker." } },
+    { actor: "Worker", title: "Does the work", screen: "Coming soon", soon: true, text: "Soon: on the way, start code, checklist, photos, finish code, then a check. Extra work needs the customer's approval.",
+      sees: { "Customer": "Progress updates.", "Operations": "Job history." } }
+  ],
+
+  /* The organisation tree for the explorer. `role` links to a role in `roles`. */
+  org: [
+    { id: "head", name: "Head office", role: "super_admin", also: "ops", level: 0, invites: "Nobody above. A super admin invites operations staff and master franchises.",
+      sees: "Everything.", does: "Sets up services, prices, pincodes and the network. Approves money." },
+    { id: "mf", name: "Master franchise: Sample City", role: "master_franchise", level: 1, parent: "head", invites: "Invited by head office.",
+      sees: "Every franchise, provider, inquiry and job in its city.", does: "Adds franchises and providers, sets areas, invites people, nudges jobs." },
+    { id: "fn", name: "Franchise: North area", role: "franchise", level: 2, parent: "mf", invites: "Invited by the master franchise.",
+      sees: "Its providers, and inquiries and jobs in its pincodes.", does: "Adds providers, accepts providers from elsewhere, switches a provider's service off." },
+    { id: "fs", name: "Franchise: South area", role: "franchise", level: 2, parent: "mf", invites: "Invited by the master franchise.",
+      sees: "Its providers, and inquiries and jobs in its pincodes. Never North's.", does: "Same as North, in its own pincodes." },
+    { id: "p1", name: "Provider: FixIt Services", role: "provider_admin", level: 3, parent: "fn", invites: "Invited by its franchise.",
+      sees: "Its own pool, jobs and workers.", does: "Chooses services, accepts jobs, gives them to workers." },
+    { id: "p2", name: "Provider: HomeCare Co", role: "provider_admin", level: 3, parent: "fn", invites: "Invited by its franchise.",
+      sees: "Its own pool, jobs and workers. It may share pincodes with FixIt.", does: "The same, in competition for the same jobs." },
+    { id: "w1", name: "Worker: Asha", role: "field_worker", level: 4, parent: "p1", invites: "Invited by the provider admin.",
+      sees: "Only jobs given to her.", does: "Does the visit." }
+  ],
+
+  glossary: [
+    { term: "Pincode", def: "A six-digit postal code. In MPD an area is a pincode." },
+    { term: "Territory", def: "A named group of pincodes that an organisation looks after. The name is only a label." },
+    { term: "Master franchise", def: "Runs one city. There is one per city." },
+    { term: "Franchise", def: "Runs an area of a city. Never shares a pincode with another franchise." },
+    { term: "Service provider", def: "A contractor with workers. Can share pincodes with other providers." },
+    { term: "Service worker", def: "A person who goes to the property for a provider." },
+    { term: "Upline", def: "The levels above you: franchise, master franchise, head office." },
+    { term: "Site visit", def: "The first service for every property: a person visits, checks it and corrects the details." },
+    { term: "Verified property", def: "A property whose site visit is done. Its checked facts are locked for the owner." },
+    { term: "Job", def: "One piece of work at a property." },
+    { term: "Pool", def: "Jobs waiting for a provider. Every eligible provider sees them. The first to accept gets the job." },
+    { term: "Eligible", def: "A provider that is active with staff, covers the pincode, and offers the service." },
+    { term: "Nudge", def: "Ask providers to take a job nobody has accepted." },
+    { term: "Overdue", def: "A job still waiting after two hours (thirty minutes if urgent)." },
+    { term: "Plan", def: "A bundle of services with a number of visits, priced for each property." },
+    { term: "Batch", def: "Orders for many properties bought together and paid with one payment." },
+    { term: "Maker and checker", def: "Two people handle money: one records it, a different one approves it." },
+    { term: "Offer (quotation)", def: "A priced proposal to a prospect. They accept it and an order is created." },
+    { term: "Case", def: "One prospect's journey from first inquiry to paying customer." },
+    { term: "Vault", def: "A customer's private place for documents." },
+    { term: "KYC", def: "An identity check. Only a masked number is kept." },
+    { term: "Price list", def: "Prices per pincode. Only one list is live at a time." },
+    { term: "Rate type", def: "How a service is charged: a fixed amount, per sq ft, per hour, per visit and so on." }
+  ]
+};

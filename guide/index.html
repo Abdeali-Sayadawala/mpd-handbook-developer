@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MPD role guide</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the guide</a>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <h1>My Property Doctors <span>role guide</span></h1>
+      <p class="muted">What each role does in the app, and how. Click around: nothing here changes any real data.</p>
+    </div>
+    <div class="searchbox">
+      <label for="search" class="sr">Find a task</label>
+      <input id="search" type="search" class="field" placeholder="Find a task, for example approve a payment" autocomplete="off">
+      <div id="results" class="results" hidden></div>
+    </div>
+  </div>
+  <div class="wrap"><nav id="views" class="tabs" role="tablist" aria-label="Sections"></nav></div>
+</header>
+<main id="main" class="wrap" tabindex="-1"></main>
+<footer class="wrap foot"><span id="updated"></span> · Private: for the MPD team. Kept in step with the app by the developers (<code>guide/data.js</code>).</footer>
+<noscript><p class="wrap">This guide needs JavaScript. Open it in any modern browser.</p></noscript>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

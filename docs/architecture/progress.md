@@ -2,7 +2,7 @@
 
 Last updated: 22-Nov-2026 (after M5.1 the job pool). Branch `develop` in every repo. Update this file at the end of every milestone step, together with the two handbooks and the repo `CLAUDE.md` files.
 
-**Size today:** 230 API endpoints, 21 database migrations, 406 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
+**Size today:** 230 API endpoints, 22 database migrations, 406 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
 
 ## Milestones
 
@@ -76,6 +76,7 @@ Homepage sections read content blocks, catalogue, team, FAQs and testimonials fr
 - Every change is audited.
 
 ## Known gaps and notes
+- A provider admin cannot edit its own pincodes (the level above does); the decision is that a provider picks from its franchise's list. Small change, not done yet.
 - Email is console-only (no real email until M6 outbox/SES).
 - Virus scanner is a no-op in development; ClamAV is required before production.
 - No real file storage service yet (local disk); S3 at the AWS step.

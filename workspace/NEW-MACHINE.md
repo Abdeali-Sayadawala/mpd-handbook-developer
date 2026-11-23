@@ -4,7 +4,8 @@ Everything needed to continue this project is in Git. Nothing important lives on
 
 | What | Where it lives |
 |---|---|
-| Code, 7 repos | GitHub, private, under the developer's account: `mpd-backend`, `mpd-frontend`, `mpd-mobile`, `mpd-global`, `mpd-infra`, `mpd-handbook-developer`, `mpd-handbook` |
+| **Project context (start here)** | `mpd-context`: what MPD is, the repos, status, decisions, the after-every-step checklist |
+| Code and docs, 8 repos | GitHub, private, under the developer's account: `mpd-context`, `mpd-backend`, `mpd-frontend`, `mpd-mobile`, `mpd-global`, `mpd-infra`, `mpd-handbook-developer`, `mpd-handbook` |
 | Specs, decisions, progress, legacy notes, the service seed | `mpd-handbook-developer/docs/` |
 | Workspace instructions for Claude Code (`CLAUDE.md`) and the folder README | `mpd-handbook-developer/workspace/` (copy this `CLAUDE.md` to the workspace root, see below) |
 | Per-repo instructions | `CLAUDE.md` in each repo |
@@ -17,11 +18,12 @@ Everything needed to continue this project is in Git. Nothing important lives on
 Needs: Git, Node 22, pnpm, Docker Desktop, the GitHub CLI (`gh auth login`), and Claude Code.
 
 ```powershell
-# 1. a workspace folder, then clone the developer handbook first
+# 1. a workspace folder, then clone the context repo and the developer handbook first
 mkdir D:\MPDv2; cd D:\MPDv2
+gh repo clone mpd-context
 gh repo clone mpd-handbook-developer
 
-# 2. let the script clone the other six repos and put CLAUDE.md in the workspace root
+# 2. let the script clone the other repos and put CLAUDE.md in the workspace root
 .\mpd-handbook-developer\workspace\setup.ps1
 
 # 3. backend: environment, database, migrations, seed
@@ -38,7 +40,7 @@ cd ..\mpd-frontend; copy .env.example .env.local; pnpm install; pnpm dev        
 cd ..\mpd-global;   pnpm install; pnpm dev -p 3001                               # http://localhost:3001
 ```
 
-Then open Claude Code in `D:\MPDv2`. It reads `CLAUDE.md` in the workspace root and the repo's own `CLAUDE.md`. Ask it to read `mpd-handbook-developer/docs/architecture/progress.md` to see where the work stands.
+Then open Claude Code in `D:\MPDv2` and paste the prompt from `mpd-context/START-HERE-NEW-SESSION.md`. It reads `mpd-context`, `CLAUDE.md` in the workspace root and the repo's own `CLAUDE.md`, and tells you where the work stands. Nothing needs to be explained again.
 
 ## Keep the copies in step
 `CLAUDE.md` and `README.md` at the workspace root are copies of `workspace/CLAUDE.md` and `workspace/README.md`. After changing the root copy, copy it back into `workspace/` and commit. `setup.ps1 -Sync` does that copy for you.

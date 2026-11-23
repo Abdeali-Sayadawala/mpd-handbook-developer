@@ -1,13 +1,13 @@
 # Run once in PowerShell from D:\MPDv2.
 # Needs: git, and the GitHub CLI (https://cli.github.com), logged in with:  gh auth login
-# Creates the 7 PRIVATE repos under YOUR PERSONAL GitHub account (no organisation needed).
+# Creates the 8 PRIVATE repos under YOUR PERSONAL GitHub account (no organisation needed).
 # Later they can be moved to the owner's organisation with GitHub's "Transfer repository" (history kept).
 # Usage:  .\init-repos.ps1            (uses the logged-in account)
 #         .\init-repos.ps1 -Owner someone-else
 param([string]$Owner = "")
 if ($Owner -eq "") { $Owner = (gh api user --jq .login) }
 Write-Host "Creating private repos under: $Owner"
-$repos = "mpd-backend","mpd-frontend","mpd-mobile","mpd-global","mpd-infra","mpd-handbook-developer","mpd-handbook"
+$repos = "mpd-context","mpd-backend","mpd-frontend","mpd-mobile","mpd-global","mpd-infra","mpd-handbook-developer","mpd-handbook"
 foreach ($r in $repos) {
   Push-Location $r
   if (-not (Test-Path .git)) { git init -b main | Out-Null }

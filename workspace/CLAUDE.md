@@ -1,6 +1,8 @@
 # CLAUDE.md: My Property Doctors (MPD) workspace
 
-This is the **workspace root for the new MPD** (`D:\MPDv2`). Each `mpd-*` folder is its own git repo with its own CLAUDE.md. Read this file first, then the repo's CLAUDE.md.
+This is the **workspace root for the new MPD** (`D:\MPDv2`). Each `mpd-*` folder is its own git repo with its own CLAUDE.md.
+
+**NEW SESSION OR NEW MACHINE? Read `mpd-context/README.md` first** (then `05-status.md`, `08-workflow.md`, `07-decisions.md`). It holds what MPD is, the 8 repos, what is done and next, every decision, and the after-every-step checklist. Then read this file and the CLAUDE.md of the repo you will touch.
 
 ## Workspace map
 ```
@@ -9,8 +11,10 @@ D:\MPDv2
   mpd-handbook-developer/docs/architecture/        README.md (full target spec) · MPD-Architecture-Handbook.html
   mpd-handbook-developer/docs/legacy/              README.md + handbook of the old Laravel app (reference only)
   mpd-handbook-developer/docs/seed/                legacy-service-catalogue.json (13 categories / 68 sub-categories / 293 services)
+  mpd-context/              START HERE: the map and memory (what, where, status, decisions, workflow checklist)
   mpd-backend/  mpd-frontend/  mpd-mobile/  mpd-global/  mpd-infra/  mpd-handbook-developer/  mpd-handbook/
-  init-repos.ps1            one-time git init + first commit for all 7 repos (copy in mpd-handbook-developer/workspace/)
+  mpd-handbook-developer/guide/   interactive role guide for admin-side users (open guide/index.html)
+  init-repos.ps1            one-time git init + first commit for all repos (copy in mpd-handbook-developer/workspace/)
   New machine: mpd-handbook-developer/workspace/NEW-MACHINE.md
 ```
 The legacy app stays in `D:\MPD\mpd` (read-only reference; never copy its code or data here).
@@ -72,4 +76,4 @@ Full legacy detail: `mpd-handbook-developer/docs/legacy/README.md`. Full target 
 - **Dispatch (pool built in M5.1; field work M5.2):** a request goes to an **open pool**. Every eligible provider (covers the pincode and offers the service) sees it, plus the franchise, MF and ops above. The first provider to accept wins (one atomic update). Upline can nudge or assign directly. Acceptance limit 2 h (30 min urgent), then escalate. The provider then assigns one of its own workers who offers that service (the worker just gets it and can raise "cannot attend"). Customer details stay hidden until accepted.
 
 ## Keeping the documentation current (standing rule)
-At the end of every milestone step, in the same session, update: `mpd-handbook-developer/docs/architecture/progress.md`, the relevant spec file, `mpd-handbook-developer/` (status page), `mpd-handbook/` (user guide: live features only, "coming soon" marked) and the `CLAUDE.md` of every repo touched. All documentation lives in git inside `mpd-handbook-developer/` (`docs/` and `workspace/`). Commit and push it. This root `CLAUDE.md` is a copy of `mpd-handbook-developer/workspace/CLAUDE.md`: after editing one, copy it to the other (`workspace/setup.ps1 -Sync` copies root to repo) and commit.
+At the end of every milestone step, in the same session, update: `mpd-handbook-developer/docs/architecture/progress.md`, the relevant spec file, `mpd-handbook-developer/` (status page, and the role guide `guide/data.js` if screens, roles or flows changed), `mpd-handbook/` (user guide: live features only, "coming soon" marked), the `CLAUDE.md` of every repo touched, **and the context repo `mpd-context`** (`05-status.md`, `99-session-log.md`, plus roadmap, decisions or repo notes if they changed). The exact checklist is `mpd-context/08-workflow.md`; `mpd-context/scripts/verify.ps1` checks the numbers. All documentation lives in git inside `mpd-handbook-developer/` (`docs/` and `workspace/`). Commit and push it. This root `CLAUDE.md` is a copy of `mpd-handbook-developer/workspace/CLAUDE.md`: after editing one, copy it to the other (`workspace/setup.ps1 -Sync` copies root to repo) and commit.

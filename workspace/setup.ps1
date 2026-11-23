@@ -14,7 +14,7 @@ if ($Sync) {
   return
 }
 
-$repos = 'mpd-backend', 'mpd-frontend', 'mpd-mobile', 'mpd-global', 'mpd-infra', 'mpd-handbook'
+$repos = 'mpd-context', 'mpd-backend', 'mpd-frontend', 'mpd-mobile', 'mpd-global', 'mpd-infra', 'mpd-handbook'
 $owner = (gh api user --jq .login)
 foreach ($r in $repos) {
   if (Test-Path "$workspace\$r") { Write-Host "$r already here"; continue }
