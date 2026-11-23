@@ -416,6 +416,7 @@ Each milestone gets its own Claude session(s). Start every session by reading `C
 ---
 
 ## 17. Open questions
+00. **Frontend hosting (raised 23-Nov-2026):** both Next.js apps run on the one Lightsail box for launch. Moving the public website `mpd-global` to S3 + CloudFront (static export, rebuild on CMS publish) is possible later; the signed-in `mpd-frontend` needs a server (server actions, cookie sessions, uploads). See [tech-explained.md](tech-explained.md).
 0. **Hierarchy and dispatch:** all decided on 21-Nov-2026, see [admin-hierarchy-and-dispatch.md](admin-hierarchy-and-dispatch.md) §9.
 1. Brand and app names for the stores, and the production domain.
 2. Is GST invoicing needed at launch (is MPD GST-registered)? What are the HSN/SAC codes per category?

@@ -1,8 +1,8 @@
 # Build progress: what exists today
 
-Last updated: 23-Nov-2026 (after M5.2a doing the work). Branch `develop` in every repo. Update this file at the end of every milestone step, together with the two handbooks and the repo `CLAUDE.md` files.
+Last updated: 23-Nov-2026 (after M5.2a doing the work and provider-chosen pincodes). Branch `develop` in every repo. Update this file at the end of every milestone step, together with the two handbooks and the repo `CLAUDE.md` files.
 
-**Size today:** 241 API endpoints, 23 database migrations, 423 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
+**Size today:** 241 API endpoints, 23 database migrations, 425 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
 
 ## Milestones
 
@@ -68,6 +68,7 @@ Homepage sections read content blocks, catalogue, team, FAQs and testimonials fr
 - **Purchaser control:** either the property owner or the project owner may buy; only the purchaser can change what they bought, in both directions; the other party sees it exists but not its price; strangers get 404; ops can cancel with a recorded reason. A change of owner does not take over earlier purchases.
 - **Plans** are made by admins, never fixed in code, and **have no typed-in price**: the price is calculated per property from each service's own price x how many times it is done, less service and plan discounts (rounded half up to the paisa). A plan of only lump-sum services is fixed. The order keeps the whole breakdown; a subscription keeps its visits, starts when its order is paid, ends after its last day, and is cancelled with its unpaid order. Same purchaser rule as orders.
 - **Property history** (`GET /v1/properties/:id/history`) belongs to the property, not the owner: orders, plans and ownership changes stay when the owner changes. A new owner sees them without the previous owner's name or prices. Jobs, reports and photos join it in M5; their files must belong to the property (not to one owner's vault) so a new owner can open them.
+- **Provider areas:** a provider's own admin can create, change and delete its territories; the pincodes must lie inside the area of its original franchise or of a franchise that accepted it (so every pincode it serves is under a franchise it is registered in); another provider cannot touch them; a franchise still cannot change its own area.
 - **Doing the work (M5.2a):** a code works once, for 10 minutes, for five tries, and only the customer who bought the job can get it; only the assigned worker starts or finishes; a started job cannot be cancelled, released or reassigned away; only the provider or operations check work and a checked job can be rated once (1 to 5; the database refuses a rating before the check); overriding a code needs operations and a reason; the end of an unrecorded site visit cannot be overridden; a worker's bad property corrections change nothing.
 - **Jobs (M5.1):** exactly one provider can accept a job (guarded update, tested with two at once); a provider that is not eligible (area, service, suspended, inactive or under an inactive franchise) cannot see or take it; the pool never shows the customer or full address; a worker is chosen only from the provider's own active workers who can do the service; status changes only through `assertTransition`; the database refuses a pooled job with a provider, an accepted one without, or a worker before assignment; a cancelled plan visit is given back; only the purchaser requests plan visits.
 - **Areas and services (M5.0):** a pincode is held by at most one franchise and a city by one master franchise; a worker can only have services their provider offers (database rule), removing a service from a provider removes it from its workers, only the upline (never the provider) can suspend a service, and a worker's list is private to them, their provider and the upline.
@@ -78,7 +79,6 @@ Homepage sections read content blocks, catalogue, team, FAQs and testimonials fr
 - Every change is audited.
 
 ## Known gaps and notes
-- A provider admin cannot edit its own pincodes (the level above does); the decision is that a provider picks from its franchise's list. Small change, not done yet.
 - Email is console-only (no real email until M6 outbox/SES).
 - Virus scanner is a no-op in development; ClamAV is required before production.
 - No real file storage service yet (local disk); S3 at the AWS step.

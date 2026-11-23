@@ -45,6 +45,19 @@ NestJS is a framework for building the **backend** (the API) in TypeScript on No
 - **A monorepo:** easier type sharing, but every session would load far more; we use separate repos linked by `openapi.json` instead.
 - **Flutter for mobile:** another language; Expo (React Native) reuses our TypeScript.
 
+## Why not host the frontend on S3?
+Short answer: **S3 only stores files and serves them as they are; our signed-in app is not made of files, it is a running program.** It was also not written down as a considered option in the ADRs (S3 was chosen for documents and backups only), so this is the honest comparison.
+
+What S3 (with CloudFront in front) can do: serve a **static site**: HTML, CSS and JavaScript prepared in advance. Next.js can produce that (`output: 'export'`) if the app uses no server features.
+
+What our apps use that a static site cannot do:
+- **mpd-frontend (signed-in app):** sign-in sessions in server-side cookies and silent token refresh, **server actions** (every button calls a server function that adds the user's token and calls the API), route handlers for file uploads (vault, payment proofs), pages rendered per user (`force-dynamic`). On S3 none of that runs. To host it there it would have to be rewritten as a browser-only single-page app that calls the API directly: tokens kept in the browser (a security step backwards), the API opened to cross-site calls (CORS), uploads sent straight to the API, and about 19 action files and many pages reworked. A large change for little saving.
+- **mpd-global (public website):** mostly static content, so it **could** be exported and hosted on S3 + CloudFront. The catch: today a CMS save triggers revalidation so the page updates in seconds. On S3 a save would have to trigger a rebuild and upload (a GitHub Action or a small worker), taking a minute or two. Doable, adds one more moving part.
+
+Cost and complexity: the Lightsail box has to exist anyway for the API, database and worker, so running two small Next.js processes beside them adds almost nothing to the bill (well inside the ₹5,000 a month limit). Static hosting would save little money but add a second deployment path (build, upload, cache invalidation, CORS) and move us away from "one server, one `docker compose up`", which is the thing that makes deploys and rollbacks simple at launch.
+
+Where S3 + CloudFront is a good idea later: the **public website** if traffic or load speed ever needs it (fast worldwide for NRIs, very cheap, survives traffic spikes). It is a clean, reversible optimisation, so the plan is: **keep both frontends on the server for launch; revisit moving `mpd-global` to S3 + CloudFront after launch** (needs an owner decision; recorded as an open question). The signed-in app stays on a server because it needs one.
+
 ## How a click travels (example: "Approve payment")
 1. In the browser the staff member presses **Approve** on the Payments page (Next.js, `mpd-frontend`).
 2. The button calls a server action (`src/actions/payments.ts`), which sends `POST /v1/admin/payments/:id/approve` with the user's token to the backend.

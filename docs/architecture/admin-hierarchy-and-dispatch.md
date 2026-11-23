@@ -41,7 +41,9 @@ How it is organised (**BUILT**, `territories` + `territory_pincodes`):
 - A **service provider** also holds one or many pincodes and areas, chosen from the list of pincodes of its franchise.
 - **Service providers may overlap freely**, including several providers in the same pincode under the same franchise. That is what lets a request reach all of them (§5).
 
-### How a provider adds an area (DECIDED)
+### How a provider adds an area (DECIDED; BUILT 23-Nov-2026)
+**Built:** the provider's own admin creates, changes and deletes its territories (Organisations, map icon on its row). Only pincodes inside the area of its original franchise or of a franchise that has accepted it are allowed (`FranchiseLinksService.allowedPincodeIds`), so every pincode a provider serves is always under a franchise it is registered in, and because franchises never overlap, each pincode belongs to exactly one of them. Ending a registration removes the pincodes only that franchise covered. A franchise or master franchise or operations can still edit a provider's areas; a franchise still cannot edit its own.
+
 1. The provider picks pincodes/areas **from the list of its franchise's pincodes**. It can then receive requests for properties in those pincodes.
 2. To work in a pincode **outside its franchise**, the provider must **register under the franchise that runs that pincode** (the franchise accepts it). A provider can therefore be registered under **more than one franchise**, and it only sees and serves the pincodes covered through a franchise that has accepted it.
 3. Each franchise sees only the provider's activity in its own pincodes.

@@ -184,6 +184,12 @@ window.GUIDE = {
         ] }
       ],
       tasks: [
+        { id: "sp_areas", title: "Choose the pincodes you serve", where: "Organisations → map icon on your company", steps: [
+          "Open Organisations and press the map icon (Territories) on your company.",
+          "Add an area: a name and the pincodes you serve. You can add, change or remove areas whenever you like.",
+          "Only pincodes of the franchise you were created under, or of a franchise that has accepted you, are allowed. Each pincode stays under the franchise that covers it.",
+          "To serve a pincode that belongs to another franchise, first ask that franchise to register you (Franchises button), then add the pincode once it accepts."
+        ], tips: ["Other providers may serve the same pincodes. That is normal: the first to accept a job gets it.", "If a registration ends, the pincodes only that franchise covered are removed from your areas."] },
         { id: "sp_services", title: "Choose the services you offer", where: "Organisations → Services", steps: [
           "Open Organisations, find your company and press Services.",
           "Tick every service you can do. Search by name.",
@@ -217,13 +223,13 @@ window.GUIDE = {
         { id: "sp_franchise", title: "Work in an area of another franchise", where: "Organisations → Franchises", steps: [
           "Press Franchises on your company.",
           "Choose the franchise that runs that area and press Ask.",
-          "Wait for that franchise to accept. After that your area can include its pincodes (the level above you sets your pincodes)."
+          "Wait for that franchise to accept. After that you can add its pincodes to your own areas (see Choose the pincodes you serve)."
         ] }
       ],
       cannot: [
         "See the customer before you accept.",
         "Switch a service back on after your franchise switched it off.",
-        "Set your own pincodes. Your franchise sets them (ask them)."
+        "Pick a pincode outside the areas of the franchises you are registered under."
       ],
       tips: ["Other providers see the same pool. Speed matters."]
     },
