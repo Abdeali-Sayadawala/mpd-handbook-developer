@@ -40,7 +40,7 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <h1>What is built, as of 21 Nov 2026</h1>
 <p class="lede">M0 to M2 and the first two steps of M3 are done. This page is the current state; the plan is on the <a href="index.html">architecture page</a>. The full written spec lives in <code>docs/architecture/</code> (README, customers-and-pricing, admin-hierarchy-and-dispatch, progress).</p>
 <p><a href="guide/index.html"><b>Interactive role guide →</b></a> (what each role does, for people who do not know the app) · Project memory: the <code>mpd-context</code> repo.</p>
-<p><span class="pill ok">241 endpoints</span><span class="pill ok">23 migrations</span><span class="pill ok">425 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
+<p><span class="pill ok">249 endpoints</span><span class="pill ok">24 migrations</span><span class="pill ok">439 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
 
 <h2 id="progress">Progress</h2>
 <table>
@@ -62,7 +62,8 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <tr><td>M5.0c</td><td>Providers registered under several franchises (ask, accept, end)</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M5.1</td><td>Job pool: paid services and plan visits become jobs; first eligible provider to accept gets it; upline nudges or picks; provider assigns a worker</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M5.2a</td><td>Doing the work: visit time, on the way, start and finish with the customer's code, check or send back, rate, operations override, site visit finished on the job</td><td><span class="pill ok">done</span></td></tr>
-<tr><td>M5.2b, M5.2c</td><td>Checklist and form snapshot, before/after photos, extra work with the customer's approval and payment</td><td><span class="pill later">next</span></td></tr>
+<tr><td>M5.2b</td><td>Checklist per service (versioned, copied to the job), step answers, before/after photos with time and place, finishing gated on them</td><td><span class="pill ok">done</span></td></tr>
+<tr><td>M5.2c</td><td>Extra work with the customer's approval and payment</td><td><span class="pill later">next</span></td></tr>
 <tr><td>TOTP</td><td>Two-step login for super admin and ops</td><td><span class="pill later">deferred to M9, a hard gate before real data or money</span></td></tr>
 </table>
 
@@ -163,7 +164,7 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 
 <h2 id="next">Next</h2>
 <ol>
-<li><b>M5.2b/c</b> checklist and photos, then extra work, then the field app.</li>
+<li><b>M5.2c</b> extra work with the customer's approval and payment, then the field app.</li>
 </ol>
 
 <h2>Known gaps</h2>

@@ -1,7 +1,7 @@
 /* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
    Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
 window.GUIDE = {
-  updated: "23 Nov 2026 (after M5.2a)",
+  updated: "23 Nov 2026 (after M5.2b)",
 
   groups: [
     { id: "head", name: "Head office" },
@@ -258,9 +258,12 @@ window.GUIDE = {
           "For a site visit also fill in the details that were wrong on file (address, pincode, area). This verifies the property.",
           "Your provider or operations then check the work. If it is sent back, finish it again with a new code."
         ], tips: ["A code works for 10 minutes and five tries. If it stops working ask the customer for a new one.", "Never ask a customer to read out a code before you are at the property."] },
-        { id: "fw_soon", title: "Checklist and photos", where: "Coming soon", soon: true, steps: [
-          "Coming soon: follow a checklist and take before and after photos on the job."
-        ] }
+        { id: "fw_checklist", title: "Follow the checklist and take photos", where: "Jobs board → Open (after you start)", steps: [
+          "After you start, the job shows its checklist. Answer each step: tick it, type a note or a number, or pick an option.",
+          "Press Take or choose a photo. Choose Before the work, After the work or Other, and the step it belongs to if any. Allow location if your phone asks: it records where the photo was taken.",
+          "The screen lists anything still missing. You cannot finish until every required step, step photo and (if the service asks) before and after photo is done.",
+          "Then finish with the customer's code as usual."
+        ], tips: ["Take the before photo before you touch anything.", "The same photo cannot be added twice."] }
       ],
       cannot: ["See other workers' jobs, other customers, or anything outside your jobs."],
       tips: ["Never share a customer's phone number or address."]
@@ -295,7 +298,11 @@ window.GUIDE = {
           "When the worker is with you press Show my start code and read the 6 digits to them. It works for 10 minutes.",
           "When the work is done press Show my finish code the same way.",
           "After we have checked the work, rate it from 1 to 5."
-        ], tips: ["Never share a code with anyone who is not at your property."] }
+        ], tips: ["Never share a code with anyone who is not at your property."] },
+        { id: "po_report", title: "See what was done and the photos", where: "Service requests", steps: [
+          "When the work is done, open What was done, and photos on your request.",
+          "You see the checklist the worker followed and the before and after photos. They are also kept in your vault under the property's Job evidence folder."
+        ] }
       ],
       cannot: ["Change what a builder bought for your unit.", "Edit the address, pincode, type or area after the site visit."],
       tips: []
@@ -374,6 +381,12 @@ window.GUIDE = {
       "Open the job: see who is eligible. Press Ask providers to take it, or choose a provider and Assign with a reason.",
       "To cancel a job that has not started press Cancel the job and write why. A plan visit goes back into the customer's plan."
     ], tips: ["Cancelling a job the customer paid for does not refund anything by itself. Handle the money separately."] },
+    { id: "ho_checklist", title: "Write a checklist for a service", where: "Service catalogue", steps: [
+      "Open Service catalogue and find the service. Press the list icon (Checklist).",
+      "Add steps. For each: what the worker does, the answer type (tick, note, number or pick one), whether it is required, and whether it needs a photo.",
+      "Tick The worker must add a before photo and an after photo if you want those every time.",
+      "Press Save. This makes a new version. Visits that have already started keep the version they began with."
+    ], tips: ["Keep checklists short. Every required step has to be answered before the worker can finish.", "Saving an empty list switches the checklist off for new visits."] },
     { id: "ho_override", title: "Start or finish a job without the customer's code", where: "Jobs board → Open", steps: [
       "Use this only when the customer truly cannot give a code (for example they are abroad and unreachable).",
       "Open the job and press Start without a code (or Finish without a code). Write a clear reason of at least ten characters.",
@@ -427,11 +440,11 @@ window.GUIDE = {
     { actor: "Providers", title: "Each paid service becomes a job", screen: "Jobs board", text: "Same pool, same first-to-accept. For plan visits the customer presses Request a visit.",
       sees: { "Customer": "Service requests shows each one.", "Provider": "Accept, then assign a worker." } },
     { actor: "Worker", title: "Does the work", screen: "Jobs board → Open", text: "On the way, then the customer shows a start code. The work is done, the customer shows a finish code. For a site visit the worker also corrects the property details.",
-      sees: { "Customer": "Shows their own codes, and sees progress.", "Provider": "Sees it finished and checks it.", "Operations": "Job history. Can start or finish without a code, with a reason." } },
+      sees: { "Customer": "Shows their own codes, and later sees the checklist and photos.", "Provider": "Sees it finished and checks it.", "Operations": "Job history. Can start or finish without a code, with a reason." } },
     { actor: "Provider", title: "Checks the work, the customer rates it", screen: "Jobs board → To check", text: "The provider (or operations) checks it, or sends it back. Then the customer can rate it and the job closes.",
       sees: { "Customer": "Rate from 1 to 5.", "Operations": "Closed." } },
-    { actor: "Worker", title: "Photos and a checklist", screen: "Coming soon", soon: true, text: "Soon: a checklist for the job, before and after photos, and extra work that the customer approves.",
-      sees: { "Customer": "Photos and approval requests.", "Operations": "Evidence on the job." } }
+    { actor: "Customer", title: "Approves extra work", screen: "Coming soon", soon: true, text: "Soon: if more work is needed, the worker asks, the customer approves and pays, and then the work continues.",
+      sees: { "Customer": "An approval request.", "Operations": "The extra work and its payment." } }
   ],
 
   /* The organisation tree for the explorer. `role` links to a role in `roles`. */
@@ -466,6 +479,8 @@ window.GUIDE = {
     { term: "Pool", def: "Jobs waiting for a provider. Every eligible provider sees them. The first to accept gets the job." },
     { term: "Eligible", def: "A provider that is active with staff, covers the pincode, and offers the service." },
     { term: "Nudge", def: "Ask providers to take a job nobody has accepted." },
+    { term: "Checklist", def: "The steps a worker follows for a service. An admin writes it; the job keeps a copy when the work starts." },
+    { term: "Evidence", def: "Before and after photos taken on a job, with time and place. Kept in the customer's vault." },
     { term: "Code (start and finish)", def: "A 6-digit code the customer shows the worker on site. It works for 10 minutes. It proves the worker was there." },
     { term: "Override", def: "Operations starting or finishing a job without a code, with a written reason. Always recorded." },
     { term: "Overdue", def: "A job still waiting after two hours (thirty minutes if urgent)." },
