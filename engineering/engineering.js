@@ -173,6 +173,7 @@ const MODS = {
   onboarding: { deps: ['customers-properties', 'identity', 'masters', 'orgs-territory', 'orders', 'catalogue'], tables: ['onboarding_cases', 'case_events', 'case_notes', 'quotations', 'quotation_lines'], does: 'From website inquiry to a paying customer: cases by area, paid site visit, a priced offer, acceptance creates the order.' },
   'provider-services': { deps: ['catalogue', 'identity', 'orgs-territory'], tables: ['provider_services', 'worker_services'], does: 'Which services a provider offers and which of those each worker can do.' },
   jobs: { deps: ['orders', 'catalogue', 'customers-properties', 'identity', 'orgs-territory', 'provider-services', 'vault', 'messaging'], tables: ['jobs', 'job_events', 'job_declines', 'job_otps', 'service_checklists', 'job_steps', 'job_evidence', 'job_extras', 'job_messages', 'job_message_reads'], does: 'The pool and first-accept-wins, assigning workers, doing the work with customer codes, checklists and photos, extra work, chat on a job.' },
+  reports: { deps: ['jobs', 'orders', 'customers-properties', 'orgs-territory', 'masters', 'identity'], tables: [], does: 'Dashboards and reports, read only. Asks jobs (JobStatsService) and orders (moneyStats) for their numbers, scopes them by the asker\'s role, and exports the jobs as a spreadsheet. Owns no tables.' },
   messaging: { deps: ['identity'], tables: ['outbox', 'notifications', 'notification_preferences'], does: 'Notifications: the in-app inbox, the email outbox with retries, preferences, message templates.' },
   reminders: { deps: ['jobs', 'orders', 'vault', 'messaging'], tables: [], does: 'The scheduled sweep: asks jobs, orders, plans and the vault to remind about what each owns. Owns no tables.' },
   health: { deps: [], tables: [], does: 'A /health route for uptime checks.' },
@@ -385,6 +386,17 @@ if (total > MAX_TOTAL_PAISE) throw new BadRequestException('The total is too lar
     ['Test by calling the service directly', 'Tests call <code>reminders.sweep()</code> themselves; they do not wait for the clock.', 'test/reminders.e2e-spec.ts'],
   ], code: `await this.queue.work('reminders.sweep', async () => { await this.reminders.sweep(); });
 await this.queue.schedule('reminders.sweep', '*/10 * * * *');   // every 10 minutes` },
+  { id: 'report', label: 'A report or dashboard number', kind: 'Backend + frontend', intro: 'Numbers that summarise many rows. They are read only, and the main risk is <b>showing the wrong person the wrong rows</b>.', steps: [
+    ['Put the query in the module that owns the table', '<code>JobStatsService</code> for jobs, <code>OrdersService.moneyStats</code> for money. The <code>reports</code> module only asks; it reads no table of another module.', 'jobs/job-stats.service.ts'],
+    ['Use SQL for aggregates', 'Averages, counts by group and per-day series are one raw SQL query (<code>Prisma.sql</code> with <code>$queryRaw</code>), not a loop over thousands of rows. Always pass values as parameters (<code>${value}</code>), never by joining strings.', 'job-stats.service.ts'],
+    ['Decide the scope on the server', '<code>ReportsService.scopeOf</code> turns the asker\'s roles into a filter (pincodes, provider organisations, or one worker). The widest role wins. The client never sends a scope.', 'reports/reports.service.ts'],
+    ['Define each number in words', 'Write what it counts ("a job belongs to the period by when it was created", "completed means work done, checked or closed") in the DTO description and in progress.md.', 'dto/reports.dto.ts'],
+    ['Whole paise, India days', 'Money stays in paise; days are India-time days (<code>AT TIME ZONE \'Asia/Kolkata\'</code>); fill missing days with zero so charts are continuous.', ''],
+    ['Exports are audited and safe', 'Audit the export, cap the rows, and prefix cells beginning with = + - @ so a spreadsheet cannot run them as formulas.', 'reportsService.jobsCsv'],
+    ['Test with a known set of rows', 'Build a tiny world (two finished jobs rated 5 and 3, one cancelled, one late) and assert exact numbers for each role, including that another area sees nothing.', 'test/reports.e2e-spec.ts'],
+  ], code: `const rows = await this.prisma.$queryRaw<Row[]>(Prisma.sql\`
+  SELECT count(*) AS total, avg(rating) FILTER (WHERE rating IS NOT NULL) AS avg_rating
+  FROM jobs WHERE created_at >= \${from} AND created_at < \${to} AND pincode_id = ANY(\${pincodeIds}::uuid[])\`);` },
   { id: 'cross', label: 'Use another module\'s data', kind: 'Backend', intro: 'Modules are neighbours with locked doors. You ask politely through a service method.', steps: [
     ['Never read another module\'s table', 'Not even "just one count". Add a method to the owning module\'s service.', ''],
     ['Import its module', 'Add it to your module\'s <code>imports</code>, and make sure the owner <code>exports</code> the service.', '*.module.ts'],
@@ -462,6 +474,7 @@ const JOURNEY = [
   { actor: 'Worker', t: 'Finishes with the customer\'s finish code', ep: 'POST /v1/jobs/:id/finish', mod: 'jobs', tables: 'jobs', note: 'Refused until every required checklist step and photo is done.' },
   { actor: 'Provider admin', t: 'Checks the work or sends it back', ep: 'POST /v1/jobs/:id/verify, /send-back', mod: 'jobs', tables: 'jobs, job_events', note: '' },
   { actor: 'Customer', t: 'Rates 1 to 5; the job closes', ep: 'POST /v1/me/jobs/:id/rate', mod: 'jobs', tables: 'jobs', note: 'CLOSED. The worker task list and reports are built from these rows.' },
+  { actor: 'Operations, franchise, provider admin, worker', t: 'Look at the numbers', ep: 'GET /v1/reports/overview, /v1/reports/jobs.csv', mod: 'reports, jobs, orders', tables: 'read only: jobs, order_events, orders', note: 'Scoped by role on the server: everything, an area, an organisation, or your own jobs. Money only for operations and franchises.' },
   { actor: 'Worker (background)', t: 'Reminders and emails go out', ep: 'outbox.dispatch every minute, reminders.sweep every 10 minutes', mod: 'messaging, reminders', tables: 'outbox, notifications', note: 'See the worker section.' },
 ];
 function drawJourney(host) {
