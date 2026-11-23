@@ -1,7 +1,7 @@
 /* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
    Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
 window.GUIDE = {
-  updated: "25 Nov 2026 (after M6.1)",
+  updated: "25 Nov 2026 (after M6.2)",
 
   groups: [
     { id: "head", name: "Head office" },
@@ -260,7 +260,7 @@ window.GUIDE = {
         ], tips: ["A code works for 10 minutes and five tries. If it stops working ask the customer for a new one.", "Never ask a customer to read out a code before you are at the property."] },
         { id: "fw_notify", title: "Know when something needs you", where: "Bell at the top", steps: [
           "The bell at the top shows how many notifications are unread. Press it to open them.",
-          "You are told when a job is given to you, when work is sent back, and when the customer approves or pays for extra work.",
+          "You are told when a job is given to you, when work is sent back, and when the customer approves or pays for extra work. You also get a reminder the day before a visit and two hours before it starts.",
           "Press a notification to go to the job. It is then marked as read."
         ], tips: ["Press Also send these to me by email on the Notifications page if you want a copy by email."] },
         { id: "fw_myday", title: "See your day on your phone", where: "My day", steps: [
@@ -324,7 +324,7 @@ window.GUIDE = {
           "If you approve, an order is made for that amount. Pay it from Orders like any other. The worker carries on once we approve the payment."
         ] },
         { id: "po_notify", title: "Follow your requests from the bell", where: "Bell at the top", steps: [
-          "The bell at the top shows what is new: a provider took your request, the visit time, the worker is on the way, the work is done, extra work needs your decision, a payment was received.",
+          "The bell at the top shows what is new: a provider took your request, the visit time, the worker is on the way, the work is done, extra work needs your decision, a payment was received. You also get a reminder the day before a visit, when an order is still unpaid, when a plan is about to end, and when a document in your vault is about to expire.",
           "Press a notification to go straight to the right page. It is then marked as read.",
           "On the Notifications page you can switch email copies on or off. Messages in the app are always on."
         ] },
@@ -510,6 +510,8 @@ window.GUIDE = {
     { term: "Nudge", def: "Ask providers to take a job nobody has accepted." },
     { term: "Checklist", def: "The steps a worker follows for a service. An admin writes it; the job keeps a copy when the work starts." },
     { term: "Extra work", def: "More work the worker finds on site. They send it with photos and a reason; the customer approves and pays before the work continues." },
+    { term: "Reminder", def: "A notification sent automatically at the right time, for example a day before a visit, or when an order has not been paid. Each is sent once." },
+    { term: "SLA", def: "The time a job is allowed to wait for a provider (2 hours, 30 minutes if urgent). If nobody accepts in time, operations and the area's franchise are alerted." },
     { term: "Notification", def: "A short message in the bell at the top about something that happened to your job, order or payment. A copy can also be sent by email." },
     { term: "Evidence", def: "Before and after photos taken on a job, with time and place. Kept in the customer's vault." },
     { term: "Code (start and finish)", def: "A 6-digit code the customer shows the worker on site. It works for 10 minutes. It proves the worker was there." },
