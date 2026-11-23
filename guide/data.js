@@ -1,7 +1,7 @@
 /* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
    Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
 window.GUIDE = {
-  updated: "23 Nov 2026",
+  updated: "23 Nov 2026 (after M5.2a)",
 
   groups: [
     { id: "head", name: "Head office" },
@@ -201,6 +201,11 @@ window.GUIDE = {
           "Press Assign. You can change the worker until the work starts.",
           "If nobody is listed, open Staff and tick that service for a worker (Services button)."
         ] },
+        { id: "sp_schedule", title: "Set the visit time and check the finished work", where: "Jobs board → Open", steps: [
+          "Open an accepted job, pick the visit time and press Set time. The customer sees it.",
+          "When the worker has finished, the job shows under To check. Open it and press Work is fine: check it, or Send back with a reason.",
+          "After it is checked the customer can rate it, or you can press Close the job."
+        ], tips: ["Once the work has started the job can no longer be given back or cancelled."] },
         { id: "sp_back", title: "Give a job back", where: "Jobs board → Open", steps: [
           "If you cannot do it, press Give back to the pool and write why.",
           "It returns to the pool for other providers, not for you."
@@ -240,9 +245,15 @@ window.GUIDE = {
           "Your provider admin ticks the services you can do under Staff → Services.",
           "You only get jobs for those services."
         ] },
-        { id: "fw_work", title: "Do the visit: start, checklist, photos, finish", where: "Coming soon", soon: true, steps: [
-          "Coming soon: tell us you are on the way, start with a code from the customer, follow the checklist, take before and after photos, finish with a second code.",
-          "For a site visit you will also correct the property's details here."
+        { id: "fw_work", title: "Do the visit: on the way, start, finish", where: "Jobs board → Open", steps: [
+          "Press I am on the way so the customer knows. If you cannot go, press I cannot attend and say why: your provider gives it to someone else.",
+          "At the property ask the customer to open their request and press Show my start code. Type the 6 digits and press Start the work.",
+          "When you have finished, ask for the finish code the same way. Write what you did and press Finish the work.",
+          "For a site visit also fill in the details that were wrong on file (address, pincode, area). This verifies the property.",
+          "Your provider or operations then check the work. If it is sent back, finish it again with a new code."
+        ], tips: ["A code works for 10 minutes and five tries. If it stops working ask the customer for a new one.", "Never ask a customer to read out a code before you are at the property."] },
+        { id: "fw_soon", title: "Checklist and photos", where: "Coming soon", soon: true, steps: [
+          "Coming soon: follow a checklist and take before and after photos on the job."
         ] }
       ],
       cannot: ["See other workers' jobs, other customers, or anything outside your jobs."],
@@ -271,9 +282,14 @@ window.GUIDE = {
           "Our team records the payment with proof and a second person approves it. Your order then shows Paid."
         ] },
         { id: "po_requests", title: "Follow a service or ask for a plan visit", where: "Service requests", steps: [
-          "Each paid service shows here with where it stands.",
+          "Each paid service shows here with where it stands and the planned visit time.",
           "For a plan visit press Request a visit (or Urgent)."
-        ] }
+        ] },
+        { id: "po_codes", title: "Let the worker start and finish, and rate", where: "Service requests", steps: [
+          "When the worker is with you press Show my start code and read the 6 digits to them. It works for 10 minutes.",
+          "When the work is done press Show my finish code the same way.",
+          "After we have checked the work, rate it from 1 to 5."
+        ], tips: ["Never share a code with anyone who is not at your property."] }
       ],
       cannot: ["Change what a builder bought for your unit.", "Edit the address, pincode, type or area after the site visit."],
       tips: []
@@ -352,6 +368,11 @@ window.GUIDE = {
       "Open the job: see who is eligible. Press Ask providers to take it, or choose a provider and Assign with a reason.",
       "To cancel a job that has not started press Cancel the job and write why. A plan visit goes back into the customer's plan."
     ], tips: ["Cancelling a job the customer paid for does not refund anything by itself. Handle the money separately."] },
+    { id: "ho_override", title: "Start or finish a job without the customer's code", where: "Jobs board → Open", steps: [
+      "Use this only when the customer truly cannot give a code (for example they are abroad and unreachable).",
+      "Open the job and press Start without a code (or Finish without a code). Write a clear reason of at least ten characters.",
+      "It is recorded with your name. For a site visit, complete it from Site visits first."
+    ], tips: ["Nothing else can be done on a job that has started: it can no longer be cancelled."] },
     { id: "ho_catalogue", title: "Add or change a service and its price", where: "Service catalogue and Pricing", steps: [
       "In Service catalogue add or edit the service: name, descriptions, picture, active, show on homepage.",
       "In Pricing, pick its rate type (for example per sq ft or lump sum).",
@@ -399,8 +420,12 @@ window.GUIDE = {
       sees: { "Customer": "Orders show Paid. The plan shows visits left.", "Operations": "Case is Active." } },
     { actor: "Providers", title: "Each paid service becomes a job", screen: "Jobs board", text: "Same pool, same first-to-accept. For plan visits the customer presses Request a visit.",
       sees: { "Customer": "Service requests shows each one.", "Provider": "Accept, then assign a worker." } },
-    { actor: "Worker", title: "Does the work", screen: "Coming soon", soon: true, text: "Soon: on the way, start code, checklist, photos, finish code, then a check. Extra work needs the customer's approval.",
-      sees: { "Customer": "Progress updates.", "Operations": "Job history." } }
+    { actor: "Worker", title: "Does the work", screen: "Jobs board → Open", text: "On the way, then the customer shows a start code. The work is done, the customer shows a finish code. For a site visit the worker also corrects the property details.",
+      sees: { "Customer": "Shows their own codes, and sees progress.", "Provider": "Sees it finished and checks it.", "Operations": "Job history. Can start or finish without a code, with a reason." } },
+    { actor: "Provider", title: "Checks the work, the customer rates it", screen: "Jobs board → To check", text: "The provider (or operations) checks it, or sends it back. Then the customer can rate it and the job closes.",
+      sees: { "Customer": "Rate from 1 to 5.", "Operations": "Closed." } },
+    { actor: "Worker", title: "Photos and a checklist", screen: "Coming soon", soon: true, text: "Soon: a checklist for the job, before and after photos, and extra work that the customer approves.",
+      sees: { "Customer": "Photos and approval requests.", "Operations": "Evidence on the job." } }
   ],
 
   /* The organisation tree for the explorer. `role` links to a role in `roles`. */
@@ -435,6 +460,8 @@ window.GUIDE = {
     { term: "Pool", def: "Jobs waiting for a provider. Every eligible provider sees them. The first to accept gets the job." },
     { term: "Eligible", def: "A provider that is active with staff, covers the pincode, and offers the service." },
     { term: "Nudge", def: "Ask providers to take a job nobody has accepted." },
+    { term: "Code (start and finish)", def: "A 6-digit code the customer shows the worker on site. It works for 10 minutes. It proves the worker was there." },
+    { term: "Override", def: "Operations starting or finishing a job without a code, with a written reason. Always recorded." },
     { term: "Overdue", def: "A job still waiting after two hours (thirty minutes if urgent)." },
     { term: "Plan", def: "A bundle of services with a number of visits, priced for each property." },
     { term: "Batch", def: "Orders for many properties bought together and paid with one payment." },
