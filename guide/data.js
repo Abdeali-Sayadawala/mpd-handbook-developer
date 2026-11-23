@@ -1,7 +1,7 @@
 /* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
    Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
 window.GUIDE = {
-  updated: "24 Nov 2026 (after M5.2c)",
+  updated: "24 Nov 2026 (after M5.3)",
 
   groups: [
     { id: "head", name: "Head office" },
@@ -258,6 +258,13 @@ window.GUIDE = {
           "For a site visit also fill in the details that were wrong on file (address, pincode, area). This verifies the property.",
           "Your provider or operations then check the work. If it is sent back, finish it again with a new code."
         ], tips: ["A code works for 10 minutes and five tries. If it stops working ask the customer for a new one.", "Never ask a customer to read out a code before you are at the property."] },
+        { id: "fw_myday", title: "See your day on your phone", where: "My day", steps: [
+          "Open My day. Your jobs are listed, the ones in progress and today's first, then the ones coming up.",
+          "Each card shows when, where, who the customer is and the next thing to do.",
+          "Tap Directions to open the map, or Call to phone the customer.",
+          "Tap I am on the way when you set off, then Open and start when you are with the customer.",
+          "To keep it on your phone like an app, open the site in your browser, open the browser menu and choose Add to Home screen. It then opens straight to My day."
+        ], tips: ["The list refreshes by itself every minute, or press the refresh button.", "You do everything on the job in the same screen the office uses, so nothing is lost."] },
         { id: "fw_checklist", title: "Follow the checklist and take photos", where: "Jobs board → Open (after you start)", steps: [
           "After you start, the job shows its checklist. Answer each step: tick it, type a note or a number, or pick an option.",
           "Press Take or choose a photo. Choose Before the work, After the work or Other, and the step it belongs to if any. Allow location if your phone asks: it records where the photo was taken.",
