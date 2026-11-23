@@ -1,7 +1,7 @@
 /* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
    Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
 window.GUIDE = {
-  updated: "23 Nov 2026 (after M5.2b)",
+  updated: "24 Nov 2026 (after M5.2c)",
 
   groups: [
     { id: "head", name: "Head office" },
@@ -263,7 +263,14 @@ window.GUIDE = {
           "Press Take or choose a photo. Choose Before the work, After the work or Other, and the step it belongs to if any. Allow location if your phone asks: it records where the photo was taken.",
           "The screen lists anything still missing. You cannot finish until every required step, step photo and (if the service asks) before and after photo is done.",
           "Then finish with the customer's code as usual."
-        ], tips: ["Take the before photo before you touch anything.", "The same photo cannot be added twice."] }
+        ], tips: ["Take the before photo before you touch anything.", "The same photo cannot be added twice."] },
+        { id: "fw_extra", title: "Ask for extra work", where: "Jobs board → Open (work in progress)", steps: [
+          "If you find more work than was sold, press More work is needed on the job.",
+          "Give it a short title, say why it is needed, and list each item with how many and the price of one in rupees.",
+          "Press Save, then Add a photo that shows the problem. At least one photo is needed.",
+          "Press Send for approval. The job now waits. You cannot finish or carry on until the customer approves and pays.",
+          "If it is a large amount, your provider checks it first. You can withdraw the request until the customer approves."
+        ], tips: ["If the customer says no, carry on with the work that was agreed.", "You will see the job go back to In progress as soon as the payment is approved."] }
       ],
       cannot: ["See other workers' jobs, other customers, or anything outside your jobs."],
       tips: ["Never share a customer's phone number or address."]
@@ -299,6 +306,11 @@ window.GUIDE = {
           "When the work is done press Show my finish code the same way.",
           "After we have checked the work, rate it from 1 to 5."
         ], tips: ["Never share a code with anyone who is not at your property."] },
+        { id: "po_extra", title: "Approve or decline extra work", where: "Service requests", steps: [
+          "If the worker finds more work, your request shows Extra work with the reason, the photos, each item and the total.",
+          "Press Approve and pay, or Decline. Declining sends the worker back to the work that was agreed.",
+          "If you approve, an order is made for that amount. Pay it from Orders like any other. The worker carries on once we approve the payment."
+        ] },
         { id: "po_report", title: "See what was done and the photos", where: "Service requests", steps: [
           "When the work is done, open What was done, and photos on your request.",
           "You see the checklist the worker followed and the before and after photos. They are also kept in your vault under the property's Job evidence folder."
@@ -443,8 +455,8 @@ window.GUIDE = {
       sees: { "Customer": "Shows their own codes, and later sees the checklist and photos.", "Provider": "Sees it finished and checks it.", "Operations": "Job history. Can start or finish without a code, with a reason." } },
     { actor: "Provider", title: "Checks the work, the customer rates it", screen: "Jobs board → To check", text: "The provider (or operations) checks it, or sends it back. Then the customer can rate it and the job closes.",
       sees: { "Customer": "Rate from 1 to 5.", "Operations": "Closed." } },
-    { actor: "Customer", title: "Approves extra work", screen: "Coming soon", soon: true, text: "Soon: if more work is needed, the worker asks, the customer approves and pays, and then the work continues.",
-      sees: { "Customer": "An approval request.", "Operations": "The extra work and its payment." } }
+    { actor: "Customer", title: "Approves extra work", screen: "Service requests", text: "If the worker finds more work they send a request with items, a reason and photos. A large one is checked by the provider first. The customer approves and pays (an order is made), or declines. Only then does the work continue.",
+      sees: { "Customer": "The request, with photos and the total, and an Approve and pay button.", "Provider": "Signs off a large request. Can cancel one.", "Operations": "The extra work, its order and its payment." } }
   ],
 
   /* The organisation tree for the explorer. `role` links to a role in `roles`. */
@@ -480,6 +492,7 @@ window.GUIDE = {
     { term: "Eligible", def: "A provider that is active with staff, covers the pincode, and offers the service." },
     { term: "Nudge", def: "Ask providers to take a job nobody has accepted." },
     { term: "Checklist", def: "The steps a worker follows for a service. An admin writes it; the job keeps a copy when the work starts." },
+    { term: "Extra work", def: "More work the worker finds on site. They send it with photos and a reason; the customer approves and pays before the work continues." },
     { term: "Evidence", def: "Before and after photos taken on a job, with time and place. Kept in the customer's vault." },
     { term: "Code (start and finish)", def: "A 6-digit code the customer shows the worker on site. It works for 10 minutes. It proves the worker was there." },
     { term: "Override", def: "Operations starting or finishing a job without a code, with a written reason. Always recorded." },
