@@ -297,6 +297,8 @@ This lets the full product (onboarding → plan → jobs) work and be demonstrat
 ---
 
 ## 9. Notifications
+**BUILT (M6.1, 25-Nov-2026):** the in-app inbox and the email outbox with retries, for the job, extra-work and payment events; reminders and SLA alerts are M6.2, push is later, WhatsApp and SMS are M8. Details in `progress.md`.
+
 - Every message is an `outbox` row created inside the same DB transaction as the business change. pg-boss workers send it with retries and backoff, and each attempt is logged in `deliveries`.
 - **Launch channels:** email (SES), push (Expo), in-app. Users choose preferences. OTPs go by email at launch.
 - **M8:** WhatsApp and SMS are added as `MessageChannel` adapters (provider chosen then, on a new account with new templates). Templates are keyed by event, so adding a channel is only configuration. Nothing from the legacy WhatsApp setup is reused.

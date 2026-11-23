@@ -40,7 +40,7 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <h1>What is built, as of 21 Nov 2026</h1>
 <p class="lede">M0 to M2 and the first two steps of M3 are done. This page is the current state; the plan is on the <a href="index.html">architecture page</a>. The full written spec lives in <code>docs/architecture/</code> (README, customers-and-pricing, admin-hierarchy-and-dispatch, progress).</p>
 <p><a href="guide/index.html"><b>Interactive role guide →</b></a> (what each role does, for people who do not know the app) · Project memory: the <code>mpd-context</code> repo.</p>
-<p><span class="pill ok">260 endpoints</span><span class="pill ok">26 migrations</span><span class="pill ok">448 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
+<p><span class="pill ok">265 endpoints</span><span class="pill ok">27 migrations</span><span class="pill ok">456 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
 
 <h2 id="progress">Progress</h2>
 <table>
@@ -65,6 +65,8 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <tr><td>M5.2b</td><td>Checklist per service (versioned, copied to the job), step answers, before/after photos with time and place, finishing gated on them</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M5.2c</td><td>Extra work: the worker proposes it with photos and a reason, a large one is signed off, the customer approves and pays, then the work continues</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M5.3</td><td>Worker phone screens: a "My day" page and an installable web app (no native app)</td><td><span class="pill ok">done</span></td></tr>
+<tr><td>M6.1</td><td>Notifications: a bell and inbox for everyone, email through an outbox, told as jobs, extra work and payments move</td><td><span class="pill ok">done</span></td></tr>
+<tr><td>M6.2</td><td>Reminders and SLA alerts</td><td><span class="pill later">next</span></td></tr>
 <tr><td>TOTP</td><td>Two-step login for super admin and ops</td><td><span class="pill later">deferred to M9, a hard gate before real data or money</span></td></tr>
 </table>
 
@@ -165,12 +167,12 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 
 <h2 id="next">Next</h2>
 <ol>
-<li><b>M6</b> messages and reports.</li>
+<li><b>M6.2</b> reminders and SLA alerts, then chat, dashboards and reports, partner earnings and payouts.</li>
 </ol>
 
 <h2>Known gaps</h2>
 <ul>
-<li>Email is console-only until the outbox and SES arrive (M6).</li>
+<li>Email goes through the outbox but is only printed to the console until AWS/SES is set up.</li>
 <li>The virus scanner is a no-op in development. ClamAV is required before production.</li>
 <li>Files are on local disk. S3 is added at the AWS step.</li>
 <li>GitHub Actions workflows are blocked until the <code>mpd-infra</code> repo allows other repos to call its workflows.</li>

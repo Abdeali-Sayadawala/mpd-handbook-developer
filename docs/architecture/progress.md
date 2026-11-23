@@ -1,8 +1,8 @@
 # Build progress: what exists today
 
-Last updated: 24-Nov-2026 (after M5.2c extra work). Branch `develop` in every repo. Update this file at the end of every milestone step, together with the two handbooks and the repo `CLAUDE.md` files.
+Last updated: 25-Nov-2026 (after M6.1 notifications). Branch `develop` in every repo. Update this file at the end of every milestone step, together with the two handbooks and the repo `CLAUDE.md` files.
 
-**Size today:** 260 API endpoints, 26 database migrations, 448 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
+**Size today:** 265 API endpoints, 27 database migrations, 456 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
 
 ## Milestones
 
@@ -28,6 +28,7 @@ Last updated: 24-Nov-2026 (after M5.2c extra work). Branch `develop` in every re
 | M5.2b Checklists and photos | A checklist per service (versioned, copied to the job when work starts); the worker answers steps and adds before/after photos with time and place; finishing needs everything required; photos live in the customer's vault; customer and staff see the report | ✅ |
 | M5.2c Extra work | The worker proposes more work with items, a reason and photos; over half the job price the provider or ops sign it off; the customer approves (an order is made) or declines; the job waits until that order is paid | ✅  |
 | M5.3 Worker phone screens | A phone-first *My day* page for field workers: today's jobs first, address, directions and call buttons, the next step spelled out, big touch buttons, auto-refresh; the web app can be installed to the home screen (manifest and icons). No native app, no offline mode yet | ✅ (frontend only; no new endpoints) |
+| M6.1 Notifications | A bell and a notifications page for every role; the customer, the provider's admins and the worker are told as a job moves, when extra work needs a decision, and when a payment is accepted or not; email through an outbox with retries (console only until AWS/SES); people can switch email off | ✅ (reminders and SLA alerts next: M6.2) |
 | M5.0c Provider-franchise links | A provider registered under several franchises: ask, accept or reject, end (pincodes only that franchise covered are taken off); a provider holds only pincodes of franchises that accepted it | ✅ |
 | TOTP two-step login | Moved to **M9**, a hard gate before real data or money | deferred |
 
@@ -71,6 +72,7 @@ Homepage sections read content blocks, catalogue, team, FAQs and testimonials fr
 - **Purchaser control:** either the property owner or the project owner may buy; only the purchaser can change what they bought, in both directions; the other party sees it exists but not its price; strangers get 404; ops can cancel with a recorded reason. A change of owner does not take over earlier purchases.
 - **Plans** are made by admins, never fixed in code, and **have no typed-in price**: the price is calculated per property from each service's own price x how many times it is done, less service and plan discounts (rounded half up to the paisa). A plan of only lump-sum services is fixed. The order keeps the whole breakdown; a subscription keeps its visits, starts when its order is paid, ends after its last day, and is cancelled with its unpaid order. Same purchaser rule as orders.
 - **Property history** (`GET /v1/properties/:id/history`) belongs to the property, not the owner: orders, plans and ownership changes stay when the owner changes. A new owner sees them without the previous owner's name or prices. Jobs, reports and photos join it in M5; their files must belong to the property (not to one owner's vault) so a new owner can open them.
+- **Notifications (M6.1):** a person reads and marks read only their own notifications (nobody else's, even by id); the same event never notifies the same person twice (database rule); a notification that fails never undoes the business change; email is skipped when the person switched it off, but the in-app notification is always made; an email row is retried at growing gaps and marked FAILED after five tries; two workers never send the same row (guarded claim); people who are not active users are skipped.
 - **Extra work (M5.2c):** only the assigned worker raises a request, only while the work is in progress, with at least one photo, and only one request is open per job (database rule); totals are computed on the server in whole paise; a request over 50% of the job's price (or with no known price) needs a provider admin or ops sign-off before the customer sees it; the customer never sees a draft or an unsigned request; only the customer who bought the job decides; the job stays `AWAITING_EXTRA_PAYMENT` until the extra order is PAID by an approved maker-checker payment, then continues; declined, withdrawn, cancelled (by the provider, ops or by cancelling the order) mean the work goes on as first agreed; an order line may have neither service nor plan only for extra work (database rule).
 - **Checklists and photos (M5.2b):** a new checklist version never changes a job that has started (it keeps its copy); only the assigned worker answers or adds photos, only while the work is in progress, and an answer must fit its step type; a job cannot be finished with a required step, step photo or before/after photo missing; the same photo cannot be added twice; photos are locked in the customer's vault; place needs both latitude and longitude (database rule); the customer sees the report only after the work is done and only for their own job.
 - **Provider areas:** a provider's own admin can create, change and delete its territories; the pincodes must lie inside the area of its original franchise or of a franchise that accepted it (so every pincode it serves is under a franchise it is registered in); another provider cannot touch them; a franchise still cannot change its own area.
@@ -84,7 +86,7 @@ Homepage sections read content blocks, catalogue, team, FAQs and testimonials fr
 - Every change is audited.
 
 ## Known gaps and notes
-- Email is console-only (no real email until M6 outbox/SES).
+- Email is sent through the outbox but the sender is still the console printer (no real email until the AWS/SES step).
 - Virus scanner is a no-op in development; ClamAV is required before production.
 - No real file storage service yet (local disk); S3 at the AWS step.
 - Documentation now lives in git: `mpd-handbook-developer/docs/` (this file, the specs, legacy notes, the service seed) and `mpd-handbook-developer/workspace/` (the workspace `CLAUDE.md`, a new-machine guide and setup script).
