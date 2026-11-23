@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MPD Engineering Handbook</title>
+<link rel="stylesheet" href="engineering.css">
+</head>
+<body>
+<header class="top">
+<h1>MPD Engineering Handbook</h1>
+<p>How My Property Doctors is built, for someone who knows what a server, an API and a function call are, but has not worked with Next.js, NestJS, Prisma or PostgreSQL. Read it top to bottom once, then use the left menu and the interactive diagrams as a reference. Private: for the team only. Open <code>index.html</code> in a browser; nothing needs the internet.</p>
+</header>
+<div class="layout">
+<nav class="side" id="side" aria-label="Sections"></nav>
+<main>
+
+<!-- ================================================================ START HERE -->
+<section id="intro" data-group="Start here">
+<h2>1. How to use this handbook</h2>
+<p class="lead">What it assumes, what it explains, and where the other documents fit.</p>
+<div class="cols">
+<div class="box"><h4>It assumes you know</h4><ul>
+<li>What a web server is and what an HTTP request and response are.</li>
+<li>What an API is (an address you send a request to and get data back from) and what JSON is.</li>
+<li>What a function is, what a class is, and what a database table is.</li>
+<li>Basic git: clone, commit, push.</li></ul></div>
+<div class="box"><h4>It explains</h4><ul>
+<li>The tools we use that are specific: Next.js, NestJS, Prisma, PostgreSQL features, pg-boss, OpenAPI.</li>
+<li>The architecture: which part does what, and why it is split that way.</li>
+<li>For each kind of work (read data, change a status, handle money, upload a file, send a message, run on a schedule) the <b>pattern we follow</b>, with real file names.</li></ul></div>
+</div>
+<h3>Where this handbook fits</h3>
+<table>
+<tr><th>Document</th><th>Answers</th></tr>
+<tr><td>This engineering handbook</td><td>How is it built? Which concepts and patterns? How do I add something?</td></tr>
+<tr><td><code>docs/architecture/README.md</code></td><td>The full product and technical specification and the decision records</td></tr>
+<tr><td><code>docs/architecture/progress.md</code></td><td>Exactly what is built today, with the rules each test proves</td></tr>
+<tr><td><code>guide/</code> (role guide)</td><td>What each role does in the app, written for non-technical staff</td></tr>
+<tr><td><code>status.html</code></td><td>One page: what is done and what is next</td></tr>
+<tr><td><code>mpd-context</code> repo</td><td>Start here in a new session: what, where, decisions, workflow checklist</td></tr>
+</table>
+<div class="tip"><b>The one idea to take away:</b> the screen (frontend) is a thin layer that asks questions and shows answers. <b>Every rule is enforced in the backend, and the most important ones again in the database.</b> If you remember that, the rest of the architecture follows.</div>
+</section>
+
+<section id="glance" data-group="Start here">
+<h2>2. The system at a glance</h2>
+<p class="lead">Click any box. Lines light up to show who talks to whom.</p>
+<div id="sys-diagram"></div>
+<div class="panel" id="sys-info" style="margin-top:10px"></div>
+<h3>The eight repositories</h3>
+<table>
+<tr><th>Repo</th><th>What is in it</th><th>Runs as</th></tr>
+<tr><td><code>mpd-backend</code></td><td>The API, the worker, the database definition and migrations, seeds, the end-to-end tests, <code>openapi.json</code></td><td>Two Node programs (API, worker)</td></tr>
+<tr><td><code>mpd-frontend</code></td><td>The signed-in web app: customer portal and staff console, including the worker's phone screen</td><td>A Next.js server</td></tr>
+<tr><td><code>mpd-global</code></td><td>The public marketing website</td><td>A Next.js server (could later be plain files)</td></tr>
+<tr><td><code>mpd-mobile</code></td><td>A scaffold for a native app. Not used: we decided on the web app for phones.</td><td>nothing yet</td></tr>
+<tr><td><code>mpd-infra</code></td><td>Servers, deployment, backups (scaffold; AWS not applied yet)</td><td>nothing yet</td></tr>
+<tr><td><code>mpd-handbook-developer</code></td><td>This handbook, the specs, the role guide (private)</td><td>Static HTML</td></tr>
+<tr><td><code>mpd-handbook</code></td><td>The public user guide (live features only)</td><td>Static HTML on GitHub Pages</td></tr>
+<tr><td><code>mpd-context</code></td><td>The start-here memory for any new session</td><td>Markdown</td></tr>
+</table>
+</section>
+
+<section id="primer" data-group="Start here">
+<h2>3. Technology primer</h2>
+<p class="lead">Every tool you will meet in the code, in plain words. Pick one.</p>
+<div id="tech"></div>
+</section>
+
+<!-- ================================================================ HOW IT RUNS -->
+<section id="request" data-group="How it runs">
+<h2>4. The life of a request</h2>
+<p class="lead">Step through two real journeys. Each step says which program is working and which file holds the code.</p>
+<div id="tracer"></div>
+<div class="note">Notice the pattern: the <b>browser never talks to the API directly</b>. It talks to the web app's server, which holds the sign-in and calls the API. That keeps tokens out of reach of scripts in the page and lets us change the API address without touching the browser code.</div>
+</section>
+
+<section id="journey" data-group="How it runs">
+<h2>5. A property's journey, mapped to code</h2>
+<p class="lead">The business story from inquiry to a rated job, with the endpoint, module and tables behind each step. Filter by who acts.</p>
+<div id="journey-host"></div>
+</section>
+
+<section id="frontend" data-group="How it runs">
+<h2>6. The frontend (Next.js)</h2>
+<p class="lead">One Next.js project, <code>mpd-frontend</code>, serves two audiences: customers (the portal) and staff (the console).</p>
+<h3>Folder map</h3>
+<table>
+<tr><th>Path</th><th>What it is</th></tr>
+<tr><td><code>app/(portal)/…</code></td><td>Customer pages: dashboard, properties, orders, service requests, documents, notifications. The brackets group pages under one layout without adding to the address.</td></tr>
+<tr><td><code>app/admin/(console)/…</code></td><td>Staff pages: jobs board, My day (workers), orders, payments, catalogue, organisations, notifications…</td></tr>
+<tr><td><code>app/(auth)/</code>, <code>app/admin/login</code></td><td>Sign-in, sign-up, password reset for each audience</td></tr>
+<tr><td><code>app/api/…</code></td><td>Small server routes for file uploads (server actions are limited to about 1 MB) and payment recording</td></tr>
+<tr><td><code>app/manifest.ts</code></td><td>The web app manifest: makes the site installable on a phone</td></tr>
+<tr><td><code>middleware.ts</code></td><td>A guard that runs before each page: not signed in, go to login; access token expired, rotate it once</td></tr>
+<tr><td><code>src/components/</code></td><td>The screen pieces, grouped by feature (<code>jobs/</code>, <code>orders/</code>, <code>vault/</code>…). <code>AppShell.tsx</code> is the frame with menu and bell.</td></tr>
+<tr><td><code>src/actions/</code></td><td>Server actions: one function per API call</td></tr>
+<tr><td><code>src/api/</code></td><td>Generated from <code>openapi.json</code>. Never edited by hand.</td></tr>
+<tr><td><code>src/lib/</code></td><td>Helpers: <code>server-api.ts</code> (<code>call()</code>), <code>session.ts</code> (cookies), <code>nav.ts</code> (menus), <code>money.ts</code>, <code>schemas.ts</code> (Zod)</td></tr>
+</table>
+<h3>Server components, client components and server actions</h3>
+<div class="cols3">
+<div class="box"><h4>Server component</h4><p>The default in Next.js. Drawn on the server. Can read cookies and call the API directly. Cannot hold state or react to clicks. Our <code>page.tsx</code> files are like this and stay tiny.</p></div>
+<div class="box"><h4>Client component</h4><p>Starts with <code>'use client'</code>. Drawn in the browser, can hold state (<code>useState</code>), run effects (<code>useEffect</code>) and handle clicks. Most of <code>src/components</code> is like this.</p></div>
+<div class="box"><h4>Server action</h4><p>Starts with <code>'use server'</code>. A function that a client component can call like a normal function, but which runs <b>on the server</b>. This is how a button press reaches the API with the visitor's session.</p></div>
+</div>
+<h3>How the session works</h3>
+<ol class="steps">
+<li>Login: the web app calls the API, which returns an <b>access token</b> (short-lived signed pass) and a <b>refresh token</b> (long-lived, replaced each time it is used).</li>
+<li>The web app stores both in <b>httpOnly cookies</b> (<code>mpd_at</code>, <code>mpd_rt</code>). httpOnly means JavaScript in the page can never read them, so a script injected into a page cannot steal the session.</li>
+<li>Each server action goes through <code>call()</code>, which attaches the access token. If the API answers 401, <code>call()</code> trades the refresh token for a new pair <b>once</b> and retries.</li>
+<li>The API detects a refresh token used twice (a sign of theft) and ends the session.</li>
+</ol>
+<div class="note">Hiding a menu item (the <code>roles</code> list in <code>nav.ts</code>) is cosmetic. The backend is the real permission check. Assume anyone can type any address.</div>
+<h3>One codebase, three kinds of device</h3>
+<p>The same app is used on a desktop (staff), a phone (workers and customers) and installed to the home screen (workers). Layouts adapt with Tailwind breakpoints (<code>lg:grid</code> and so on); the menu becomes a drawer on small screens; buttons are at least 44 px; the photo button opens the rear camera (<code>capture="environment"</code>). <code>/admin/my-day</code> is a one-column page built for a worker on a phone. There is no native app and no offline mode yet.</p>
+</section>
+
+<section id="backend" data-group="How it runs">
+<h2>7. The backend (NestJS)</h2>
+<p class="lead">One Nest project, <code>mpd-backend</code>, with 16 modules. Click a module to see what it does, what it imports, who imports it and which tables it owns.</p>
+<div id="mod-graph"></div>
+<div class="panel" id="mod-info" style="margin-top:10px"></div>
+<div class="legend"><span>Arrows run from a module to the module that imports it. Modules on the left are the most basic.</span></div>
+<h3>Inside one module</h3>
+<pre><code>src/modules/jobs/
+  jobs.module.ts           what this module imports, provides, exports
+  jobs.controller.ts       addresses (routes) and who may call them. No rules.
+  jobs.service.ts          the pool, accept, assign; the rules
+  job-work.service.ts      doing the work (codes, start, finish)
+  job-extras.service.ts    extra work
+  job-chat.service.ts      chat
+  job-state.ts             the allowed status moves, in one place
+  dto/                     the shapes of requests and answers</code></pre>
+<h3>The boundary rules</h3>
+<ul>
+<li><b>A module never reads another module's tables.</b> It calls that module's service. This keeps each area understandable and replaceable.</li>
+<li><b>No import cycles.</b> If <code>jobs</code> imports <code>orders</code>, then <code>orders</code> cannot import <code>jobs</code>. So payments never call jobs; instead <code>JobsService.sync()</code> looks for newly paid order lines and makes the jobs. Likewise extra-work payment is noticed by <code>settleExtras()</code> when the job is read.</li>
+<li><b>Controllers route; services decide.</b> A controller method is usually one line.</li>
+</ul>
+<h3>What happens to every request, in order</h3>
+<ol class="steps">
+<li><b>Helmet</b> adds security headers. <b>CORS</b> allows only our own web origins.</li>
+<li><b>Throttler</b> counts requests (120 a minute per caller by default; stricter on sensitive routes such as codes, uploads and chat).</li>
+<li><b>AuthGuard</b> (global): verifies the access token, reads the roles from it, and refuses with 401 (no or bad token) or 403 (role not listed in <code>@Roles(...)</code>). Routes marked <code>@Public()</code> skip this.</li>
+<li><b>ValidationPipe</b> (global): checks the body, query and parameters against the DTO. Unknown fields are an error.</li>
+<li><b>Controller</b> method runs and calls a <b>service</b>.</li>
+<li>The <b>service</b> checks ownership and rules, uses <b>Prisma</b> to read and write, writes <b>audit</b> and <b>events</b>, calls <b>notify</b>, and returns a DTO.</li>
+<li>Errors thrown (<code>NotFoundException</code>, <code>ConflictException</code>…) become HTTP answers with a plain message. Sentry records unexpected ones.</li>
+</ol>
+<h3>Conventions you will see everywhere</h3>
+<table>
+<tr><th>Convention</th><th>Why</th></tr>
+<tr><td>Another customer's record answers <b>404</b>, not 403</td><td>Nobody can discover which ids exist</td></tr>
+<tr><td>Prefix <code>/v1</code> on every route (except <code>/health</code>)</td><td>A future <code>/v2</code> can run beside it</td></tr>
+<tr><td>Every state change writes an event row and an audit row</td><td>You can always answer "who did this and when"</td></tr>
+<tr><td>Money is whole paise; prices only computed in the backend</td><td>No rounding bugs, no trusting the browser</td></tr>
+<tr><td>Phone numbers in E.164; times stored as UTC; shown in the reader's time zone</td><td>NRIs read their own clock</td></tr>
+<tr><td>Settings come from environment variables checked at start (<code>common/config/env.ts</code>, Zod)</td><td>A missing setting stops start-up instead of failing later</td></tr>
+<tr><td>Brand name and domain are read from config, never typed in code</td><td>Rebranding is configuration</td></tr>
+</table>
+<h3>Where the API describes itself</h3>
+<p>Start the API and open <code>http://localhost:4000/docs</code> (Swagger). The same description is saved as <code>mpd-backend/openapi.json</code> and committed; it is the contract the frontends generate their client from. The API has about 269 endpoints across the modules.</p>
+</section>
+
+<section id="data" data-group="How it runs">
+<h2>8. The data layer (Prisma and PostgreSQL)</h2>
+<p class="lead">The schema is the most important file in the project. It lives in <code>mpd-backend/prisma/schema.prisma</code>.</p>
+<h3>Conventions</h3>
+<table>
+<tr><th>Rule</th><th>Example</th></tr>
+<tr><td>Primary keys are UUIDs</td><td><code>id String @id @default(uuid()) @db.Uuid</code>. Ids carry no information and cannot be guessed in order.</td></tr>
+<tr><td>Real foreign keys everywhere</td><td>A job must point at a real property. The legacy system had 9 foreign keys in 70 tables; we have them all.</td></tr>
+<tr><td>Money is <code>*_paise</code> integers</td><td><code>total_paise INTEGER</code> with a CHECK that it is above zero</td></tr>
+<tr><td>Statuses are enums</td><td><code>JobStatus</code>: a typo is impossible</td></tr>
+<tr><td>Snapshots, not references, for history</td><td>An order line keeps the whole <code>quote</code> JSON it was sold at; a job copies its checklist when work starts</td></tr>
+<tr><td>JSON columns only for snapshots and answers</td><td>Never for core data you need to query</td></tr>
+<tr><td>Soft delete where nothing may vanish silently</td><td>Documents have <code>deleted_at</code></td></tr>
+</table>
+<h3>The database as a second guard</h3>
+<p>Code can have bugs; the database keeps its promises. Examples we rely on:</p>
+<table>
+<tr><th>Mechanism</th><th>Rule it enforces</th></tr>
+<tr><td>Partial unique index</td><td>Only <b>one open</b> extra-work request per job. A notification dedupe key is unique per person.</td></tr>
+<tr><td>CHECK constraint</td><td>A rating is 1 to 5; a payment is for an order <b>or</b> a batch, never both nor neither; chat text is 1 to 1000 characters; an order line is a service <b>or</b> a plan (except extra work)</td></tr>
+<tr><td>Foreign key RESTRICT on payments</td><td>An order with a payment cannot be deleted by accident</td></tr>
+<tr><td>Unique index on payment reference</td><td>The same bank reference cannot be recorded twice</td></tr>
+</table>
+<h3>Atomic changes: transactions and guarded updates</h3>
+<p>Two people can press buttons at the same moment. We never "read, then write" and hope. Two tools:</p>
+<div class="cols">
+<div class="box"><h4>Transaction</h4><p>Several changes that must all happen or none. Approving a payment marks the payment approved <i>and</i> the orders paid <i>and</i> starts a plan, in one <code>prisma.$transaction</code>.</p></div>
+<div class="box"><h4>Guarded update</h4><p><code>updateMany({ where: { id, status: 'REQUESTED' }, data: { status: 'ACCEPTED' } })</code> changes a row only if it is still in the state we expect. If two providers accept at once, exactly one gets <code>count = 1</code>. That is how "first provider wins" works.</p></div>
+</div>
+<h3>Changing the schema (migrations)</h3>
+<ol class="steps">
+<li>Edit <code>schema.prisma</code>.</li>
+<li>Write the migration SQL by hand in <code>prisma/migrations/&lt;timestamp&gt;_name/migration.sql</code>: the <code>CREATE TABLE</code>, then the foreign keys, CHECK constraints and partial indexes that Prisma cannot express.</li>
+<li>Apply it: <code>pnpm prisma migrate deploy</code>. Then <code>pnpm prisma generate</code> (stop the API first on Windows).</li>
+</ol>
+<div class="warn"><b>Do not use <code>prisma migrate dev</code>, and never trust a generated migration.</b> It refuses enum changes in scripts, and it generates <code>DROP</code> statements for our hand-made foreign keys and checks because they are not in the Prisma schema. Always read the SQL for <code>DROP</code> before applying it. If you must see a diff: <code>prisma migrate diff</code>, then keep only what you want.</div>
+</section>
+
+<section id="worker" data-group="How it runs">
+<h2>9. The worker (background jobs)</h2>
+<p class="lead">What it is, why it exists, and exactly how it is wired into our code.</p>
+
+<h3>What is a worker?</h3>
+<p>The API answers requests: someone asks, it replies within a fraction of a second. But some work should not happen inside a request:</p>
+<ul>
+<li><b>Slow things</b> (sending an email can take seconds, and the mail server can be down).</li>
+<li><b>Things nobody asked for right now</b> (remind the customer a day before the visit; alert operations when no provider accepted a job).</li>
+<li><b>Things that must be retried</b> if they fail.</li>
+</ul>
+<p>A <b>worker</b> is a second, separate program that runs all the time, listens to <b>no one</b>, and wakes up on a timetable or when a job appears in a queue. In MPD the worker is built from the <b>same repository and the same code</b> as the API (<code>mpd-backend</code>) but starts from a different file.</p>
+
+<div class="cols">
+<div class="box"><h4>The API</h4><p><code>src/main.ts</code>, started by <code>pnpm dev</code>. Listens on port 4000. Does work <i>when asked</i>. If it is stopped, nobody can use the app.</p></div>
+<div class="box"><h4>The worker</h4><p><code>src/worker.ts</code>, started by <code>pnpm dev:worker</code>. Listens on no port. Does work <i>on a timetable</i>. If it is stopped, the app still works but emails are not sent and reminders pause (nothing is lost; it catches up when it starts).</p></div>
+</div>
+
+<h3>How a queue works here: pg-boss</h3>
+<p>A <b>queue</b> is a list of jobs waiting to be done. We use <b>pg-boss</b>, which keeps the queue in <b>PostgreSQL itself</b> (in a separate schema called <code>pgboss</code>), so there is no extra server such as Redis to run or pay for.</p>
+<ol class="steps">
+<li>A <b>schedule</b> (a cron timetable such as <code>* * * * *</code> = every minute) adds a job to a named queue when it is due.</li>
+<li>The worker has registered a <b>handler</b> for that queue name. pg-boss gives it the job; if the handler throws, pg-boss can retry.</li>
+<li>Only one worker takes a given job, even if you run several workers.</li>
+</ol>
+<p>Our small wrapper is <code>src/common/queue/queue.service.ts</code>: <code>work(name, handler)</code>, <code>schedule(name, cron)</code>, <code>send(name, data)</code>.</p>
+
+<h3>The worker's three jobs today</h3>
+<table>
+<tr><th>Queue name</th><th>When</th><th>What it does</th><th>Code</th></tr>
+<tr><td><code>system.ping</code></td><td>on demand</td><td>A heartbeat that proves the worker is alive and consuming</td><td><code>SystemJobs</code> in <code>worker.ts</code></td></tr>
+<tr><td><code>outbox.dispatch</code></td><td>every minute</td><td>Sends emails waiting in the <code>outbox</code> table, with retries</td><td><code>OutboxJobs</code> to <code>OutboxService.dispatch()</code></td></tr>
+<tr><td><code>reminders.sweep</code></td><td>every 10 minutes</td><td>Alerts and reminders: jobs nobody accepted, visits coming up, extra work waiting, unpaid orders, plans ending, documents expiring</td><td><code>ReminderJobs</code> to <code>RemindersService.sweep()</code></td></tr>
+</table>
+
+<h3>How it is wired into the codebase</h3>
+<pre><code>// src/worker.ts (simplified)
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true, validate: validateEnv }),   // same settings check as the API
+    PrismaModule, AuditModule, PolicyModule, StorageModule, ScannerModule,
+    JwtModule.register({ global: true }),   // these four exist only because the services we reuse ask for them
+    QueueModule,                            // the pg-boss wrapper
+    MessagingModule,                        // OutboxService
+    RemindersModule,                        // RemindersService (and, through it, jobs, orders, vault)
+  ],
+  providers: [SystemJobs, OutboxJobs, ReminderJobs],
+})
+class WorkerModule {}
+
+async function bootstrap() {
+  const app = await NestFactory.createApplicationContext(WorkerModule);  // note: no HTTP server
+  app.enableShutdownHooks();
+}</code></pre>
+<ul>
+<li><b><code>createApplicationContext</code></b> builds the dependency-injection container <i>without</i> an HTTP server. That is the whole difference between "an API" and "a worker" in Nest.</li>
+<li><b>The worker reuses the API's services.</b> It does not duplicate rules. <code>OutboxService</code>, <code>JobsService.sweepReminders()</code> and so on are the same classes the API uses. This is why the worker's module list needs <code>PolicyModule</code>, <code>StorageModule</code>, <code>ScannerModule</code> and a global <code>JwtModule</code>: those services' own dependencies ask for them. If you see "Nest can't resolve dependencies of X" when starting the worker, a module is missing from this list.</li>
+<li>Each job class has <code>onModuleInit()</code>, which Nest calls at start-up: it registers the handler (<code>queue.work</code>) and the timetable (<code>queue.schedule</code>). Registering is idempotent, so restarts are safe.</li>
+<li>The worker talks <b>only to PostgreSQL</b> (data and queue) and the Mailer. It never calls the API over HTTP.</li>
+</ul>
+
+<h3>Running it</h3>
+<table>
+<tr><th>Where</th><th>Command</th></tr>
+<tr><td>Development</td><td><code>pnpm dev:worker</code> (that is <code>nest start --watch --entryFile worker</code>) in a second terminal. It must be running for emails to go out and reminders to fire.</td></tr>
+<tr><td>Production (planned)</td><td>A second container from the same image with the command <code>node dist/worker.js</code>, next to the API container</td></tr>
+<tr><td>Tests</td><td>Tests do <b>not</b> start the worker. They call <code>outbox.dispatch()</code> and <code>reminders.sweep()</code> directly, so they never wait for a clock.</td></tr>
+</table>
+
+<h3>Try it: the email outbox from creation to delivery</h3>
+<p>This simulator follows one email through the real design. Create an event, then let the worker tick. Turn the mail server off to watch the retries and the give-up.</p>
+<div id="worker-sim"></div>
+
+<h3>Rules for anything a worker runs</h3>
+<ul>
+<li><b>Idempotent:</b> running it twice must change nothing the second time. Reminders carry a <b>dedupe key</b> (<code>order:&lt;id&gt;:24h</code>), enforced by a database unique index, so a sweep every 10 minutes tells each person once.</li>
+<li><b>Claim before you work:</b> take a row with a guarded update (<code>PENDING</code> to <code>SENDING</code>) so two workers never do the same item. A row stuck in <code>SENDING</code> for 5 minutes (a worker died) goes back to <code>PENDING</code>.</li>
+<li><b>One area failing must not stop the others:</b> <code>RemindersService.sweep()</code> catches each area's errors separately.</li>
+<li><b>Do not put rules in <code>worker.ts</code>.</b> It only registers timetables and calls a service. The logic lives in the module that owns the data.</li>
+<li><b>Never make a user action wait for the worker.</b> The in-app notification is written immediately in the request; only the email is deferred.</li>
+</ul>
+
+<h3>Adding a new scheduled job</h3>
+<ol class="steps">
+<li>Write the method in the owning module's service (for example <code>sweepSomething()</code>), idempotent, with dedupe keys.</li>
+<li>If it is a reminder, call it from <code>RemindersService.sweep()</code> inside its own <code>run(...)</code> guard.</li>
+<li>If it needs its own timetable, add a class in <code>worker.ts</code> like <code>OutboxJobs</code> and list it in <code>providers</code>.</li>
+<li>Write an end-to-end spec that calls your method directly (see <code>test/reminders.e2e-spec.ts</code>).</li>
+<li>Update this section and <code>progress.md</code>.</li>
+</ol>
+<div class="note"><b>What is not built yet:</b> reminders at a chosen local hour (for example 9 am in the reader's city); today they go out when a sweep runs. Push notifications and the real email sender (SES) come later. WhatsApp and SMS become more channels on the same outbox in M8.</div>
+</section>
+
+<section id="messaging" data-group="How it runs">
+<h2>10. Notifications and the outbox</h2>
+<p class="lead">How the app tells people things, and how the API and the worker share the work.</p>
+<div class="lane"><div class="who api">API request</div><div>A job is assigned. <code>JobsService.assignWorker</code> changes the job, then calls <code>tell(job, 'worker', 'job.assigned')</code>.</div></div>
+<div class="lane"><div class="who api">NotificationsService</div><div><code>notify()</code> checks the person is active, then (1) <b>creates the in-app notification now</b> and (2) creates an <b>outbox email row</b> unless they switched email off. It catches its own errors: a failed notification must never undo the assignment.</div></div>
+<div class="lane"><div class="who db">PostgreSQL</div><div>Tables <code>notifications</code> (the bell) and <code>outbox</code> (emails waiting). A unique index on (user, dedupe key) makes duplicates impossible.</div></div>
+<div class="lane"><div class="who worker">Worker, every minute</div><div><code>OutboxService.dispatch()</code> claims due rows, calls <code>Mailer.send</code>, marks <code>SENT</code>, or schedules a retry (2, 4, 8, 16 minutes), or <code>FAILED</code> after 5 tries.</div></div>
+<div class="lane"><div class="who browser">Browser</div><div>The bell asks <code>GET /v1/me/notifications/unread-count</code> every minute and on each page change. Opening a notification marks it read.</div></div>
+<h3>Where the texts live</h3>
+<p><code>src/modules/messaging/templates.ts</code> maps an event key (<code>extra.needs_approval</code>) to a title and body. Triggers only name the key and pass variables. When WhatsApp arrives in M8, a template gets another channel; the triggers do not change.</p>
+<h3>Chat is separate</h3>
+<p>Messages on a job (<code>job_messages</code>) belong to the <code>jobs</code> module. A new chat message creates <b>one</b> notification at a time for each other person until they open the chat (<code>skipIfUnread</code>), so a busy conversation does not flood the bell.</p>
+</section>
+
+<!-- ================================================================ PATTERNS -->
+<section id="recipes" data-group="Patterns">
+<h2>11. Recipes: how each kind of function is built</h2>
+<p class="lead">Pick the kind of thing you are building. Each recipe lists the steps in order, with the files, and a code sketch from our code.</p>
+<div id="recipes-host"></div>
+</section>
+
+<section id="states" data-group="Patterns">
+<h2>12. State machines</h2>
+<p class="lead">Things that move through statuses. Click a status to see what it means and where it can go. The arrows are exactly the moves the code allows.</p>
+<div id="machines"></div>
+</section>
+
+<section id="security" data-group="Patterns">
+<h2>13. Security and access</h2>
+<p class="lead">Two locks: the cosmetic one in the screen and the real one in the backend.</p>
+<div id="matrix"></div>
+<h3>What protects what</h3>
+<table>
+<tr><th>Threat</th><th>Defence</th><th>Where</th></tr>
+<tr><td>Someone edits the page or types an address</td><td>The backend checks role <b>and</b> ownership on every call</td><td><code>AuthGuard</code>, services</td></tr>
+<tr><td>Guessing other people's ids</td><td>404 for records that are not yours</td><td>service methods</td></tr>
+<tr><td>Stolen session</td><td>httpOnly cookies; short access token; refresh token rotated with reuse detection</td><td>identity, frontend session</td></tr>
+<tr><td>Password leaks</td><td>argon2id hashes; nothing readable anywhere</td><td>identity</td></tr>
+<tr><td>A worker starts a job without the customer</td><td>The customer shows a 6-digit code (hashed, 10 minutes, 5 tries). Operations can override only with a written reason, audited</td><td>job-work.service.ts</td></tr>
+<tr><td>Malicious or fake files</td><td>Magic-byte type check, 20 MB limit, virus-scan port, duplicate check, links that expire in 5 minutes and are logged</td><td>vault</td></tr>
+<tr><td>Fraudulent payment</td><td>Maker-checker; unique references; approval in one transaction; server-side amounts</td><td>payments.service.ts</td></tr>
+<tr><td>Brute force and floods</td><td>Throttler on every route, stricter on sensitive ones</td><td>controllers</td></tr>
+<tr><td>Private data in the pool</td><td>Providers see no customer name or full address until a provider has accepted</td><td>JobsService.dtos</td></tr>
+</table>
+<div class="warn"><b>Still to do before real data or money:</b> TOTP two-step login for admin and operations (milestone M9, a hard gate), a captcha on the website form, ClamAV wired in, AWS set up.</div>
+</section>
+
+<section id="testing" data-group="Patterns">
+<h2>14. Testing</h2>
+<p class="lead">The tests are the safety net and the living specification. <code>pnpm test:e2e</code> runs about 470 end-to-end tests.</p>
+<ul>
+<li><b>End-to-end</b> means the whole API, in memory, against a real Postgres. A spec creates its own data (organisations, users with tokens, a property, a service, a price book), calls endpoints with supertest as different roles, and checks answers and stored rows.</li>
+<li>Every spec <b>cleans up</b> after itself in <code>afterAll</code>. Specs run <b>one at a time</b> because they share one database and a global live price list.</li>
+<li><b>Test the refusals as hard as the successes:</b> the role that must get 403, the other customer who must get 404, the signed-out caller who must get 401, the double click that must give exactly one winner.</li>
+<li>Specs call services such as <code>outbox.dispatch()</code> and <code>reminders.sweep()</code> directly instead of waiting for the worker.</li>
+<li>Use a pincode and name prefix unique to your spec so runs never collide.</li>
+</ul>
+<pre><code>it('only the assigned worker can raise extra work', async () => {
+  const jobId = await started();                                   // a helper that builds the situation
+  await raise(jobId, 'WA2', items).expect(404);                    // another worker: not found
+  for (const who of ['CUST', 'ADMA', 'OPS']) await raise(jobId, who, items).expect(403);
+  await raise(jobId, 'WA1', items).expect(201);                    // the assigned worker
+});</code></pre>
+<p>Frontend: <code>npx tsc --noEmit</code> and <code>pnpm lint</code> are the checks (plus a few unit tests). Do not run <code>pnpm build</code> while the dev server runs: they share the same <code>.next</code> folder.</p>
+</section>
+
+<!-- ================================================================ WORKING ON IT -->
+<section id="workflow" data-group="Working on it">
+<h2>15. Making a change, start to finish</h2>
+<p class="lead">The order never changes: rule, database, backend, tests, contract, frontend, docs. Tick the list as you go (it is remembered in this browser).</p>
+<div class="checklist" id="checklist"></div>
+<div class="flow">
+<h3>The contract flow</h3>
+<pre><code>backend code  →  pnpm openapi:export  →  openapi.json (committed)
+                                              ↓
+frontend:  pnpm api:generate  →  src/api/schema.d.ts  →  tsc fails where the screen is now wrong</code></pre>
+</div>
+</section>
+
+<section id="local" data-group="Working on it">
+<h2>16. Running it on your machine</h2>
+<table>
+<tr><th>Piece</th><th>Command</th><th>Address</th></tr>
+<tr><td>Database</td><td><code>docker compose -f docker-compose.dev.yml up -d</code> (in <code>mpd-backend</code>)</td><td>localhost:5433</td></tr>
+<tr><td>Migrations and seed</td><td><code>pnpm prisma migrate deploy</code>, <code>pnpm db:seed</code></td><td></td></tr>
+<tr><td>API</td><td><code>pnpm dev</code></td><td>localhost:4000, docs at <code>/docs</code></td></tr>
+<tr><td>Worker</td><td><code>pnpm dev:worker</code></td><td>no port</td></tr>
+<tr><td>Web app</td><td><code>pnpm dev</code> in <code>mpd-frontend</code></td><td>localhost:3000</td></tr>
+<tr><td>Public site</td><td><code>pnpm dev -p 3001</code> in <code>mpd-global</code></td><td>localhost:3001</td></tr>
+<tr><td>Tests</td><td><code>pnpm test:e2e</code>, <code>pnpm lint</code>, <code>npx tsc --noEmit</code></td><td></td></tr>
+</table>
+<h3>Settings (environment variables)</h3>
+<table>
+<tr><th>Where</th><th>Variable</th><th>Meaning</th></tr>
+<tr><td>backend</td><td><code>DATABASE_URL</code></td><td>Connection to Postgres (used by Prisma, pg-boss and the worker)</td></tr>
+<tr><td>backend</td><td><code>JWT_ACCESS_SECRET</code>, <code>JWT_REFRESH_SECRET</code></td><td>Keys that sign tokens (at least 32 characters). Never in git.</td></tr>
+<tr><td>backend</td><td><code>CORS_ORIGINS</code></td><td>Which web origins may call the API</td></tr>
+<tr><td>backend</td><td><code>BRAND_NAME</code>, <code>BRAND_SHORT</code>, <code>BRAND_DOMAIN</code></td><td>Brand, read from config everywhere</td></tr>
+<tr><td>backend</td><td><code>APP_URL</code></td><td>Base address used in links inside emails</td></tr>
+<tr><td>backend</td><td><code>STORAGE_DIR</code></td><td>Where files are kept in development</td></tr>
+<tr><td>backend</td><td><code>SENTRY_DSN</code>, <code>AWS_REGION</code></td><td>Error reporting; region for AWS later</td></tr>
+<tr><td>frontend</td><td><code>API_URL</code></td><td>Where the web app's server finds the API. Server-side only.</td></tr>
+</table>
+<p>The full new-machine guide is <code>mpd-handbook-developer/workspace/NEW-MACHINE.md</code>. Windows note: <code>prisma generate</code> fails while the API is running; stop it first.</p>
+</section>
+
+<section id="deploy" data-group="Working on it">
+<h2>17. Where it will run (planned, not applied yet)</h2>
+<div class="lane"><div class="who web">One server</div><div>AWS Lightsail in Mumbai, 4 GB. Docker Compose runs: <b>Caddy</b> (the front door, handles HTTPS), the <b>api</b> container, the <b>worker</b> container (same image, command <code>node dist/worker.js</code>), the <b>web</b> container (Next.js), and <b>postgres</b>.</div></div>
+<div class="lane"><div class="who db">Outside the box</div><div>A private S3 bucket for files, SES for email, Sentry for errors, GitHub Actions for build and deploy (images in GHCR, then an SSH step that runs migrations, starts the new containers and checks <code>/health</code>, rolling back if it fails).</div></div>
+<p>Decisions so far: both Next.js apps run on the server at launch; moving the public website to S3 plus CloudFront is considered only after launch. Nothing here is applied until the client demo.</p>
+</section>
+
+<section id="reference" data-group="Reference">
+<h2>18. Reference</h2>
+<h3>Where to find things</h3>
+<table>
+<tr><th>You want…</th><th>Look at</th></tr>
+<tr><td>The rule behind a feature</td><td><code>mpd-backend/src/modules/&lt;area&gt;/*.service.ts</code></td></tr>
+<tr><td>All the allowed status moves</td><td><code>jobs/job-state.ts</code>, <code>orders.service.ts</code></td></tr>
+<tr><td>What a table holds</td><td><code>prisma/schema.prisma</code> (each model has comments)</td></tr>
+<tr><td>A constraint or index</td><td><code>prisma/migrations/*/migration.sql</code></td></tr>
+<tr><td>A rule proven by a test</td><td><code>test/*.e2e-spec.ts</code> and the lists in <code>docs/architecture/progress.md</code></td></tr>
+<tr><td>Who may call an endpoint</td><td>The controller (<code>@Roles</code>) and the service checks; Swagger at <code>/docs</code></td></tr>
+<tr><td>A screen</td><td><code>mpd-frontend/src/components/…</code> and its page in <code>app/…</code></td></tr>
+<tr><td>Notification wording</td><td><code>messaging/templates.ts</code></td></tr>
+<tr><td>The schedule of background work</td><td><code>src/worker.ts</code></td></tr>
+<tr><td>Why something was decided</td><td><code>mpd-context/07-decisions.md</code>, ADRs in the spec</td></tr>
+</table>
+<h3>Frequently asked</h3>
+<details><summary>Why is there a separate worker instead of doing it inside the API?</summary><p>A request must answer quickly and must not fail because a mail server is slow. A scheduled sweep must run even when nobody is using the app. Both needs are solved by a separate program with its own timetable. It also scales and restarts independently.</p></details>
+<details><summary>Why not Redis for the queue?</summary><p>Postgres already holds the data and pg-boss is enough for our volume. It saves a server to run and pay for at launch. It can be replaced later because only <code>queue.service.ts</code> knows about it.</p></details>
+<details><summary>Why does the browser never call the API directly?</summary><p>The tokens live in httpOnly cookies on the web app's server. Scripts in the page cannot read them, so an injected script cannot steal a session, and the API address is not exposed to visitors.</p></details>
+<details><summary>Why are migrations written by hand?</summary><p>Generated ones drop our foreign keys and checks, which Prisma does not model. Hand-writing keeps the database rules, which are our last line of defence.</p></details>
+<details><summary>Why are there so many tests for refusals?</summary><p>A system that handles money and private property data is judged by what it refuses. Each role is tested for what it must not do.</p></details>
+<details><summary>Why is a customer's job not found (404) instead of forbidden (403)?</summary><p>403 confirms the thing exists. 404 reveals nothing.</p></details>
+<details><summary>Why is the worker's name only the first name to customers in chat?</summary><p>Privacy: customers do not need a worker's full identity, and phone numbers are never shown in chat.</p></details>
+<details><summary>Can a native app be added later?</summary><p>Yes. It would use the same API through the same contract (<code>openapi.json</code>); <code>mpd-mobile</code> is the scaffold. We chose the installable web app first because it covers the worker's needs and is one product to keep.</p></details>
+<h3>Glossary</h3>
+<div id="glossary-host"></div>
+</section>
+
+</main>
+</div>
+<script src="engineering.js"></script>
+</body>
+</html>

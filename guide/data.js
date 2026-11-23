@@ -1,7 +1,7 @@
 /* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
    Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
 window.GUIDE = {
-  updated: "25 Nov 2026 (after M6.2)",
+  updated: "25 Nov 2026 (after M6.3)",
 
   groups: [
     { id: "head", name: "Head office" },
@@ -258,6 +258,11 @@ window.GUIDE = {
           "For a site visit also fill in the details that were wrong on file (address, pincode, area). This verifies the property.",
           "Your provider or operations then check the work. If it is sent back, finish it again with a new code."
         ], tips: ["A code works for 10 minutes and five tries. If it stops working ask the customer for a new one.", "Never ask a customer to read out a code before you are at the property."] },
+        { id: "fw_chat", title: "Message the customer or your provider", where: "Jobs board → Open → Messages", steps: [
+          "Open the job and open Messages. It is available once a provider has taken the job.",
+          "Write your message and press Send. The customer, your provider and the office can see it.",
+          "New messages from others are shown as (n new) and arrive in your bell."
+        ], tips: ["Use messages for quick questions such as which gate or which flat. The customer sees only your first name.", "Do not share a start or finish code in chat."] },
         { id: "fw_notify", title: "Know when something needs you", where: "Bell at the top", steps: [
           "The bell at the top shows how many notifications are unread. Press it to open them.",
           "You are told when a job is given to you, when work is sent back, and when the customer approves or pays for extra work. You also get a reminder the day before a visit and two hours before it starts.",
@@ -323,6 +328,11 @@ window.GUIDE = {
           "Press Approve and pay, or Decline. Declining sends the worker back to the work that was agreed.",
           "If you approve, an order is made for that amount. Pay it from Orders like any other. The worker carries on once we approve the payment."
         ] },
+        { id: "po_chat", title: "Message the provider about your job", where: "Service requests → Messages", steps: [
+          "Open Messages on your request. It is available once a provider has taken your job.",
+          "Write your message and press Send. The worker, the provider and our team can read it.",
+          "You see the people by their first name and role. You are told in the bell when someone replies."
+        ], tips: ["Never share a code in chat. Show it to the worker only when you are together.", "The chat closes when the job is finished, but you can still read it."] },
         { id: "po_notify", title: "Follow your requests from the bell", where: "Bell at the top", steps: [
           "The bell at the top shows what is new: a provider took your request, the visit time, the worker is on the way, the work is done, extra work needs your decision, a payment was received. You also get a reminder the day before a visit, when an order is still unpaid, when a plan is about to end, and when a document in your vault is about to expire.",
           "Press a notification to go straight to the right page. It is then marked as read.",
@@ -510,6 +520,7 @@ window.GUIDE = {
     { term: "Nudge", def: "Ask providers to take a job nobody has accepted." },
     { term: "Checklist", def: "The steps a worker follows for a service. An admin writes it; the job keeps a copy when the work starts." },
     { term: "Extra work", def: "More work the worker finds on site. They send it with photos and a reason; the customer approves and pays before the work continues." },
+    { term: "Chat", def: "Messages on one job between the customer, the worker, the provider and our team. It opens when a provider has taken the job and closes when the job is finished." },
     { term: "Reminder", def: "A notification sent automatically at the right time, for example a day before a visit, or when an order has not been paid. Each is sent once." },
     { term: "SLA", def: "The time a job is allowed to wait for a provider (2 hours, 30 minutes if urgent). If nobody accepts in time, operations and the area's franchise are alerted." },
     { term: "Notification", def: "A short message in the bell at the top about something that happened to your job, order or payment. A copy can also be sent by email." },
