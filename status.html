@@ -40,7 +40,7 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <h1>What is built, as of 21 Nov 2026</h1>
 <p class="lede">M0 to M2 and the first two steps of M3 are done. This page is the current state; the plan is on the <a href="index.html">architecture page</a>. The full written spec lives in <code>docs/architecture/</code> (README, customers-and-pricing, admin-hierarchy-and-dispatch, progress).</p>
 <p><a href="guide/index.html"><b>Interactive role guide →</b></a> (what each role does, for people who do not know the app) · Project memory: the <code>mpd-context</code> repo.</p>
-<p><span class="pill ok">271 endpoints</span><span class="pill ok">28 migrations</span><span class="pill ok">484 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
+<p><span class="pill ok">281 endpoints</span><span class="pill ok">29 migrations</span><span class="pill ok">498 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
 
 <h2 id="progress">Progress</h2>
 <table>
@@ -69,7 +69,8 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <tr><td>M6.2</td><td>Reminders and alerts: jobs nobody accepts, visits coming up, extra work waiting, unpaid orders, plans ending, documents expiring</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M6.3</td><td>Chat on a job between the customer, worker, provider and operations</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M6.4</td><td>Dashboards and reports: scoped by role, charts, tables, spreadsheet export</td><td><span class="pill ok">done</span></td></tr>
-<tr><td>M6.5</td><td>Partner earnings and payouts</td><td><span class="pill later">next</span></td></tr>
+<tr><td>M6.5</td><td>Partner earnings and payouts: shares by level, earned when a job closes, payouts with a second admin's approval</td><td><span class="pill ok">done</span></td></tr>
+<tr><td>M7</td><td>Legal and professional services</td><td><span class="pill later">next</span></td></tr>
 <tr><td>TOTP</td><td>Two-step login for super admin and ops</td><td><span class="pill later">deferred to M9, a hard gate before real data or money</span></td></tr>
 </table>
 
@@ -170,7 +171,7 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 
 <h2 id="next">Next</h2>
 <ol>
-<li><b>M6.5</b> partner earnings and payouts.</li>
+<li><b>M7</b> legal and professional services (intake forms, document checklists).</li>
 </ol>
 
 <h2>Known gaps</h2>

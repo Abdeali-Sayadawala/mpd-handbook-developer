@@ -1,7 +1,7 @@
 /* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
    Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
 window.GUIDE = {
-  updated: "25 Nov 2026 (after M6.4)",
+  updated: "26 Nov 2026 (after M6.5)",
 
   groups: [
     { id: "head", name: "Head office" },
@@ -258,6 +258,11 @@ window.GUIDE = {
           "For a site visit also fill in the details that were wrong on file (address, pincode, area). This verifies the property.",
           "Your provider or operations then check the work. If it is sent back, finish it again with a new code."
         ], tips: ["A code works for 10 minutes and five tries. If it stops working ask the customer for a new one.", "Never ask a customer to read out a code before you are at the property."] },
+        { id: "fw_earn", title: "Your provider's earnings (providers)", where: "Earnings", steps: [
+          "Open Earnings to see what your organisation has earned from closed jobs: a share of what the customer paid for each job.",
+          "The cards show what is waiting to be paid, what is in a payout, and what has been paid.",
+          "Payouts are recorded and approved by our team. When one is approved you get a message in the bell."
+        ], tips: ["A share appears a few minutes after a job is closed. A cancelled job earns nothing."] },
         { id: "fw_stats", title: "See how you are doing", where: "Reports", steps: [
           "Open Reports. You see your own jobs for the last 30 days.",
           "The tiles show how many jobs you had, how many you completed, how long the work took on average and your customers' average rating.",
@@ -525,6 +530,8 @@ window.GUIDE = {
     { term: "Nudge", def: "Ask providers to take a job nobody has accepted." },
     { term: "Checklist", def: "The steps a worker follows for a service. An admin writes it; the job keeps a copy when the work starts." },
     { term: "Extra work", def: "More work the worker finds on site. They send it with photos and a reason; the customer approves and pays before the work continues." },
+    { term: "Earning", def: "The share of a job's price an organisation earns when the job is closed: the provider that did it, and the franchise and master franchise of its area. MPD keeps the rest." },
+    { term: "Payout", def: "Money sent to an organisation for what it has earned. One admin records it with the bank reference and a different admin approves it." },
     { term: "Report", def: "A page of numbers about jobs and money for a period, showing only what your role is allowed to see: operations see everything, a franchise its area, a provider its own organisation, a worker their own jobs." },
     { term: "Chat", def: "Messages on one job between the customer, the worker, the provider and our team. It opens when a provider has taken the job and closes when the job is finished." },
     { term: "Reminder", def: "A notification sent automatically at the right time, for example a day before a visit, or when an order has not been paid. Each is sent once." },

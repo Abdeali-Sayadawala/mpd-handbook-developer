@@ -119,7 +119,7 @@
 
 <section id="backend" data-group="How it runs">
 <h2>7. The backend (NestJS)</h2>
-<p class="lead">One Nest project, <code>mpd-backend</code>, with 17 modules. Click a module to see what it does, what it imports, who imports it and which tables it owns.</p>
+<p class="lead">One Nest project, <code>mpd-backend</code>, with 18 modules. Click a module to see what it does, what it imports, who imports it and which tables it owns.</p>
 <div id="mod-graph"></div>
 <div class="panel" id="mod-info" style="margin-top:10px"></div>
 <div class="legend"><span>Arrows run from a module to the module that imports it. Modules on the left are the most basic.</span></div>
@@ -161,7 +161,7 @@
 <tr><td>Brand name and domain are read from config, never typed in code</td><td>Rebranding is configuration</td></tr>
 </table>
 <h3>Where the API describes itself</h3>
-<p>Start the API and open <code>http://localhost:4000/docs</code> (Swagger). The same description is saved as <code>mpd-backend/openapi.json</code> and committed; it is the contract the frontends generate their client from. The API has about 271 endpoints across the modules.</p>
+<p>Start the API and open <code>http://localhost:4000/docs</code> (Swagger). The same description is saved as <code>mpd-backend/openapi.json</code> and committed; it is the contract the frontends generate their client from. The API has about 281 endpoints across the modules.</p>
 </section>
 
 <section id="data" data-group="How it runs">
@@ -229,11 +229,12 @@
 </ol>
 <p>Our small wrapper is <code>src/common/queue/queue.service.ts</code>: <code>work(name, handler)</code>, <code>schedule(name, cron)</code>, <code>send(name, data)</code>.</p>
 
-<h3>The worker's three jobs today</h3>
+<h3>The worker's four jobs today</h3>
 <table>
 <tr><th>Queue name</th><th>When</th><th>What it does</th><th>Code</th></tr>
 <tr><td><code>system.ping</code></td><td>on demand</td><td>A heartbeat that proves the worker is alive and consuming</td><td><code>SystemJobs</code> in <code>worker.ts</code></td></tr>
 <tr><td><code>outbox.dispatch</code></td><td>every minute</td><td>Sends emails waiting in the <code>outbox</code> table, with retries</td><td><code>OutboxJobs</code> to <code>OutboxService.dispatch()</code></td></tr>
+<tr><td><code>earnings.accrue</code></td><td>every 5 minutes</td><td>Makes the earnings (provider, franchise, master franchise shares) of recently closed jobs, once each</td><td><code>EarningJobs</code> to <code>EarningsService.accrue()</code></td></tr>
 <tr><td><code>reminders.sweep</code></td><td>every 10 minutes</td><td>Alerts and reminders: jobs nobody accepted, visits coming up, extra work waiting, unpaid orders, plans ending, documents expiring</td><td><code>ReminderJobs</code> to <code>RemindersService.sweep()</code></td></tr>
 </table>
 
@@ -247,8 +248,9 @@
     QueueModule,                            // the pg-boss wrapper
     MessagingModule,                        // OutboxService
     RemindersModule,                        // RemindersService (and, through it, jobs, orders, vault)
+    EarningsModule,                         // EarningsService.accrue()
   ],
-  providers: [SystemJobs, OutboxJobs, ReminderJobs],
+  providers: [SystemJobs, OutboxJobs, ReminderJobs, EarningJobs],
 })
 class WorkerModule {}
 
@@ -336,6 +338,7 @@ async function bootstrap() {
 <tr><td>A worker starts a job without the customer</td><td>The customer shows a 6-digit code (hashed, 10 minutes, 5 tries). Operations can override only with a written reason, audited</td><td>job-work.service.ts</td></tr>
 <tr><td>Malicious or fake files</td><td>Magic-byte type check, 20 MB limit, virus-scan port, duplicate check, links that expire in 5 minutes and are logged</td><td>vault</td></tr>
 <tr><td>Fraudulent payment</td><td>Maker-checker; unique references; approval in one transaction; server-side amounts</td><td>payments.service.ts</td></tr>
+<tr><td>One person paying out money alone</td><td>A payout is recorded by one admin and approved by a different one (service check and a database CHECK); a live bank reference cannot be reused; earnings and payouts are visible only to the organisation that owns them</td><td>earnings.service.ts</td></tr>
 <tr><td>Showing someone else's numbers</td><td>Reports are scoped on the server by role (everything, an area, an organisation, or only your own jobs); the client never sends a scope; money only for operations and franchises</td><td>reports.service.ts</td></tr>
 <tr><td>A spreadsheet that runs code</td><td>Cells that begin with = + - @ are prefixed with an apostrophe in exports</td><td>reports.service.ts</td></tr>
 <tr><td>Brute force and floods</td><td>Throttler on every route, stricter on sensitive ones</td><td>controllers</td></tr>

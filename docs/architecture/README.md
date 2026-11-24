@@ -110,7 +110,7 @@ mpd-global/    app/ (home, services/[category]/[sub]/[service], nri-services, bl
 | 7 | **Subscriptions** | customer plans, entitlements (remaining visits per service), renewals | Paying a plan creates *entitlements*. Jobs are scheduled from entitlements |
 | 8 | **Jobs (Work Orders)** | jobs, assignments, schedule, visits, OTP checks, checklist responses, evidence (photos/files), extras, ratings | Explicit state machine (§6). Checklist template is **snapshotted** onto the job |
 | 9 | **Billing & Payments** | orders, invoices (GST-ready), payments, refunds, **offline payments** (M3), online gateway adapter + webhook inbox (M8) | Server creates orders. Only a verified webhook or verified signature marks paid. Idempotency keys everywhere |
-| 10 | **Partner Earnings** | commission rules, earnings ledger, payouts | Revenue share by org level and service category. Calculated when a payment is captured |
+| 10 | **Partner Earnings** | commission rules, earnings ledger, payouts | **BUILT (M6.5):** a percentage of the job price per level (default plus per-category override), earned when the job closes, payouts with maker-checker. See progress.md |
 | 11 | **Document Vault** | folders, documents, versions, tags, expiries, share links, access log | See §8 |
 | 12 | **Messaging & Notifications** | conversations (per job/property), messages, notification templates, outbox, deliveries, user preferences | Every send goes through the outbox. Reminders are really sent |
 | 13 | **Reports & Audit** | audit events, dashboards, exports | Revenue, response time, SLA, ratings, partner earnings |
