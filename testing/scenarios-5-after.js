@@ -147,3 +147,54 @@ chapter('legal', 'Legal service forms (setup by operations)', '<p>The legal and 
     'Save a service three times. (A developer can check the database: <code>SELECT version, jsonb_array_length(questions) FROM service_intake_forms WHERE service_id = ...</code>.)',
   ], ['Versions 1, 2 and 3 all exist exactly as saved. A case started later (next step) keeps the version it began with.'], { tags: ['edge'] }),
 ]);
+
+chapter('legalreq', 'Legal requests (customer and operations)', '<p>The customer asks for a legal service; operations see what was sent. For a service to be offered, operations must set up its form (LGL-02 or LGL-03) and <b>switch the service on</b> in the Service catalogue (legal services are imported hidden). Use C1 and C2 and OPS1.</p>', [
+  T('LGR-01', 'Switch a legal service on', ['OPS1'], [
+    'In <b>Service catalogue</b> find "Sale &amp; Purchase(Drafting Sale Deed)" (group Legal) and make it <b>active</b>. Make sure it has a form (LGL-01).',
+  ], ['The service is active. It is now offered to customers under Legal services; services without a form or still inactive are not.'], { tags: ['core'], pre: ['The seed has been run (SET-03).'] }),
+  T('LGR-02', 'The customer finds and starts a legal service', ['C1'], [
+    'Open <b>Legal services</b> in the menu. Search for "sale deed". If you have a property, choose it in "About which property". Press <b>Start</b>.',
+  ], ['Only active services with a form are listed, grouped by heading, with a one-line description. Start opens the request page with a reference (L-XXXXXXXX), the introduction, the questions grouped under headings, the documents we need and the progress steps. It shows as "Not sent yet" and lists what is still missing.'], { tags: ['smoke', 'core'] }),
+  T('LGR-03', 'Answers are saved as you go', ['C1'], [
+    'Type an address, a price, pick a date and choose yes or no. Click away from each field. Reload the page.',
+  ], ['A "Saved" note appears; after reloading the answers are still there. Optional questions may stay empty. Clearing an answer removes it.'], { tags: ['smoke', 'core'] }),
+  T('LGR-04', 'Answers must fit the question', ['C1'], [
+    'In a number field type words; in a date field type a date that does not exist (30 February); leave a required text only spaces; type over 500 characters in a short answer.',
+  ], ['Each is refused with a message that names the question. Nothing is saved from a refused change.'], { tags: ['edge'] }),
+  T('LGR-05', 'Give the documents', ['C1'], [
+    'Under "Documents we need" press <b>Add a file</b> for each required item and choose a small PDF or photo. Press the name of a file to open it. Add files up to the limit shown for an item, then try one more.',
+  ], ['Each file appears under its item with "n added". The name opens the file (a link that works for five minutes). Beyond the limit the Add button disappears (and the server refuses). The file is also in your vault, folder <b>Legal cases</b>, locked.'], { tags: ['core'] }),
+  T('LGR-06', 'Only real files; no repeats', ['C1'], [
+    'Add a text file renamed to .pdf; a file over 20 MB; the same file twice.',
+  ], ['Each is refused with a clear message (not a real PDF, too large, already filed).'], { tags: ['security', 'edge'] }),
+  T('LGR-07', 'Take a file back', ['C1'], [
+    'Press the bin next to a file while the request is a draft.',
+  ], ['The file disappears from the request and from the vault folder.'], { tags: ['core'] }),
+  T('LGR-08', 'Sending needs everything required', ['C1'], [
+    'With something still missing, look at the "Send to our team" button and the list above it. Try to send anyway by completing all but one item.',
+  ], ['The button is disabled while anything required is missing and the list names each missing question and document.'], { tags: ['core'] }),
+  T('LGR-09', 'Send it', ['C1', 'OPS1'], [
+    'Complete everything and press <b>Send to our team</b>. As OPS1 look at the bell.',
+  ], ['The request becomes "Sent to our team" and read-only. C1 gets "We have your legal request"; OPS1 (and every super admin) gets "A new legal request". The answers and documents can no longer be changed or removed.'], { tags: ['smoke', 'core'] }),
+  T('LGR-10', 'Withdraw or discard', ['C1'], [
+    'On a draft press <b>Discard</b>. On a sent request press <b>Withdraw this request</b>.',
+  ], ['A draft or a sent request becomes "Withdrawn" and read-only. The documents stay in your vault and are no longer locked (you can manage them). A withdrawn request cannot be sent.'], { tags: ['core'] }),
+  T('LGR-11', 'The form version is kept', ['OPS1', 'C1'], [
+    'C1 starts a request. OPS1 saves a new version of that service form with different questions (LGL-03). Reload C1\'s request; then C1 starts another one.',
+  ], ['The first request still shows the old questions; the new one shows the new questions.'], { tags: ['edge'] }),
+  T('LGR-12', 'Drafts are private', ['OPS1', 'C2'], [
+    'With a draft open as C1, look at <b>Legal requests</b> as OPS1; try C1\'s request address as C2.',
+  ], ['OPS1 does not see the draft (only sent requests). C2 sees "not found".'], { tags: ['security', 'smoke'] }),
+  T('LGR-13', 'Operations read what was sent', ['OPS1'], [
+    'Open <b>Legal requests</b>. Filter "Waiting for review" and "Withdrawn". Press Open on a request. Press a document name.',
+  ], ['The list shows the request, the customer, when it was sent and its status. The dialog shows the customer\'s name and contact, every answer (with its heading) and each document; a document opens through a short link.'], { tags: ['core'] }),
+  T('LGR-14', 'Only operations see the requests', ['FR1', 'PA1', 'WA1', 'C1'], [
+    'Look for Legal requests in each menu; open <code>/admin/legal-requests</code>.',
+  ], ['Missing and refused for everyone but operations and the super admin.'], { tags: ['security'] }),
+  T('LGR-15', 'Too many unfinished drafts', ['C1'], [
+    'Start more than 20 requests without sending or discarding them (you can use one service repeatedly).',
+  ], ['After 20 unfinished requests a message asks you to finish or withdraw some first.'], { tags: ['edge'], note: 'Discard the drafts afterwards.' }),
+  T('LGR-16', 'A request about a property that is not yours', ['C1', 'C2'], [
+    'Start a request choosing a property; check that only your own properties are offered.',
+  ], ['Only your own properties are in the list; the server refuses anyone else\'s.'], { tags: ['security'] }),
+]);

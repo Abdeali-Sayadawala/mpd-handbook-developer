@@ -1,7 +1,7 @@
 /* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
    Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
 window.GUIDE = {
-  updated: "27 Nov 2026 (after M7.0)",
+  updated: "27 Nov 2026 (after M7.1)",
 
   groups: [
     { id: "head", name: "Head office" },
@@ -333,6 +333,13 @@ window.GUIDE = {
           "When the work is done press Show my finish code the same way.",
           "After we have checked the work, rate it from 1 to 5."
         ], tips: ["Never share a code with anyone who is not at your property."] },
+        { id: "po_legal", title: "Ask for a legal service", where: "Legal services", steps: [
+          "Open Legal services. Search for the service you need, for example sale deed, and press Start. If it is about one of your properties, choose it first.",
+          "Answer the questions. Each answer is saved when you leave the field. Optional questions can stay empty.",
+          "Under Documents we need, add a file for each item (a photo or a PDF). Press the name of a file to open it, or the bin to remove it.",
+          "The page lists what is still missing. When it is all there, press Send to our team.",
+          "After sending you cannot change the answers or documents, but you can withdraw the request. Our team reviews it and sends you a price."
+        ], tips: ["You can stop at any time. Your draft is kept and nobody else can see it until you send it.", "Your files are kept in your vault, in the folder Legal cases."] },
         { id: "po_extra", title: "Approve or decline extra work", where: "Service requests", steps: [
           "If the worker finds more work, your request shows Extra work with the reason, the photos, each item and the total.",
           "Press Approve and pay, or Decline. Declining sends the worker back to the work that was agreed.",
@@ -430,6 +437,11 @@ window.GUIDE = {
       "Open the job: see who is eligible. Press Ask providers to take it, or choose a provider and Assign with a reason.",
       "To cancel a job that has not started press Cancel the job and write why. A plan visit goes back into the customer's plan."
     ], tips: ["Cancelling a job the customer paid for does not refund anything by itself. Handle the money separately."] },
+    { id: "ho_legalreq", title: "See the legal requests customers have sent", where: "Legal requests", steps: [
+      "Open Legal requests. It lists what customers have sent (drafts are private to the customer and never shown).",
+      "Press Open on a request: you see the customer's contact, every answer and each document. Press a document name to open it (the link works for five minutes and is recorded under your name).",
+      "Reviewing the request, asking for missing items and sending a price come in the next step."
+    ] },
     { id: "ho_legalform", title: "Set up the form and documents of a legal service", where: "Legal service forms", steps: [
       "Open Legal service forms. The legal and professional services are listed by group, each showing Version n or Not set up.",
       "Press the pencil on a service. Write a few lines of introduction (optional).",
@@ -538,6 +550,7 @@ window.GUIDE = {
     { term: "Nudge", def: "Ask providers to take a job nobody has accepted." },
     { term: "Checklist", def: "The steps a worker follows for a service. An admin writes it; the job keeps a copy when the work starts." },
     { term: "Extra work", def: "More work the worker finds on site. They send it with photos and a reason; the customer approves and pays before the work continues." },
+    { term: "Legal request", def: "A customer's request for a legal service: the answers to its form and the documents given. It is a private draft until the customer sends it to our team." },
     { term: "Intake form", def: "The questions a customer answers and the documents they give when they ask for a legal service. Each service has its own, set up by operations." },
     { term: "Earning", def: "The share of a job's price an organisation earns when the job is closed: the provider that did it, and the franchise and master franchise of its area. MPD keeps the rest." },
     { term: "Payout", def: "Money sent to an organisation for what it has earned. One admin records it with the bank reference and a different admin approves it." },
