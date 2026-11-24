@@ -17,7 +17,25 @@ Decided with the owner on 26-Nov-2026. The catalogue already holds **44 legal an
 | M7.3 | **Built (29-Nov-2026).** The legal case and its pool: a paid case goes to eligible legal providers; first to accept wins; the provider works the case through steps and messages the customer | A "legal provider" is an organisation that offers PROFESSIONAL services; reuses the pool, eligibility, chat and notifications |
 | M7.4 | **Built (30-Nov-2026).** Progress tracker and delivery: steps the provider ticks, the customer sees, final documents delivered to the vault, rating | Per-service step lists |
 | M7.5 | **Built (1-Dec-2026).** Earnings for legal cases | The existing shares apply to the case price |
-| M7.6 onwards | Wave 2, 3 and 4 services configured | Data only, if the mechanism is right |
+| M7.6 | **Built (1-Dec-2026).** Wave 2, 3 and 4 services configured: the form, document checklist and progress steps of the 28 remaining services | Data only; most of them have no property, so see "Cases with an area and cases with no area" |
+| M7.7 onwards | Activate the services in order, set prices and review the forms with real partners | Operations work, no code unless the mechanism needs it |
+
+## Cases with an area and cases with no area (decided 1-Dec-2026)
+A legal case has an **area** when the customer's request was about one of their properties: the case takes the property's **pincode**. A case has **no area** when the request was not about a property (for example drafting a will, or most company, tax and labour services). Everything below follows from that one fact.
+
+| Step | Case with an area | Case with no area |
+|---|---|---|
+| Request (M7.1) | The customer picks a property; its pincode is copied to the request | No property is chosen, so no pincode |
+| The pool (M7.3) | Every legal provider that is live with staff, holds that pincode and offers the service sees it; the first to accept wins | **In nobody's pool.** No provider can accept it by itself; the franchise cannot see it |
+| Who hands it out | The franchise, master franchise or operations can nudge providers or give it to an eligible provider | **Only operations.** They are told when the case opens, see it under Legal cases, and give it to any live provider that offers the service (the reason is recorded). The provider then sees the customer and works it as usual |
+| The 24-hour alert | Operations and the area's franchise are alerted once | Operations are alerted at once (nobody else could act) and again after 24 hours |
+| Who sees the case | The provider that holds it, the area's franchise and master franchise, and operations | The provider that holds it and operations. **Not** a franchise or master franchise (there is no area to belong to) |
+| Earnings (M7.5) | The provider, the franchise and the master franchise of the pincode each earn their share | **Only the provider earns.** There is no franchise or master franchise to pay, so their percentages are not paid to anyone: MPD keeps them |
+| Doing the work, delivery, rating | Same | Same |
+
+Why: franchises and master franchises exist to run an **area** (they are paid for managing the providers and customers in their pincodes). A case that belongs to no pincode has no one to manage it, so MPD operations take that role, and MPD keeps the area owners' share.
+
+Known consequence: **Waves 2 to 4 (M7.6) are mostly not about a property** (GST, income tax, licences, labour law, contracts, arbitration), so most of those cases will have no area and will be handed out by operations one by one. This works at launch volumes. If volumes grow, the options are: ask the customer for the pincode of the place of business (then the normal pool and franchise shares apply); or let a provider pick up no-area cases from a shared pool (then decide who earns the franchise share). Not built; decide with the owner when the volume is visible.
 
 ## Open details to settle with the owner while building
 - Legal providers: the same organisation type (service provider) offering professional services, or a separate "legal provider" type? (Default: the same type, with the service offering as the filter.)
@@ -54,61 +72,61 @@ Status: planned until built. Waves group them by sub-category.
 
 | # | Service (as in the catalogue) | Form questions | Document checklist | Status |
 |---|---|---|---|---|
-| 17 | Arbitration(Dispute resolution) | to define | to define | planned |
-| 18 | Legal Notices(Drafting & Response) | to define | to define | planned |
-| 19 | Contracts(Drafting & Vetting) | to define | to define | planned |
-| 20 | Litigation Support(Civil & Corporate matters) | to define | to define | planned |
+| 17 | Arbitration(Dispute resolution) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 18 | Legal Notices(Drafting & Response) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 19 | Contracts(Drafting & Vetting) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 20 | Litigation Support(Civil & Corporate matters) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
 
 ### Wave 2: Special Property Matters (4 services)
 
 | # | Service (as in the catalogue) | Form questions | Document checklist | Status |
 |---|---|---|---|---|
-| 21 | Agricultural / Industrial Lands(Land Conversion / Advisory) | to define | to define | planned |
-| 22 | Redevelopment / Slum Rehabilitation(Documentation & Agreements) | to define | to define | planned |
-| 23 | NRI Property Advisory(Transactions & FEMA compliance) | to define | to define | planned |
-| 24 | Succession & Inheritance(Succession Certificates) | to define | to define | planned |
+| 21 | Agricultural / Industrial Lands(Land Conversion / Advisory) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 22 | Redevelopment / Slum Rehabilitation(Documentation & Agreements) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 23 | NRI Property Advisory(Transactions & FEMA compliance) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 24 | Succession & Inheritance(Succession Certificates) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
 
 ### Wave 3: Government Approvals & Statutory Compliance (5 services)
 
 | # | Service (as in the catalogue) | Form questions | Document checklist | Status |
 |---|---|---|---|---|
-| 25 | RERA Compliance(Project registration & monitoring) | to define | to define | planned |
-| 26 | CGWA Approvals(Groundwater abstraction NOC) | to define | to define | planned |
-| 27 | Pollution Control Board (PCB)(Consent to Establish / Operate) | to define | to define | planned |
-| 28 | Building Permissions(Local municipal approvals) | to define | to define | planned |
-| 29 | Fire & Safety Approvals(Fire NOC) | to define | to define | planned |
+| 25 | RERA Compliance(Project registration & monitoring) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 26 | CGWA Approvals(Groundwater abstraction NOC) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 27 | Pollution Control Board (PCB)(Consent to Establish / Operate) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 28 | Building Permissions(Local municipal approvals) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 29 | Fire & Safety Approvals(Fire NOC) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
 
 ### Wave 3: Licenses & Permits (3 services)
 
 | # | Service (as in the catalogue) | Form questions | Document checklist | Status |
 |---|---|---|---|---|
-| 30 | Factory License(Registration / Amendment / Renewal) | to define | to define | planned |
-| 31 | FSSAI License(Food safety license) | to define | to define | planned |
-| 32 | Shop & Establishment(Trade license) | to define | to define | planned |
+| 30 | Factory License(Registration / Amendment / Renewal) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 31 | FSSAI License(Food safety license) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 32 | Shop & Establishment(Trade license) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
 
 ### Wave 4: Finance & Taxation (7 services)
 
 | # | Service (as in the catalogue) | Form questions | Document checklist | Status |
 |---|---|---|---|---|
-| 33 | GST(Registration & Returns) | to define | to define | planned |
-| 34 | TDS(Deduction & Filing) | to define | to define | planned |
-| 35 | Income Tax(Corporate & individual returns) | to define | to define | planned |
-| 36 | ROC / MCA Filings(Annual returns & compliance) | to define | to define | planned |
-| 37 | Property Tax(Assessment & Filing) | to define | to define | planned |
-| 38 | Capital Gains Tax(Advisory) | to define | to define | planned |
-| 39 | Home Loan Documentation(Vetting) | to define | to define | planned |
+| 33 | GST(Registration & Returns) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 34 | TDS(Deduction & Filing) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 35 | Income Tax(Corporate & individual returns) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 36 | ROC / MCA Filings(Annual returns & compliance) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 37 | Property Tax(Assessment & Filing) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 38 | Capital Gains Tax(Advisory) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 39 | Home Loan Documentation(Vetting) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
 
 ### Wave 4: Insurance & Claims (2 services)
 
 | # | Service (as in the catalogue) | Form questions | Document checklist | Status |
 |---|---|---|---|---|
-| 40 | Insurance Advisory(Policy selection) | to define | to define | planned |
-| 41 | Claims Management(Documentation & Settlement) | to define | to define | planned |
+| 40 | Insurance Advisory(Policy selection) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 41 | Claims Management(Documentation & Settlement) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
 
 ### Wave 4: Labour Law Compliance (3 services)
 
 | # | Service (as in the catalogue) | Form questions | Document checklist | Status |
 |---|---|---|---|---|
-| 42 | Registrations(PF, ESIC, Professional Tax) | to define | to define | planned |
-| 43 | Compliance Filings(Monthly / Annual returns) | to define | to define | planned |
-| 44 | Advisory(Labour disputes) | to define | to define | planned |
+| 42 | Registrations(PF, ESIC, Professional Tax) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 43 | Compliance Filings(Monthly / Annual returns) | defined (seed v1) | defined (seed v1) | M7.6 form set up |
+| 44 | Advisory(Labour disputes) | defined (seed v1) | defined (seed v1) | M7.6 form set up |

@@ -116,7 +116,7 @@ chapter('legal', 'Legal service forms (setup by operations)', '<p>The legal and 
   T('LGL-01', 'The list of legal services', ['OPS1'], [
     'Open <b>Legal service forms</b> (menu group Operations).', 'Look at the groups and the table in each.',
   ], ['The services are listed by group (for example Property Transactions &amp; Documentation, Licenses &amp; Permits). Each row shows the service, <b>Version n</b> or <b>Not set up</b>, the number of questions and documents, and whether it is Active or Hidden on the website. The text at the top says how many services are set up.'], { tags: ['smoke', 'core'] }),
-  T('LGL-02', 'Wave 1 services come with a first form', ['OPS1'], [
+  T('LGL-02', 'Every legal service comes with a first form', ['OPS1'], [
     'In the group <b>Property Transactions &amp; Documentation</b> find "Sale &amp; Purchase(Drafting Sale Deed)" and press the pencil.', 'Read the introduction, the questions, the documents and the progress steps.',
   ], ['It shows Version 1 with questions grouped under headings (The property, Seller, Buyer, The sale), documents such as the title documents and identity proofs (some required, some optional) and steps like Documents received, Draft prepared, Draft approved by you, Ready to sign, Completed. Every Wave 1 service has a version 1.'], { tags: ['core'], pre: ['The seed has been run.'] }),
   T('LGL-03', 'Edit and save a new version', ['OPS1'], [
@@ -359,4 +359,25 @@ chapter('legalearn', 'Earnings for legal cases', '<p>Continue from completed leg
   T('LGE-08', 'The share goes into a payout', ['OPS1', 'OPS2', 'PA1'], [
     'As OPS1 record a payout for PA1 covering these earnings, then approve it as OPS2.',
   ], ['The legal earning moves to "in a payout" and then "paid" like a job earning; the maker cannot approve their own payout.'], { tags: ['core'] }),
+]);
+
+chapter('legalwaves', 'Legal services of Waves 2 to 4', '<p>After <code>pnpm db:seed</code> every one of the 44 legal and professional services has a first form. You need OPS1. The services stay hidden until operations switch them on.</p>', [
+  T('LGW-01', 'All 44 services have a form', ['OPS1'], [
+    'Open <b>Legal service forms</b> as OPS1. Look at the status of every service, and open one from each group: Arbitration, GST, Factory License, Claims Management, Advisory(Labour disputes).',
+  ], ['None says "No form yet". Each opens at Version 1 with questions under headings, a document checklist and progress steps ending in "Completed".'], { tags: ['smoke', 'core'] }),
+  T('LGW-02', 'The forms make sense for the service', ['OPS1'], [
+    'Read the questions and documents of GST, Income Tax, Contracts, Succession Certificates and Building Permissions.',
+  ], ['The questions fit the service (for example GST asks for the GSTIN and the financial year; Succession asks for the date of death and the heirs). Services that are not about a property do not ask for a property address, but ask for the city or the business address where it matters.'], { tags: ['core'] }),
+  T('LGW-03', 'Seeding again changes nothing you edited', ['OPS1'], [
+    'Edit the intro of one Wave 2 form and save (Version 2). Ask a developer to run <code>pnpm db:seed</code> again. Open the form.',
+  ], ['Your Version 2 is still the current one; no second Version 1 appears and nothing else is overwritten.'], { tags: ['edge'] }),
+  T('LGW-04', 'A customer asks for a Wave 4 service', ['OPS1', 'C1'], [
+    'Switch on GST(Registration & Returns) and give it a price. As C1 open <b>Legal services</b>, choose it, fill the form (no property) and send it.',
+  ], ['The request goes to operations like any other. The offer, payment and case follow the normal way (LGO and LGC scenarios).'], { tags: ['core'] }),
+  T('LGW-05', 'A no-property case waits for operations', ['C1', 'OPS1', 'PA1', 'FR1'], [
+    'Pay for the GST request of LGW-04 (two people approve the payment). Open Legal cases as OPS1, PA1 and FR1.',
+  ], ['The case shows "No area". OPS1 is told and sees it; PA1 does not have it in My pool; FR1 cannot see it. OPS1 gives it to PA1 (who offers the service) with a reason; PA1 then sees the customer and the answers and works it as usual.'], { tags: ['edge', 'security'] }),
+  T('LGW-06', 'Earnings of a no-property case', ['OPS1', 'PA1', 'FR1'], [
+    'Complete the case of LGW-05 and open Earnings as OPS1.',
+  ], ['Only the provider has an earning for it; there is no franchise or master franchise earning. The provider\'s amount is its percentage of the professional fee and other charges, less the discount.'], { tags: ['core'] }),
 ]);
