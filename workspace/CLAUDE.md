@@ -65,6 +65,7 @@ Full legacy detail: `mpd-handbook-developer/docs/legacy/README.md`. Full target 
 - `mpd-handbook-developer/docs/architecture/README.md`: target architecture, repos, data model, state machines, roadmap, ADRs.
 - `mpd-handbook-developer/docs/architecture/customers-and-pricing.md`: customer types, project owner registration, purchaser control, rate types and pincode pricing.
 - `mpd-handbook-developer/docs/architecture/admin-hierarchy-and-dispatch.md`: roles, areas (pincodes), services a provider offers, how a request reaches providers (open pool, first accept wins), what each level sees.
+- `mpd-handbook-developer/docs/architecture/legal-services-plan.md`: the 44 legal and professional services to integrate, in waves, the agreed way they work (intake form, priced offer, partner lawyers through a pool, checklist, progress tracker) and the planned M7 steps.
 - `mpd-handbook-developer/docs/architecture/progress.md`: what is built today (modules, routes, rules enforced by tests, known gaps).
 - `mpd-handbook-developer/docs/legacy/README.md`: the old system and its problems.
 - `mpd-handbook-developer/` (private, read from GitHub or locally) and `mpd-handbook/` (public user guide, live at https://abdeali-sayadawala.github.io/mpd-handbook/ via GitHub Pages; never put internal material in it): the two HTML handbooks.
