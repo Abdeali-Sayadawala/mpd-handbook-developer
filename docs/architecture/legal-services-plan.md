@@ -13,7 +13,7 @@ Decided with the owner on 26-Nov-2026. The catalogue already holds **44 legal an
 |---|---|---|
 | M7.0 | **Built (27-Nov-2026).** Form and checklist definitions per service, edited by operations (versioned, like job checklists) | Question types: text, number, choice, date, yes/no, file; required or not; documents to collect |
 | M7.1 | **Built (27-Nov-2026).** The customer's intake: choose a service, fill the form, upload documents to a checklist | Saves as a draft; submitted for review |
-| M7.2 | Review and offer: operations review the intake, ask for missing items, and send a priced offer; acceptance makes the order | Reuses the quotation and order machinery |
+| M7.2 | **Built (28-Nov-2026).** Review and offer: operations review the intake, ask for missing items, and send a priced offer; acceptance makes the order | Reuses the quotation and order machinery |
 | M7.3 | The legal case and its pool: a paid case goes to eligible legal providers; first to accept wins; the provider works the case through steps and messages the customer | A "legal provider" is an organisation that offers PROFESSIONAL services; reuses the pool, eligibility, chat and notifications |
 | M7.4 | Progress tracker and delivery: steps the provider ticks, the customer sees, final documents delivered to the vault, rating | Per-service step lists |
 | M7.5 | Earnings for legal cases | The existing shares apply to the case price |

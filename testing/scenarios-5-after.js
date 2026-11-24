@@ -198,3 +198,51 @@ chapter('legalreq', 'Legal requests (customer and operations)', '<p>The customer
     'Start a request choosing a property; check that only your own properties are offered.',
   ], ['Only your own properties are in the list; the server refuses anyone else\'s.'], { tags: ['security'] }),
 ]);
+
+chapter('legaloffer', 'Legal requests: review and the priced offer', '<p>Operations review a request that C1 sent (LGR-09) and send a price; C1 accepts and pays. Use OPS1, OPS2 (second person for the payment), C1 and C2.</p>', [
+  T('LGO-01', 'Ask the customer for more', ['OPS1', 'C1'], [
+    'As OPS1 open <b>Legal requests</b>, press Open on a request that was sent, press <b>Ask for more</b>, write what is missing (at least five characters) and press <b>Ask the customer</b>. As C1 look at the bell and open the request.',
+  ], ['The status is "Waiting for the customer". C1 gets "We need a little more for your legal request"; the request page shows what was asked in a notice and the request is <b>editable again</b> with the missing list and the Send button.'], { tags: ['core', 'smoke'] }),
+  T('LGO-02', 'The customer adds it and sends again', ['C1', 'OPS1'], [
+    'As C1 add the missing document or answer and press <b>Send to our team</b> again. As OPS1 look at the bell and the request.',
+  ], ['The status returns to "Waiting for review"; OPS1 gets "A new legal request" again; the history reads: sent, we asked for more, you sent it again.'], { tags: ['core'] }),
+  T('LGO-03', 'Send an offer', ['OPS1', 'C1'], [
+    'As OPS1 press <b>Send an offer</b>. Add three lines: Professional fee "Drafting the sale deed" 5000, Government fee "Registration fee" 1500, Stamp duty "Stamp duty" 2000. Add a discount of 500 with the reason "Existing customer". Open for 14 days. Press <b>Send the offer</b>.',
+  ], ['The screen shows the total (Rs 8,000) before sending, and after sending the offer shows each line, the discount, the total, and "Open until" the date 14 days ahead. The status is "Offer sent". C1 gets "Your legal request has a price".'], { tags: ['smoke', 'core'] }),
+  T('LGO-04', 'The offer is checked', ['OPS1'], [
+    'Try to send an offer with: no lines; only a government fee (no professional fee); an amount of 0; a discount with no reason; a discount as large as all the lines; 0 days or 31 days; two identical lines.',
+  ], ['Each is refused with a message naming the problem. Nothing changes after a refusal.'], { tags: ['edge'] }),
+  T('LGO-05', 'Change an open offer', ['OPS1', 'C1'], [
+    'On a request with an open offer press <b>Change the offer</b>, remove a line and send.',
+  ], ['The new offer replaces the old one (version 2); the customer sees only the new one; the history shows "offer revised". Only one offer is ever open.'], { tags: ['core'] }),
+  T('LGO-06', 'The customer sees the offer', ['C1'], [
+    'Open the request as C1.',
+  ], ['An "Our offer" table: each line with its kind (Professional fee, Government fee, Stamp duty), a discount line with its reason, the total to pay, the last day, a note if any, and the buttons <b>Accept and pay</b> and <b>Decline</b>.'], { tags: ['core'] }),
+  T('LGO-07', 'Accept and get an order', ['C1', 'OPS1', 'OPS2'], [
+    'As C1 press <b>Accept and pay</b>. Open <b>Orders</b>. As OPS1 record the payment for that order (PAY-06) and as OPS2 approve it (PAY-08).',
+  ], ['The request is "Accepted" with a notice naming order O-XXXXXXXX that waits for payment. Under Orders there is a new order for the exact total, with one line per fee. After approval the order is Paid and the request page says it is paid. OPS1 and the super admins got "A legal offer was accepted". Accepting again is refused.'], { tags: ['smoke', 'core'] }),
+  T('LGO-08', 'A request that is not about a property', ['C1'], [
+    'Start a request without choosing a property, get an offer and accept it. Open Orders.',
+  ], ['The order is made and listed as "Legal service" (no property). It can be paid and cancelled like any order.'], { tags: ['edge'] }),
+  T('LGO-09', 'Decline the offer', ['C1', 'OPS1'], [
+    'On another offer press <b>Decline</b> and write a note.',
+  ], ['The request is "Declined" with the note; OPS1 gets "A legal offer was declined". The offer cannot be accepted any more and operations cannot review the request again.'], { tags: ['core'] }),
+  T('LGO-10', 'An offer expires', ['OPS1', 'C1'], [
+    'Send an offer. A developer sets its last day in the past (<code>UPDATE legal_offers SET valid_until = current_date - 3 WHERE status = \'SENT\'</code>). As C1 reload the request and try to accept.',
+  ], ['The offer shows as Expired and the Accept button is gone. Operations can send a new offer, which can be accepted.'], { tags: ['edge'] }),
+  T('LGO-11', 'We cannot take it', ['OPS1', 'C1'], [
+    'On a request press <b>We cannot take it</b> and write a reason.',
+  ], ['The request is "We cannot take it" and C1 sees the reason on the page and in a notification. It cannot be edited, offered or asked about any more.'], { tags: ['core'] }),
+  T('LGO-12', 'Withdraw while an offer is open; cancel the order after accepting', ['C1'], [
+    'Withdraw a request that has an open offer. On another accepted request (order unpaid) try Withdraw, then cancel its order under Orders.',
+  ], ['Withdrawing with an open offer works and the offer is withdrawn too. After accepting, Withdraw is refused and says to cancel the order; cancelling the order closes the request ("The order was cancelled").'], { tags: ['edge'] }),
+  T('LGO-13', 'Only operations review; only the buyer accepts', ['FR1', 'PA1', 'C2', 'OPS1'], [
+    'Look for the review buttons as FR1 and PA1 (and the Legal requests page). As C2 open C1\'s request address. As OPS1 try to accept for C1 (API page).',
+  ], ['No review buttons or page for franchises and providers; C2 sees "not found"; OPS1 is refused when accepting (only the customer can).'], { tags: ['security'] }),
+  T('LGO-14', 'The history', ['C1', 'OPS1'], [
+    'Open a request that went through several steps as C1 and as OPS1.',
+  ], ['A dated history in order (sent, asked for more, sent again, offer, accepted...). The customer sees plain wording; operations see the notes and who acted in the audit log.'], { tags: ['core'] }),
+  T('LGO-15', 'Filters', ['OPS1'], [
+    'On Legal requests use the status filter: waiting for review, waiting for the customer, offer sent, accepted, declined, refused, withdrawn.',
+  ], ['Each shows only requests in that state; "Every sent request" shows all but drafts.'], { tags: ['core'] }),
+]);

@@ -1,7 +1,7 @@
 /* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
    Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
 window.GUIDE = {
-  updated: "27 Nov 2026 (after M7.1)",
+  updated: "28 Nov 2026 (after M7.2)",
 
   groups: [
     { id: "head", name: "Head office" },
@@ -338,7 +338,9 @@ window.GUIDE = {
           "Answer the questions. Each answer is saved when you leave the field. Optional questions can stay empty.",
           "Under Documents we need, add a file for each item (a photo or a PDF). Press the name of a file to open it, or the bin to remove it.",
           "The page lists what is still missing. When it is all there, press Send to our team.",
-          "After sending you cannot change the answers or documents, but you can withdraw the request. Our team reviews it and sends you a price."
+          "After sending you cannot change the answers or documents, but you can withdraw the request. Our team reviews it. If something is missing they ask you in the bell and on the request page: add it and press Send to our team again.",
+          "When our team sends a price you see each fee on its own line (our fee, government fees, stamp duty), any discount and the total. Press Accept and pay, or Decline. The offer stays open until the date shown.",
+          "If you accept, an order is made for the total. Pay it from Orders like any other. Our legal partner takes up your request once it is paid."
         ], tips: ["You can stop at any time. Your draft is kept and nobody else can see it until you send it.", "Your files are kept in your vault, in the folder Legal cases."] },
         { id: "po_extra", title: "Approve or decline extra work", where: "Service requests", steps: [
           "If the worker finds more work, your request shows Extra work with the reason, the photos, each item and the total.",
@@ -437,10 +439,18 @@ window.GUIDE = {
       "Open the job: see who is eligible. Press Ask providers to take it, or choose a provider and Assign with a reason.",
       "To cancel a job that has not started press Cancel the job and write why. A plan visit goes back into the customer's plan."
     ], tips: ["Cancelling a job the customer paid for does not refund anything by itself. Handle the money separately."] },
+    { id: "ho_legaloffer", title: "Review a legal request and send a price", where: "Legal requests", steps: [
+      "Open Legal requests and press Open on a request. Read the answers and open the documents.",
+      "If something is missing press Ask for more and say exactly what. The customer is told and can add it, then sends the request again.",
+      "To send a price press Send an offer. Add a line for each part: your professional fee, government fees, stamp duty or other. Each line has a description and an amount in rupees. Add a discount only with a reason. Choose how many days the offer stays open.",
+      "Check the total shown (the system works it out again when you send). Press Send the offer. The customer is told. You can change the offer while it is open: the new one replaces it.",
+      "If the customer accepts, an order appears under Orders. Record its payment as usual; a second person approves it.",
+      "If you cannot do the service press We cannot take it and write a reason the customer will read."
+    ], tips: ["Show government fees and stamp duty on their own lines so the customer sees what goes to whom.", "An offer cannot be accepted after its last day: send a new one if the customer asks."] },
     { id: "ho_legalreq", title: "See the legal requests customers have sent", where: "Legal requests", steps: [
       "Open Legal requests. It lists what customers have sent (drafts are private to the customer and never shown).",
       "Press Open on a request: you see the customer's contact, every answer and each document. Press a document name to open it (the link works for five minutes and is recorded under your name).",
-      "Reviewing the request, asking for missing items and sending a price come in the next step."
+      "To act on it see Review a legal request and send a price."
     ] },
     { id: "ho_legalform", title: "Set up the form and documents of a legal service", where: "Legal service forms", steps: [
       "Open Legal service forms. The legal and professional services are listed by group, each showing Version n or Not set up.",
