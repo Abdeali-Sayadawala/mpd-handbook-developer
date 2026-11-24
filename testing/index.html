@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MPD Tester Handbook</title>
+<link rel="stylesheet" href="testing.css">
+</head>
+<body id="top">
+<header class="top">
+<h1>MPD Tester Handbook</h1>
+<p>Every scenario a person can check by hand in the running app, in a sensible order, for one tester working alone. Each scenario says who you are, what to do, and exactly what you should see. Record the result as you go: it is saved in this browser, and you can download it. Open <code>testing/index.html</code> from the folder; nothing needs the internet.</p>
+</header>
+<div class="layout">
+<nav class="side" aria-label="Areas"><div id="chapnav"></div></nav>
+<main>
+
+<section class="page" id="how">
+<h2>1. How to use this handbook</h2>
+<p class="lead"><span id="total-count">0</span> scenarios in total. Smoke scenarios (a quick check that the whole app is alive) are marked <span class="pill tag-smoke">smoke</span>.</p>
+<ol>
+<li>Do <b>Setup</b> (section 2) once. It starts the app and builds the small "test world" that every later scenario uses.</li>
+<li>Work through the areas <b>in the order shown on the left</b>. Later areas rely on data made by earlier ones. Press <b>Next scenario to do</b> to jump to your place.</li>
+<li>For each scenario press <b>Passed</b>, <b>Failed</b>, <b>Blocked</b> (you could not get to it, say why) or <b>Skipped</b>. Add a short note. Press the same button again to clear it.</li>
+<li>When something fails, write the bug report (section 5) and carry on. A failed scenario does not stop the next one unless it says so.</li>
+<li>At the end, download the results (CSV or JSON) and send them with your bug list.</li>
+</ol>
+<div class="tip"><b>Kinds of scenario:</b> <span class="pill tag-core">core</span> the main thing the feature is for. <span class="pill tag-edge">edge</span> a boundary or unusual case. <span class="pill tag-security">security</span> someone who must be <i>refused</i>: these matter as much as the happy paths, because they protect money and private data. <span class="pill tag-smoke">smoke</span> a short pass to run before anything else after every update.</div>
+<div class="note"><b>This handbook grows with the product.</b> Every update to MPD adds the scenarios a tester needs for it (rule: <code>CLAUDE.md</code> and <code>mpd-context/08-workflow.md</code>). The version line at the bottom of this page says which update it is current for.</div>
+</section>
+
+<section class="page" id="setup">
+<h2>2. Setup (do this once, in this order)</h2>
+<h3>2.1 What you need</h3>
+<ul>
+<li>The developer's machine or your own with Git, Node 22, pnpm and Docker Desktop (see <code>workspace/NEW-MACHINE.md</code>).</li>
+<li><b>Chrome</b> for most testing, plus <b>two more isolated browser sessions</b> (a second Chrome profile and a private window, or Firefox). The app keeps your sign-in in cookies <i>per browser profile</i>, so one profile can be signed in as only one person at a time. Scenarios need two or three people at once (for example a customer and a worker).</li>
+<li>A phone, or Chrome's phone view (<kbd>F12</kbd>, then the device icon) for the phone scenarios.</li>
+<li>A notes file for bug reports, and (optionally) a screen recorder.</li>
+</ul>
+<h3>2.2 Start the app</h3>
+<table>
+<tr><th>Terminal</th><th>Folder</th><th>Command</th><th>You should see</th></tr>
+<tr><td>1</td><td><code>mpd-backend</code></td><td><code>docker compose -f docker-compose.dev.yml up -d</code></td><td>Postgres container healthy</td></tr>
+<tr><td>2</td><td><code>mpd-backend</code></td><td><code>pnpm prisma migrate deploy</code> then <code>pnpm db:seed</code></td><td>"All migrations have been successfully applied"; the service catalogue is loaded</td></tr>
+<tr><td>3</td><td><code>mpd-backend</code></td><td><code>pnpm dev</code></td><td>API on port 4000. <code>http://localhost:4000/docs</code> opens the API page; <code>http://localhost:4000/health</code> answers</td></tr>
+<tr><td>4</td><td><code>mpd-backend</code></td><td><code>pnpm dev:worker</code></td><td>"Worker started". <b>Keep it running</b>: emails and reminders depend on it</td></tr>
+<tr><td>5</td><td><code>mpd-frontend</code></td><td><code>pnpm dev</code></td><td>The app on <code>http://localhost:3000</code></td></tr>
+<tr><td>6</td><td><code>mpd-global</code></td><td><code>pnpm dev -p 3001</code></td><td>The public website on <code>http://localhost:3001</code></td></tr>
+</table>
+<div class="warn">Do not run <code>pnpm build</code> in <code>mpd-frontend</code> while its dev server runs. If the super admin does not exist, set <code>SEED_ADMIN_EMAIL</code> and <code>SEED_ADMIN_PASSWORD</code> (10+ characters) in <code>mpd-backend/.env</code> before <code>pnpm db:seed</code>.</div>
+<h3>2.3 Where the emails are</h3>
+<p>No real email is sent yet. Every email (verification codes, staff invitations, owner invitations, notifications) is <b>printed in the terminal that runs the API</b> (terminal 3) and by the worker (terminal 4), as <code>to=... subject="..."</code> followed by the text. Verification codes (6 digits) and invitation links (<code>.../admin/accept-invite?token=...</code>, <code>.../owner-invite?token=...</code>) are found there. Copy them from the terminal. Notification emails are printed by the <b>worker</b> within a minute.</p>
+<h3>2.4 The people (accounts) you will create</h3>
+<p>Use addresses like <code>name@example.com</code> that you invent. Keep this table in your notes; every scenario refers to these names.</p>
+<table>
+<tr><th>Name</th><th>Role</th><th>Organisation</th><th>How you get it</th></tr>
+<tr><td><b>ADMIN</b></td><td>Super admin</td><td>MPD</td><td>The seeded account (<code>SEED_ADMIN_EMAIL</code>)</td></tr>
+<tr><td><b>OPS1</b>, <b>OPS2</b></td><td>Operations</td><td>MPD</td><td>Invited by ADMIN (two people are needed for the two-person rules)</td></tr>
+<tr><td><b>MF1</b></td><td>Master franchise</td><td>Test City MF</td><td>Invited by OPS1 or ADMIN</td></tr>
+<tr><td><b>FR1</b></td><td>Franchise</td><td>Test Franchise North</td><td>Invited by MF1</td></tr>
+<tr><td><b>FR2</b></td><td>Franchise</td><td>Test Franchise South</td><td>Invited by MF1 (a second area, for "not mine" checks)</td></tr>
+<tr><td><b>PA1</b></td><td>Provider admin</td><td>Test Provider A (under FR1)</td><td>Invited by FR1</td></tr>
+<tr><td><b>PB1</b></td><td>Provider admin</td><td>Test Provider B (under FR1)</td><td>Invited by FR1 (a competing provider)</td></tr>
+<tr><td><b>WA1</b>, <b>WA2</b></td><td>Field worker</td><td>Test Provider A</td><td>Invited by PA1</td></tr>
+<tr><td><b>WB1</b></td><td>Field worker</td><td>Test Provider B</td><td>Invited by PB1</td></tr>
+<tr><td><b>C1</b></td><td>Customer (property owner)</td><td>-</td><td>Signs up on the website</td></tr>
+<tr><td><b>C2</b></td><td>Customer (another owner)</td><td>-</td><td>Signs up (for "not yours" checks)</td></tr>
+<tr><td><b>PO1</b></td><td>Customer, project owner</td><td>-</td><td>Signs up; OPS1 switches the customer type</td></tr>
+</table>
+<h3>2.5 Reaching the pages</h3>
+<table>
+<tr><th>Who</th><th>Sign in at</th></tr>
+<tr><td>Customers</td><td><code>http://localhost:3000/login</code> (sign up at <code>/signup</code>)</td></tr>
+<tr><td>Staff (everyone else)</td><td><code>http://localhost:3000/admin/login</code></td></tr>
+<tr><td>Public website</td><td><code>http://localhost:3001</code></td></tr>
+<tr><td>API description</td><td><code>http://localhost:4000/docs</code></td></tr>
+</table>
+<h3>2.6 Making time pass</h3>
+<p>Several scenarios involve waiting (reminders, acceptance limits, plan expiry). You cannot wait days, so each scenario tells you how to <b>set the data</b> so the condition is true now (for example a visit time within 24 hours, a document expiry in 5 days), then <b>wait up to 10 minutes</b> for the worker's sweep. Where a developer is needed to change a date, the scenario says so and offers the SQL or the API call.</p>
+<h3>2.7 Resetting</h3>
+<p>To start again from nothing: stop everything, run <code>docker compose -f docker-compose.dev.yml down -v</code> in <code>mpd-backend</code> (this deletes the database), then repeat 2.2. Your recorded results stay in this browser until you press <b>Reset results</b>.</p>
+</section>
+
+<section class="page" id="plan">
+<h2>3. A sensible order for one tester</h2>
+<table>
+<tr><th>Session</th><th>Areas (left menu)</th><th>Why this order</th></tr>
+<tr><td>1</td><td>Setup, Sign-in, Network and areas, Services and prices</td><td>Builds the world and proves who can get in. About half a day.</td></tr>
+<tr><td>2</td><td>Customers and properties, Vault and identity, Project owners, Onboarding</td><td>The customer side and how a prospect becomes a customer.</td></tr>
+<tr><td>3</td><td>Site visit first, Buying and paying</td><td>The mandatory first service and the money rules.</td></tr>
+<tr><td>4</td><td>Job pool, Doing the work, Extra work, Messages</td><td>The heart of the product. Needs two or three people active at once.</td></tr>
+<tr><td>5</td><td>Notifications, Reminders, Reports, Earnings and payouts</td><td>Everything that is built on top of finished jobs.</td></tr>
+<tr><td>6</td><td>Public website, Phone, Security, Whole journeys, Look and feel</td><td>Cross-cutting checks and the full story from first inquiry to payout.</td></tr>
+</table>
+<div class="tip"><b>After every update:</b> run only the <span class="pill tag-smoke">smoke</span> scenarios first (filter by kind "smoke"), then the new scenarios for what changed, then the areas that touch it. The release notes in <code>mpd-context/99-session-log.md</code> say what changed.</div>
+</section>
+
+<section class="page" id="rules">
+<h2>4. Ground rules that apply to every scenario</h2>
+<ul>
+<li><b>Never use real people's data.</b> Names, emails, phone numbers and documents must be invented. Use harmless sample files (a small PDF or photo you made).</li>
+<li><b>Money is whole paise.</b> Rs 1,000 is shown as "₹1,000". Check totals by hand.</li>
+<li><b>Two people for money.</b> The person who records a payment or a payout can never approve it. Always have a second account ready.</li>
+<li><b>What you see depends on your role.</b> If a menu item is missing for a role, that is usually correct. The scenarios say when it is not.</li>
+<li><b>Refusals are results.</b> "You do not have permission", "not found" and a clear message are the <i>expected</i> outcome of the security scenarios.</li>
+<li>Write the <b>exact text</b> of any error message in your notes.</li>
+</ul>
+</section>
+
+<section class="page" id="bugs">
+<h2>5. Writing a bug report</h2>
+<pre><code>Title:     one line, what went wrong (not what you think the cause is)
+Scenario:  the ID, for example JOB-07
+Who/where: the account you were signed in as, the page address, the browser
+Steps:     numbered, exactly what you did, with the data you typed
+Expected:  what the scenario says should happen
+Actual:    what happened, with the exact message text
+Evidence:  a screenshot, and the lines the API terminal printed at that moment
+How bad:   Blocks the work / Wrong result / Looks wrong / Wrong wording</code></pre>
+<p>Always include the API terminal output around the time of the failure: it names the exact error.</p>
+</section>
+
+<div class="toolbar" id="toolbar">
+<div id="summary"></div>
+<div class="row">
+<input id="f-q" type="search" placeholder="Search scenarios" aria-label="Search scenarios">
+<select id="f-chapter" aria-label="Area"></select>
+<select id="f-role" aria-label="Role"></select>
+<select id="f-tag" aria-label="Kind"></select>
+<select id="f-status" aria-label="Result"><option value="all">Any result</option><option value="todo">To do</option><option value="pass">Passed</option><option value="fail">Failed</option><option value="blocked">Blocked</option><option value="skip">Skipped</option></select>
+<button class="btn" id="clear">Clear filters</button>
+<button class="btn pri" id="next">Next scenario to do</button>
+<span id="shown" style="color:var(--muted);font-size:.85rem"></span>
+<span style="margin-left:auto"></span>
+<button class="btn" id="dl-csv">Download results (CSV)</button>
+<button class="btn" id="dl-json">Download (JSON)</button>
+<button class="btn" id="reset">Reset results</button>
+</div>
+</div>
+
+<div id="list"></div>
+
+<p style="color:var(--muted);font-size:.85rem" id="version">Current for: <span id="ver"></span></p>
+</main>
+</div>
+<script src="testing.js"></script>
+<script src="scenarios-1-setup.js"></script>
+<script src="scenarios-2-customers.js"></script>
+<script src="scenarios-3-money.js"></script>
+<script src="scenarios-4-jobs.js"></script>
+<script src="scenarios-5-after.js"></script>
+<script src="scenarios-6-cross.js"></script>
+<script>window.MPD_TESTS.version = 'M6.5, 26 Nov 2026'; document.addEventListener('DOMContentLoaded', function () { document.getElementById('ver').textContent = window.MPD_TESTS.version; });</script>
+</body>
+</html>
