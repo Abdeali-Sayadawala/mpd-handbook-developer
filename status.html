@@ -40,7 +40,7 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <h1>What is built, as of 21 Nov 2026</h1>
 <p class="lede">M0 to M2 and the first two steps of M3 are done. This page is the current state; the plan is on the <a href="index.html">architecture page</a>. The full written spec lives in <code>docs/architecture/</code> (README, customers-and-pricing, admin-hierarchy-and-dispatch, progress).</p>
 <p><a href="guide/index.html"><b>Interactive role guide →</b></a> (what each role does, for people who do not know the app) · Project memory: the <code>mpd-context</code> repo.</p>
-<p><span class="pill ok">320 endpoints</span><span class="pill ok">33 migrations</span><span class="pill ok">552 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
+<p><span class="pill ok">329 endpoints</span><span class="pill ok">34 migrations</span><span class="pill ok">559 e2e tests passing</span><span class="pill ok">0 lint errors</span></p>
 
 <h2 id="progress">Progress</h2>
 <table>
@@ -74,7 +74,8 @@ pre{padding:12px 14px;overflow-x:auto;border:1px solid var(--line)}
 <tr><td>M7.1</td><td>The customer's request for a legal service: answers, documents, send or withdraw</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M7.2</td><td>Review and a priced offer for a legal request: ask for more, send fees on separate lines, accept or decline, the order</td><td><span class="pill ok">done</span></td></tr>
 <tr><td>M7.3</td><td>The legal case and its pool: legal providers take a paid case, work it and message the customer</td><td><span class="pill ok">done</span></td></tr>
-<tr><td>M7.4</td><td>Progress steps and delivery of documents to the vault, rating</td><td><span class="pill later">next</span></td></tr>
+<tr><td>M7.4</td><td>Doing the legal case: progress steps, documents delivered to the vault, completion and rating</td><td><span class="pill ok">done</span></td></tr>
+<tr><td>M7.5</td><td>Earnings for legal cases</td><td><span class="pill later">next</span></td></tr>
 <tr><td>TOTP</td><td>Two-step login for super admin and ops</td><td><span class="pill later">deferred to M9, a hard gate before real data or money</span></td></tr>
 </table>
 
@@ -175,7 +176,7 @@ mpd-frontend  : pnpm api:generate && npx tsc --noEmit && pnpm lint
 
 <h2 id="next">Next</h2>
 <ol>
-<li><b>M7.4</b> progress steps and delivery to the vault, then earnings for legal cases (M7.5).</li>
+<li><b>M7.5</b> earnings for legal cases, then the other waves of legal services (M7.6+).</li>
 </ol>
 
 <h2>Known gaps</h2>

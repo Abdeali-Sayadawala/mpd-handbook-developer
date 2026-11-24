@@ -294,3 +294,42 @@ chapter('legalcase', 'Legal cases and the legal pool', '<p>After C1 accepted an 
     'Open the <b>All cases</b> tab as each person.',
   ], ['Providers see only cases they hold; the franchise sees cases in its area; the master franchise those in its city; another franchise sees none of them; operations see all.'], { tags: ['security'] }),
 ]);
+
+chapter('legalwork', 'Doing a legal case: steps, delivery, completion, rating', '<p>Continue from a case that PA1 has accepted (LGC-04). You need: PA1 (the provider that holds the case), PA2 (another legal provider), OPS1, FR1, C1 (the customer) and C2 (another customer). The service must have progress steps (Legal service forms).</p>', [
+  T('LGP-01', 'Nothing before work has begun', ['PA1'], [
+    'On an accepted case (work not begun) open it as PA1.',
+  ], ['There is no Progress section with buttons: no step can be ticked and no document delivered, and the customer sees no steps yet.'], { tags: ['edge'] }),
+  T('LGP-02', 'Work has begun: the steps appear', ['PA1', 'C1'], [
+    'Press <b>Work has begun</b>. Open the case again. As C1 open the request page.',
+  ], ['The case lists the steps of the service in order, none ticked, with the button Tick the next step. C1 sees the same steps under Your legal case.'], { tags: ['smoke', 'core'] }),
+  T('LGP-03', 'Tick the steps in order', ['PA1', 'C1'], [
+    'Press <b>Tick the next step</b> twice, then <b>Take back the last step</b>, then tick again until all are ticked.',
+  ], ['Steps are ticked one at a time in order, with the time. Taking back un-ticks only the last one. C1 sees each change and got one notification per tick. After the last step the Tick button is gone.'], { tags: ['smoke', 'core'] }),
+  T('LGP-04', 'Deliver a document', ['PA1', 'C1'], [
+    'Under Documents for the customer type a name, choose a PDF or photo and press <b>Deliver</b>. As C1 open Documents in the vault and the request page.',
+  ], ['The document is listed on the case. C1 got "A document was added to your vault"; it is in C1\'s vault, folder Legal cases, with the name given, and opens from the request page. C1 cannot delete it from the vault ("cannot be changed or removed").'], { tags: ['smoke', 'core'] }),
+  T('LGP-05', 'Bad or repeated files', ['PA1'], [
+    'Deliver the same file twice. Deliver a file that is not a PDF or image.',
+  ], ['The same file again is refused ("already filed"). A file type that is not allowed is refused. Nothing is added.'], { tags: ['edge'] }),
+  T('LGP-06', 'Take a wrong document back', ['PA1', 'C1'], [
+    'Press the bin next to a delivered document and confirm.',
+  ], ['It disappears from the case and from C1\'s vault and request page.'], { tags: ['edge'] }),
+  T('LGP-07', 'Complete needs everything', ['PA1'], [
+    'With a step still unticked press Complete the case (the button is off, and a hint says what is missing). Then tick all steps but deliver nothing.',
+  ], ['The button stays off until every step is ticked and at least one document is delivered. Calling it anyway is refused.'], { tags: ['edge'] }),
+  T('LGP-08', 'Complete the case', ['PA1', 'C1'], [
+    'Tick every step, deliver a document and press <b>Complete the case</b>, then confirm. As C1 open the request page.',
+  ], ['The status is Complete, with the date. No tick, deliver or complete button is left. C1 was told "Your legal case is complete" and sees a rating form.'], { tags: ['smoke', 'core'] }),
+  T('LGP-09', 'The customer rates once', ['C1', 'PA1', 'C2'], [
+    'As C1 pick 4 stars, write a few words and press Send my rating. Try to rate again. As PA1 open the case. As C2 try C1\'s case address.',
+  ], ['C1 sees "You rated this 4 of 5". A second rating is refused. PA1 sees the rating and its note and was told. C2 gets "not found".'], { tags: ['core', 'security'] }),
+  T('LGP-10', 'Only the holder can do the work', ['PA2', 'OPS1', 'FR1', 'C1'], [
+    'As PA2, OPS1, FR1 and C1 look for the steps, delivery and Complete buttons of PA1\'s case, or ask a developer to call tick, deliver and complete as each.',
+  ], ['PA2 gets "not found". OPS1, FR1 and C1 are refused (they can read the case but not do the work). Only PA1 can tick, deliver and complete.'], { tags: ['security'] }),
+  T('LGP-11', 'A completed case is final', ['PA1', 'OPS1'], [
+    'On a completed case look for Cancel (OPS1) and for any button on the progress section (PA1).',
+  ], ['Operations cannot cancel it; the provider cannot tick, take back, deliver or complete again. The messages stay open so the customer can still ask a question.'], { tags: ['edge'] }),
+  T('LGP-12', 'Cancel a case in progress', ['OPS1', 'PA1', 'C1'], [
+    'On a case with work begun but not complete, OPS1 presses Cancel the case with a reason.',
+  ], ['The case is Cancelled; PA1 and C1 are told; PA1 can no longer tick or deliver; documents already delivered stay in C1\'s vault.'], { tags: ['edge'] }),
+]);
