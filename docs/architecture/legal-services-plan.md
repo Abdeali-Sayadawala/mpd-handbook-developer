@@ -16,7 +16,7 @@ Decided with the owner on 26-Nov-2026. The catalogue already holds **44 legal an
 | M7.2 | **Built (28-Nov-2026).** Review and offer: operations review the intake, ask for missing items, and send a priced offer; acceptance makes the order | Reuses the quotation and order machinery |
 | M7.3 | **Built (29-Nov-2026).** The legal case and its pool: a paid case goes to eligible legal providers; first to accept wins; the provider works the case through steps and messages the customer | A "legal provider" is an organisation that offers PROFESSIONAL services; reuses the pool, eligibility, chat and notifications |
 | M7.4 | **Built (30-Nov-2026).** Progress tracker and delivery: steps the provider ticks, the customer sees, final documents delivered to the vault, rating | Per-service step lists |
-| M7.5 | Earnings for legal cases | The existing shares apply to the case price |
+| M7.5 | **Built (1-Dec-2026).** Earnings for legal cases | The existing shares apply to the case price |
 | M7.6 onwards | Wave 2, 3 and 4 services configured | Data only, if the mechanism is right |
 
 ## Open details to settle with the owner while building

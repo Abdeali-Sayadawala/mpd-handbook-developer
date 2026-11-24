@@ -1,7 +1,7 @@
 /* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
    Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
 window.GUIDE = {
-  updated: "30 Nov 2026 (after M7.4)",
+  updated: "1 Dec 2026 (after M7.5)",
 
   groups: [
     { id: "head", name: "Head office" },
@@ -450,7 +450,7 @@ window.GUIDE = {
       "Once work has begun the case shows its steps. Press Tick the next step as you finish each one (the customer is told); Take back the last step fixes a slip.",
       "Under Documents for the customer type a name, choose the file and press Deliver. It goes into the customer's own vault. A wrong file can be taken back with the bin icon until you complete the case.",
       "When every step is ticked and at least one document is delivered, press Complete the case. The customer is asked to rate your work and you are told the rating."
-    ], tips: ["Nobody taking a case within a day alerts operations.", "A completed case cannot be changed.", "A request that was not about a property has no area: operations give it to a provider by hand."] },
+    ], tips: ["Nobody taking a case within a day alerts operations.", "A completed case cannot be changed.", "When a case is completed the provider, the franchise and the master franchise of the area earn their shares under Earnings (government fees and stamp duty earn nothing). A case with no area pays the provider only.", "A request that was not about a property has no area: operations give it to a provider by hand."] },
     { id: "ho_legalhand", title: "Hand out or cancel a legal case", where: "Legal cases", steps: [
       "Open Legal cases. A case nobody has taken shows Overdue after a day.",
       "Press Open. Nudge providers sends them a reminder. Or choose a provider under Give it to a provider, write why and press Give it. Only providers that offer the service, are active with staff and cover the area are listed (for a case with no area, any such provider).",

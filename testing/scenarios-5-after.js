@@ -333,3 +333,30 @@ chapter('legalwork', 'Doing a legal case: steps, delivery, completion, rating', 
     'On a case with work begun but not complete, OPS1 presses Cancel the case with a reason.',
   ], ['The case is Cancelled; PA1 and C1 are told; PA1 can no longer tick or deliver; documents already delivered stay in C1\'s vault.'], { tags: ['edge'] }),
 ]);
+
+chapter('legalearn', 'Earnings for legal cases', '<p>Continue from completed legal cases (LGP-08). You need: OPS1 and OPS2 (second person for payouts), FR1, MF1, PA1 (the provider that completed the case), PB1 (another provider) and the shares set under Earnings (for example 10% master franchise, 20% franchise, 50% provider for the service category). Earnings appear within five minutes of completion, or at once when someone opens Earnings.</p>', [
+  T('LGE-01', 'Nothing before completion', ['OPS1'], [
+    'With a legal case in progress (not complete) open <b>Earnings</b> as OPS1 and look for its reference.',
+  ], ['No earning exists for it, even if every step is ticked and a document is delivered.'], { tags: ['edge'] }),
+  T('LGE-02', 'A completed case earns every level', ['OPS1', 'PA1', 'FR1', 'MF1'], [
+    'Complete a legal case whose offer had a professional fee of 5,000, a government fee of 2,000, a courier charge of 1,000 and a discount of 500. Open Earnings as OPS1.',
+  ], ['Three rows with the case reference and "(legal case)": the base is 5,500 (fee plus courier less discount; the government fee is left out). With 50%, 20% and 10%: provider 2,750, franchise 1,100, master franchise 550. Status "to be paid".'], { tags: ['smoke', 'core'] }),
+  T('LGE-03', 'Government fees and stamp duty earn nothing', ['OPS1'], [
+    'Complete a case whose offer has only a government fee and stamp duty plus a small professional fee. Check the base shown.',
+  ], ['The base is only the professional fee and other charges, less the discount. If nothing is left no earning is made.'], { tags: ['edge'] }),
+  T('LGE-04', 'Each organisation sees its own share', ['PA1', 'PB1', 'FR1', 'C1'], [
+    'Open Earnings as PA1, PB1, FR1 and C1.',
+  ], ['PA1 sees only the provider share, FR1 only the franchise share, PB1 sees nothing of this case, and C1 cannot open Earnings.'], { tags: ['security'] }),
+  T('LGE-05', 'Earned once only', ['OPS1'], [
+    'Open Earnings several times, and wait for the five-minute sweep.',
+  ], ['The same three rows; nothing is added twice.'], { tags: ['edge'] }),
+  T('LGE-06', 'A cancelled case earns nothing', ['OPS1'], [
+    'Cancel a case that is in progress and open Earnings.',
+  ], ['No earning for it, even if some steps were ticked.'], { tags: ['edge'] }),
+  T('LGE-07', 'A case with no area pays only the provider', ['OPS1', 'PA1'], [
+    'Complete a case that was not about a property (given to PA1 by operations). Open Earnings.',
+  ], ['Only the provider share exists (there is no franchise or master franchise to pay).'], { tags: ['edge'] }),
+  T('LGE-08', 'The share goes into a payout', ['OPS1', 'OPS2', 'PA1'], [
+    'As OPS1 record a payout for PA1 covering these earnings, then approve it as OPS2.',
+  ], ['The legal earning moves to "in a payout" and then "paid" like a job earning; the maker cannot approve their own payout.'], { tags: ['core'] }),
+]);
