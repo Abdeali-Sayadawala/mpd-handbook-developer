@@ -1,7 +1,7 @@
 /* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
    Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
 window.GUIDE = {
-  updated: "28 Nov 2026 (after M7.2)",
+  updated: "29 Nov 2026 (after M7.3)",
 
   groups: [
     { id: "head", name: "Head office" },
@@ -340,7 +340,8 @@ window.GUIDE = {
           "The page lists what is still missing. When it is all there, press Send to our team.",
           "After sending you cannot change the answers or documents, but you can withdraw the request. Our team reviews it. If something is missing they ask you in the bell and on the request page: add it and press Send to our team again.",
           "When our team sends a price you see each fee on its own line (our fee, government fees, stamp duty), any discount and the total. Press Accept and pay, or Decline. The offer stays open until the date shown.",
-          "If you accept, an order is made for the total. Pay it from Orders like any other. Our legal partner takes up your request once it is paid."
+          "If you accept, an order is made for the total. Pay it from Orders like any other (we record your payment and a second person approves it).",
+          "Once the payment is approved your request becomes a case and we find a legal partner in your area. The request page shows who has taken it and a message box to talk to them."
         ], tips: ["You can stop at any time. Your draft is kept and nobody else can see it until you send it.", "Your files are kept in your vault, in the folder Legal cases."] },
         { id: "po_extra", title: "Approve or decline extra work", where: "Service requests", steps: [
           "If the worker finds more work, your request shows Extra work with the reason, the photos, each item and the total.",
@@ -439,6 +440,18 @@ window.GUIDE = {
       "Open the job: see who is eligible. Press Ask providers to take it, or choose a provider and Assign with a reason.",
       "To cancel a job that has not started press Cancel the job and write why. A plan visit goes back into the customer's plan."
     ], tips: ["Cancelling a job the customer paid for does not refund anything by itself. Handle the money separately."] },
+    { id: "ho_legalcase", title: "Take and work a legal case (legal provider)", where: "Legal cases", steps: [
+      "First make sure your organisation offers the legal service: under your organisation, Services, tick it (operations must have switched the service on). You also need the area (pincode) as for any service.",
+      "When a customer has paid, the case appears under Legal cases, My pool, and you are told in the bell. You see the service, the area and the order total, but not who the customer is.",
+      "Press Accept. The first provider to accept gets it. Turn it down hides it from you only.",
+      "After accepting you see the customer, their answers and their documents (each link works for five minutes and is recorded), and you can message them.",
+      "Press Work has begun when you start. If you cannot do it, press Give it back (before work has begun) and write why; it returns to the pool."
+    ], tips: ["Nobody taking a case within a day alerts operations.", "A request that was not about a property has no area: operations give it to a provider by hand."] },
+    { id: "ho_legalhand", title: "Hand out or cancel a legal case", where: "Legal cases", steps: [
+      "Open Legal cases. A case nobody has taken shows Overdue after a day.",
+      "Press Open. Nudge providers sends them a reminder. Or choose a provider under Give it to a provider, write why and press Give it. Only providers that offer the service, are active with staff and cover the area are listed (for a case with no area, any such provider).",
+      "Operations only: Cancel the case with a reason if it cannot be done. The customer and the provider are told. Refunds are handled with the customer outside the app."
+    ] },
     { id: "ho_legaloffer", title: "Review a legal request and send a price", where: "Legal requests", steps: [
       "Open Legal requests and press Open on a request. Read the answers and open the documents.",
       "If something is missing press Ask for more and say exactly what. The customer is told and can add it, then sends the request again.",

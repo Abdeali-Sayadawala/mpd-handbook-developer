@@ -246,3 +246,51 @@ chapter('legaloffer', 'Legal requests: review and the priced offer', '<p>Operati
     'On Legal requests use the status filter: waiting for review, waiting for the customer, offer sent, accepted, declined, refused, withdrawn.',
   ], ['Each shows only requests in that state; "Every sent request" shows all but drafts.'], { tags: ['core'] }),
 ]);
+
+chapter('legalcase', 'Legal cases and the legal pool', '<p>After C1 accepted an offer (LGO-07) and the order is paid and approved, a case opens. You need: OPS1 and OPS2 (second person for the payment), FR1 (franchise of the area), two legal providers PA1 and PA2 that cover the area and offer the legal service (tick it under their organisation\'s Services; operations must have switched the service on), PA3 (a provider that does not offer it or covers another area), C1 and C2. The case appears within ten minutes, or at once when someone opens Legal cases.</p>', [
+  T('LGC-01', 'A paid order opens a case', ['OPS1', 'C1', 'PA1'], [
+    'After LGO-07 (and its payment approved) open <b>Legal cases</b> as OPS1. Look at C1\'s request page. As PA1 look at the bell.',
+  ], ['A case LC-XXXXXXXX is "In the pool" with the area and the order total. C1\'s request page shows "Finding your legal partner"; C1 was told "We are finding your legal partner". PA1 and PA2 were told "A new legal case is waiting in your pool"; PA3 was not.'], { tags: ['smoke', 'core'] }),
+  T('LGC-02', 'No case before the payment is approved', ['C1', 'OPS1'], [
+    'Accept an offer but do not pay (or only record the payment without approving it). Open Legal cases as OPS1.',
+  ], ['No case exists. If the customer cancels the unpaid order there is never a case.'], { tags: ['edge'] }),
+  T('LGC-03', 'The pool hides the customer', ['PA1', 'PA3'], [
+    'As PA1 open <b>Legal cases &rarr; My pool</b>, open the case. As PA3 look at My pool.',
+  ], ['PA1 sees the service, the area, the order total and the 24-hour limit, but <b>not who the customer is</b>, and no answers, documents or messages. PA3 does not see the case at all.'], { tags: ['smoke', 'security'] }),
+  T('LGC-04', 'The first provider to accept wins', ['PA1', 'PA2'], [
+    'PA1 and PA2 both press <b>Accept</b> (as close together as you can).',
+  ], ['One succeeds ("Accepted. It is yours now."); the other is told another provider already has it and the case disappears from its pool. C1 is told who took it.'], { tags: ['smoke', 'core'] }),
+  T('LGC-05', 'The provider sees the request and documents', ['PA1', 'C1'], [
+    'As the provider that won open the case. Press a document name.',
+  ], ['The customer\'s name and contact, every answer and each document are shown; the document opens in a new tab (the link works for five minutes). The price discussion (offer and discount) is not shown to the provider.'], { tags: ['core', 'security'] }),
+  T('LGC-06', 'Turn a case down', ['PA2'], [
+    'On a new case as PA2 press <b>Open</b> then <b>Turn it down</b> with a reason.',
+  ], ['The case disappears from PA2\'s pool but stays in the others\'. PA2 cannot accept it later.'], { tags: ['core'] }),
+  T('LGC-07', 'Work has begun', ['PA1', 'C1'], [
+    'As the provider that has a case press <b>Work has begun</b>.',
+  ], ['The status is "In progress"; C1\'s request page says "Work in progress" and C1 was told. The buttons Give it back and Work has begun disappear.'], { tags: ['core'] }),
+  T('LGC-08', 'Give a case back', ['PA1', 'PA2', 'OPS1'], [
+    'On an accepted case (work not begun) PA1 presses <b>Give it back</b> with a reason. Check My pool for PA1 and PA2.',
+  ], ['The case is "In the pool" again for PA2 (not for PA1, who gave it back); operations are told with the reason; the customer is not.'], { tags: ['edge'] }),
+  T('LGC-09', 'Only eligible providers can take it', ['PA3'], [
+    'As PA3 try to open the case through its address (or ask a developer to call accept).',
+  ], ['It is refused or not found: the provider must be active with staff, cover the pincode and offer the service.'], { tags: ['security'] }),
+  T('LGC-10', 'Nudge and give to a provider', ['FR1', 'OPS1', 'PA1'], [
+    'On a case nobody has taken, as FR1 press <b>Nudge providers</b>, then choose a provider under <b>Give it to a provider</b>, write a reason and press Give it.',
+  ], ['The providers get "A legal case is still waiting for a provider". Only providers that offer the service and cover the area are listed. After giving it the case is Accepted by that provider, who is told, and C1 is told who has it.'], { tags: ['core'] }),
+  T('LGC-11', 'A request with no area', ['C1', 'OPS1', 'PA1'], [
+    'Make a legal request that is not about a property, get the offer, accept and pay. Open Legal cases as OPS1, then as FR1 and PA1.',
+  ], ['The case shows "No area" and operations are told. It is in nobody\'s pool, FR1 cannot see it, PA1 cannot accept it. OPS1 lists every live provider that offers the service and gives it to one; that provider then sees the request.'], { tags: ['edge'] }),
+  T('LGC-12', 'Nobody takes it in time', ['OPS1', 'FR1'], [
+    'A developer sets the limit in the past (<code>UPDATE legal_cases SET sla_due_at = now() - interval \'1 hour\' WHERE status = \'OPEN\'</code>) and waits up to ten minutes (or opens Legal cases).',
+  ], ['The case shows Overdue; OPS1 and FR1 get "Nobody has taken a legal case in time" once.'], { tags: ['edge'] }),
+  T('LGC-13', 'Messages with the customer', ['C1', 'PA1', 'FR1', 'C2'], [
+    'Before a provider has the case C1 tries to write. After PA1 accepted, C1 and PA1 exchange messages. FR1 opens the case. C2 tries C1\'s case address.',
+  ], ['Before: "Messages open once a legal partner has taken the case". After: both see each other\'s messages; C1 sees the provider by first name only; a new message sends one notification until it is read. FR1 can read but not write; C2 gets "not found".'], { tags: ['core', 'security'] }),
+  T('LGC-14', 'Cancel a case', ['OPS1', 'PA1', 'C1'], [
+    'As PA1 look for a Cancel button. As OPS1 press <b>Cancel the case</b> with a reason on an accepted case.',
+  ], ['PA1 has no Cancel button. After OPS1 cancels, the case is Cancelled, C1 and PA1 are told, the messages are closed and no button works any more.'], { tags: ['edge', 'security'] }),
+  T('LGC-15', 'Who sees which cases', ['PA1', 'PA2', 'FR1', 'FR2', 'MF1', 'OPS1'], [
+    'Open the <b>All cases</b> tab as each person.',
+  ], ['Providers see only cases they hold; the franchise sees cases in its area; the master franchise those in its city; another franchise sees none of them; operations see all.'], { tags: ['security'] }),
+]);
