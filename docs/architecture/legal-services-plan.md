@@ -11,7 +11,7 @@ Decided with the owner on 26-Nov-2026. The catalogue already holds **44 legal an
 ## Planned build steps (small phases)
 | Step | What | Notes |
 |---|---|---|
-| M7.0 | Form and checklist definitions per service, edited by operations (versioned, like job checklists) | Question types: text, number, choice, date, yes/no, file; required or not; documents to collect |
+| M7.0 | **Built (27-Nov-2026).** Form and checklist definitions per service, edited by operations (versioned, like job checklists) | Question types: text, number, choice, date, yes/no, file; required or not; documents to collect |
 | M7.1 | The customer's intake: choose a service, fill the form, upload documents to a checklist | Saves as a draft; submitted for review |
 | M7.2 | Review and offer: operations review the intake, ask for missing items, and send a priced offer; acceptance makes the order | Reuses the quotation and order machinery |
 | M7.3 | The legal case and its pool: a paid case goes to eligible legal providers; first to accept wins; the provider works the case through steps and messages the customer | A "legal provider" is an organisation that offers PROFESSIONAL services; reuses the pool, eligibility, chat and notifications |
@@ -33,22 +33,22 @@ Status: planned until built. Waves group them by sub-category.
 
 | # | Service (as in the catalogue) | Form questions | Document checklist | Status |
 |---|---|---|---|---|
-| 1 | Sale & Purchase(Drafting Sale Deed) | to define | to define | planned |
-| 2 | Sale & Purchase(Title Verification) | to define | to define | planned |
-| 3 | Sale & Purchase(Agreement to Sell) | to define | to define | planned |
-| 4 | Sale & Purchase(Gift Deed) | to define | to define | planned |
-| 5 | Sale & Purchase(Lease & Rental Agreements) | to define | to define | planned |
-| 6 | Registration & Documentation(Mutation of Property) | to define | to define | planned |
-| 7 | Registration & Documentation(Property Registration) | to define | to define | planned |
-| 8 | Registration & Documentation(Power of Attorney (PoA)) | to define | to define | planned |
-| 9 | Registration & Documentation(Partition Deed) | to define | to define | planned |
-| 10 | Registration & Documentation(Will & Probate) | to define | to define | planned |
-| 11 | Due Diligence & Verification(Property verification / Title Search) | to define | to define | planned |
-| 12 | Due Diligence & Verification(Encumbrance Certificate) | to define | to define | planned |
-| 13 | Due Diligence & Verification(Land Use Verification) | to define | to define | planned |
-| 14 | Due Diligence & Verification(Litigation Check) | to define | to define | planned |
-| 15 | Land Conversion(Agricultural to non-agricultural) | to define | to define | planned |
-| 16 | Advisory & Recommendations(Investment or Sale Guidance) | to define | to define | planned |
+| 1 | Sale & Purchase(Drafting Sale Deed) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 2 | Sale & Purchase(Title Verification) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 3 | Sale & Purchase(Agreement to Sell) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 4 | Sale & Purchase(Gift Deed) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 5 | Sale & Purchase(Lease & Rental Agreements) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 6 | Registration & Documentation(Mutation of Property) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 7 | Registration & Documentation(Property Registration) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 8 | Registration & Documentation(Power of Attorney (PoA)) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 9 | Registration & Documentation(Partition Deed) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 10 | Registration & Documentation(Will & Probate) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 11 | Due Diligence & Verification(Property verification / Title Search) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 12 | Due Diligence & Verification(Encumbrance Certificate) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 13 | Due Diligence & Verification(Land Use Verification) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 14 | Due Diligence & Verification(Litigation Check) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 15 | Land Conversion(Agricultural to non-agricultural) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
+| 16 | Advisory & Recommendations(Investment or Sale Guidance) | defined (seed v1) | defined (seed v1) | M7.0 form set up |
 
 ### Wave 2: Disputes & Legal Drafting (4 services)
 

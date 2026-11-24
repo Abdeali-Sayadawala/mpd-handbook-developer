@@ -1,7 +1,7 @@
 /* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
    Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
 window.GUIDE = {
-  updated: "26 Nov 2026 (after M6.5)",
+  updated: "27 Nov 2026 (after M7.0)",
 
   groups: [
     { id: "head", name: "Head office" },
@@ -430,6 +430,14 @@ window.GUIDE = {
       "Open the job: see who is eligible. Press Ask providers to take it, or choose a provider and Assign with a reason.",
       "To cancel a job that has not started press Cancel the job and write why. A plan visit goes back into the customer's plan."
     ], tips: ["Cancelling a job the customer paid for does not refund anything by itself. Handle the money separately."] },
+    { id: "ho_legalform", title: "Set up the form and documents of a legal service", where: "Legal service forms", steps: [
+      "Open Legal service forms. The legal and professional services are listed by group, each showing Version n or Not set up.",
+      "Press the pencil on a service. Write a few lines of introduction (optional).",
+      "Add the questions the customer answers: the wording, the kind of answer (short answer, paragraph, number, date, yes or no, pick one), whether it is required, a heading to group them, and a help line.",
+      "Add the documents the customer must give: the name, whether it is required, how many files, and help such as All pages, clear.",
+      "Add the progress steps the customer will follow, for example Documents received, Draft prepared, Completed (two to twelve, in order).",
+      "Press Save as a new version. Cases already started keep the version they began with."
+    ], tips: ["The property transactions services come with a first version. Check them and improve them.", "Keep questions to what a lawyer really needs. Long forms put customers off."] },
     { id: "ho_checklist", title: "Write a checklist for a service", where: "Service catalogue", steps: [
       "Open Service catalogue and find the service. Press the list icon (Checklist).",
       "Add steps. For each: what the worker does, the answer type (tick, note, number or pick one), whether it is required, and whether it needs a photo.",
@@ -530,6 +538,7 @@ window.GUIDE = {
     { term: "Nudge", def: "Ask providers to take a job nobody has accepted." },
     { term: "Checklist", def: "The steps a worker follows for a service. An admin writes it; the job keeps a copy when the work starts." },
     { term: "Extra work", def: "More work the worker finds on site. They send it with photos and a reason; the customer approves and pays before the work continues." },
+    { term: "Intake form", def: "The questions a customer answers and the documents they give when they ask for a legal service. Each service has its own, set up by operations." },
     { term: "Earning", def: "The share of a job's price an organisation earns when the job is closed: the provider that did it, and the franchise and master franchise of its area. MPD keeps the rest." },
     { term: "Payout", def: "Money sent to an organisation for what it has earned. One admin records it with the bank reference and a different admin approves it." },
     { term: "Report", def: "A page of numbers about jobs and money for a period, showing only what your role is allowed to see: operations see everything, a franchise its area, a provider its own organisation, a worker their own jobs." },

@@ -111,3 +111,39 @@ chapter('earnings', 'Earnings and payouts', '<p>When a job is <b>closed</b>, the
     'Close a job that came from a plan visit (PAY-15).',
   ], ['The base is the service\'s share of the plan (after the discounts) divided by its visits, not zero.'], { tags: ['edge'], note: 'Compare with the plan breakdown from PAY-13.' }),
 ]);
+
+chapter('legal', 'Legal service forms (setup by operations)', '<p>The legal and professional services each need a form, a document checklist and progress steps before customers can ask for them (the customer screens arrive in the next step). Run <code>pnpm db:seed</code> first so the 44 services and the Wave 1 forms exist. The legal services are hidden from the website until operations switch them on.</p>', [
+  T('LGL-01', 'The list of legal services', ['OPS1'], [
+    'Open <b>Legal service forms</b> (menu group Operations).', 'Look at the groups and the table in each.',
+  ], ['The services are listed by group (for example Property Transactions &amp; Documentation, Licenses &amp; Permits). Each row shows the service, <b>Version n</b> or <b>Not set up</b>, the number of questions and documents, and whether it is Active or Hidden on the website. The text at the top says how many services are set up.'], { tags: ['smoke', 'core'] }),
+  T('LGL-02', 'Wave 1 services come with a first form', ['OPS1'], [
+    'In the group <b>Property Transactions &amp; Documentation</b> find "Sale &amp; Purchase(Drafting Sale Deed)" and press the pencil.', 'Read the introduction, the questions, the documents and the progress steps.',
+  ], ['It shows Version 1 with questions grouped under headings (The property, Seller, Buyer, The sale), documents such as the title documents and identity proofs (some required, some optional) and steps like Documents received, Draft prepared, Draft approved by you, Ready to sign, Completed. Every Wave 1 service has a version 1.'], { tags: ['core'], pre: ['The seed has been run.'] }),
+  T('LGL-03', 'Edit and save a new version', ['OPS1'], [
+    'In the dialog change the wording of one question, add a question, and press <b>Save as a new version</b>.', 'Close and open the same service again.', 'Look at the list.',
+  ], ['A message says "Saved as version 2. New cases will use it." After reopening, your changes are there; the list shows Version 2. Saving again makes version 3 (versions are never edited).'], { tags: ['core', 'smoke'] }),
+  T('LGL-04', 'The kinds of question', ['OPS1'], [
+    'Add one question of each kind: a short answer, a paragraph, a number, a date, yes or no, and pick one option.', 'For the last, enter one option only and save; then add a second option.',
+  ], ['With one option the save is refused ("needs at least two different options"). With two it saves. The same option typed twice counts once.'], { tags: ['core', 'edge'] }),
+  T('LGL-05', 'Headings group the questions', ['OPS1'], [
+    'Give three questions the heading "The seller" and two the heading "The buyer".', 'Add the same wording ("Full name") under both headings; then twice under the same heading.',
+  ], ['The same wording is fine under two headings and refused under the same one ("is asked twice").'], { tags: ['edge'] }),
+  T('LGL-06', 'Documents and progress steps are checked', ['OPS1'], [
+    'Add two documents with the same name; set files up to 0 or 11; remove all but one progress step; give two steps the same name; add 13 steps.',
+  ], ['Each is refused with a message that names the problem. Files per document must be 1 to 10; there must be 2 to 12 steps with different names. Nothing is saved after a refusal (the version number does not change).'], { tags: ['edge'] }),
+  T('LGL-07', 'Move and remove', ['OPS1'], [
+    'Use the up and down arrows on questions, documents and steps; remove one of each; save.',
+  ], ['The order and the removals are kept in the saved version.'], { tags: ['core'] }),
+  T('LGL-08', 'Limits', ['OPS1'], [
+    'Try to add more than 60 questions, 30 documents or 12 steps.', 'Type a very long question (more than 200 characters).',
+  ], ['The Add button stops at the limit; the wording is cut at 200 characters or refused.'], { tags: ['edge'] }),
+  T('LGL-09', 'Search', ['OPS1'], [
+    'Type "Gift" in the search box.',
+  ], ['Only matching services remain; clearing the search shows all again.'], { tags: ['core'] }),
+  T('LGL-10', 'Only operations set the forms up', ['FR1', 'MF1', 'PA1', 'WA1', 'C1'], [
+    'Look for Legal service forms in each menu; open <code>/admin/legal-forms</code> directly.',
+  ], ['Missing from the menu and refused for everyone except operations and the super admin.'], { tags: ['security'] }),
+  T('LGL-11', 'Older versions are kept', ['OPS1', 'TESTER'], [
+    'Save a service three times. (A developer can check the database: <code>SELECT version, jsonb_array_length(questions) FROM service_intake_forms WHERE service_id = ...</code>.)',
+  ], ['Versions 1, 2 and 3 all exist exactly as saved. A case started later (next step) keeps the version it began with.'], { tags: ['edge'] }),
+]);
