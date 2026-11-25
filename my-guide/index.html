@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How MPD is built: my personal guide</title>
+<style>
+:root{--bg:#f6f8fc;--card:#fff;--fg:#14213d;--muted:#5b6785;--line:#dbe2f0;--pri:#1d4991;--soft:#e8eef8;--ok:#1f7a4d;--warn:#a15c00;--code:#0f1b34;--codefg:#d6e2ff}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1424;--card:#161e33;--fg:#e8eefc;--muted:#9aa7c7;--line:#27314d;--pri:#7fa6ee;--soft:#1c2744;--ok:#58c58d;--warn:#f0b04a;--code:#0a1020;--codefg:#cfe0ff}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,Segoe UI,Roboto,sans-serif}
+a{color:var(--pri)}
+header.top{background:var(--pri);color:#fff;padding:28px 20px}
+header.top h1{margin:0 0 6px;font-size:1.7rem}
+header.top p{margin:0;max-width:60rem;opacity:.95}
+.wrap{display:grid;grid-template-columns:15rem 1fr;gap:28px;max-width:78rem;margin:0 auto;padding:20px}
+nav.side{position:sticky;top:12px;align-self:start;max-height:calc(100vh - 24px);overflow:auto;font-size:.92rem}
+nav.side a{display:block;padding:6px 10px;border-radius:8px;text-decoration:none;color:var(--fg)}
+nav.side a:hover,nav.side a.on{background:var(--soft);color:var(--pri)}
+main{min-width:0}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:0 0 22px}
+h2{margin:0 0 4px;font-size:1.35rem}
+h3{margin:22px 0 6px;font-size:1.05rem}
+.lead{color:var(--muted);margin:0 0 14px}
+code{background:var(--soft);padding:1px 6px;border-radius:6px;font-size:.88em}
+pre{background:var(--code);color:var(--codefg);padding:14px;border-radius:10px;overflow:auto;font-size:.85rem;line-height:1.5}
+table{border-collapse:collapse;width:100%;font-size:.93rem;margin:10px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+.note{background:var(--soft);border-left:4px solid var(--pri);padding:10px 14px;border-radius:8px;margin:12px 0}
+.warn{border-left-color:var(--warn)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.tabs button,.btn{border:1px solid var(--line);background:var(--card);color:var(--fg);padding:9px 14px;border-radius:10px;cursor:pointer;font:inherit}
+.tabs button[aria-selected=true],.btn.pri{background:var(--pri);color:#fff;border-color:var(--pri)}
+.panel{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--bg)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.box{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--bg)}
+.box h4{margin:0 0 6px}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.node{border:2px solid var(--line);border-radius:12px;padding:8px 12px;font-size:.9rem;background:var(--card);transition:.2s}
+.node.on{border-color:var(--pri);background:var(--soft);font-weight:600}
+.arrow{color:var(--muted)}
+details{border:1px solid var(--line);border-radius:10px;padding:8px 14px;margin:8px 0;background:var(--bg)}
+summary{cursor:pointer;font-weight:600}
+input[type=search]{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);font:inherit}
+.pill{display:inline-block;padding:1px 9px;border-radius:99px;font-size:.78rem;background:var(--soft);color:var(--pri);margin-right:4px}
+.pill.ok{color:var(--ok)}.pill.no{color:var(--warn)}
+.phone{width:240px;border:8px solid #222;border-radius:28px;padding:10px;background:var(--card);margin:auto}
+.phone .row{border:1px solid var(--line);border-radius:10px;padding:8px;margin:6px 0;font-size:.82rem}
+.phone .big{background:var(--pri);color:#fff;text-align:center;padding:12px;border-radius:10px;margin-top:6px;font-weight:600}
+@media (max-width:860px){.wrap{grid-template-columns:1fr}nav.side{position:static;max-height:none}.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top">
+<h1>How My Property Doctors is built</h1>
+<p>A personal guide for you, written for someone who has not built web apps. It is only on this computer: it lives in <code>D:\MPDv2\my-guide</code>, outside every git repository, so it is never committed, pushed or published. Open <code>index.html</code> in a browser. Nothing here needs the internet.</p>
+</header>
+
+<div class="wrap">
+<nav class="side" aria-label="Sections" id="side"></nav>
+<main>
+
+<section id="big-picture">
+<h2>1. The big picture in one minute</h2>
+<p class="lead">Everything you use online is built from the same three ingredients. A "website" and a "web app" use the same ones. The difference is how much they do.</p>
+<table>
+<tr><th>Ingredient</th><th>What it is</th><th>In MPD</th></tr>
+<tr><td><b>The screen</b> (frontend)</td><td>What runs in the visitor's browser: the pages, buttons and forms. Built from HTML (the structure), CSS (the looks) and JavaScript (the behaviour).</td><td><code>mpd-global</code> (the public site) and <code>mpd-frontend</code> (the portal and console), both made with Next.js</td></tr>
+<tr><td><b>The brain</b> (backend / API)</td><td>A program on a server that holds the rules, checks who you are, and talks to the database. It never draws pages; it answers questions like "give me this worker's jobs" with data.</td><td><code>mpd-backend</code>, made with NestJS</td></tr>
+<tr><td><b>The memory</b> (database)</td><td>Where everything is stored permanently: customers, properties, orders, jobs, photos' records.</td><td>PostgreSQL, managed through Prisma</td></tr>
+</table>
+<div class="note">A good way to think about it: a restaurant. The <b>dining room</b> is the frontend (what guests see). The <b>kitchen</b> is the backend (where the real work and the rules are). The <b>pantry</b> is the database. Guests never walk into the kitchen; the waiter (the API) carries orders in and food out.</div>
+</section>
+
+<section id="website-vs-app">
+<h2>2. A normal website versus a web app</h2>
+<p class="lead">Technically there is no hard line. People use the words for how the thing behaves. Press the buttons to compare.</p>
+<div class="tabs" role="tablist" id="cmpTabs"></div>
+<div class="panel" id="cmpPanel"></div>
+
+<h3>The honest summary</h3>
+<table>
+<tr><th></th><th>Website (like <code>mpd-global</code>)</th><th>Web app (like <code>mpd-frontend</code>)</th></tr>
+<tr><td>Who is it for?</td><td>Anyone, no sign-in</td><td>Signed-in people, each seeing different things</td></tr>
+<tr><td>Does it change data?</td><td>Almost never (maybe a contact form)</td><td>Constantly: buying, approving, uploading, finishing jobs</td></tr>
+<tr><td>Where do the rules live?</td><td>Nowhere much; it is mostly content</td><td>In the backend: who may do what, prices, status changes</td></tr>
+<tr><td>Is each person's page different?</td><td>No, everyone gets the same page</td><td>Yes, built per person at the moment they ask</td></tr>
+<tr><td>What can go wrong?</td><td>A typo, a broken link</td><td>Money, privacy, two people acting at once, someone seeing what they should not</td></tr>
+</table>
+<div class="note"><b>So "making it a web app" is mostly not about the screen at all.</b> It is the sign-in, the permissions, the data and the rules behind the screen. That is why most of the effort in MPD is in <code>mpd-backend</code>.</div>
+</section>
+
+<section id="how-page-arrives">
+<h2>3. What happens when someone opens a page</h2>
+<p class="lead">Every visit is a conversation. Learn this once and everything else makes sense.</p>
+<ol>
+<li>You type an address or tap a link. The <b>browser</b> sends a request over the internet to a <b>server</b>.</li>
+<li>The server answers with HTML, CSS and JavaScript files. The browser draws the page from them.</li>
+<li>When you click something that needs data or changes something, the page sends another request, usually to an API, and gets back data (not a page). It then updates what you see.</li>
+</ol>
+<h3>Static page versus dynamic page</h3>
+<div class="cols">
+<div class="box"><h4>Static</h4><p>The page is made ahead of time. The server just hands out the finished file. Fast, cheap, same for everyone. This is how <code>mpd-global</code> mostly works.</p></div>
+<div class="box"><h4>Dynamic</h4><p>The server (or the browser) builds the page after asking "who is this, and what is theirs?". Different for each person. Every screen in <code>mpd-frontend</code> works this way (the route files say <code>dynamic = 'force-dynamic'</code>).</p></div>
+</div>
+</section>
+
+<section id="mpd-parts">
+<h2>4. The pieces of MPD and how they talk</h2>
+<div class="flow" id="partsFlow"></div>
+<div class="panel" id="partsInfo"></div>
+<h3>The contract that keeps them honest</h3>
+<p>The backend publishes a file called <code>openapi.json</code>. It lists every question the API can answer, what to send and what comes back. The frontends run <code>pnpm api:generate</code> and get a typed client from it (<code>src/api/schema.d.ts</code>). If the backend changes something and the frontend still expects the old shape, the type check fails before anyone sees a broken screen. That is why our order is always: backend first, export the contract, regenerate, fix the frontend.</p>
+<h3>The 8 repositories</h3>
+<table>
+<tr><th>Repo</th><th>What it is</th></tr>
+<tr><td><code>mpd-backend</code></td><td>The API, the rules, the database definition, the tests</td></tr>
+<tr><td><code>mpd-frontend</code></td><td>The signed-in app: customer portal and staff console (and now the worker's phone screen)</td></tr>
+<tr><td><code>mpd-global</code></td><td>The public marketing website</td></tr>
+<tr><td><code>mpd-mobile</code></td><td>A scaffold for a native phone app, not used yet</td></tr>
+<tr><td><code>mpd-infra</code></td><td>Servers, deployment, backups (scaffold for now)</td></tr>
+<tr><td><code>mpd-handbook-developer</code></td><td>Private docs and the interactive role guide</td></tr>
+<tr><td><code>mpd-handbook</code></td><td>The public user guide</td></tr>
+<tr><td><code>mpd-context</code></td><td>The "start here" memory so any new session can continue the work</td></tr>
+</table>
+</section>
+
+<section id="journey">
+<h2>5. Follow one real action all the way through</h2>
+<p class="lead">Example from this week: <b>a worker sends extra work for approval</b>. Step through it. The highlighted box shows which layer is working, and the file shows where the code lives.</p>
+<div class="flow" id="jFlow"></div>
+<div class="panel" id="jPanel"></div>
+<div style="margin-top:10px"><button class="btn" id="jPrev">Back</button> <button class="btn pri" id="jNext">Next step</button> <span id="jCount" style="margin-left:8px;color:var(--muted)"></span></div>
+</section>
+
+<section id="frontend">
+<h2>6. Inside the frontend (Next.js)</h2>
+<p class="lead">Next.js is a framework: a ready-made frame around React (a library for building screens out of reusable pieces). It decides how pages are named, how they are sent, and where code runs.</p>
+
+<h3>Folders and what they mean</h3>
+<table>
+<tr><th>Where</th><th>What lives there</th></tr>
+<tr><td><code>app/</code></td><td>Every folder here is a web address. <code>app/admin/(console)/jobs/page.tsx</code> is the page at <code>/admin/jobs</code>. A folder in brackets, like <code>(console)</code>, only groups pages that share a layout; it does not appear in the address.</td></tr>
+<tr><td><code>app/layout.tsx</code>, <code>AppShell.tsx</code></td><td>The frame around pages: the menu, top bar, the phone drawer</td></tr>
+<tr><td><code>src/components/</code></td><td>The screens' pieces: <code>JobsBoard</code>, <code>ExtraWork</code>, <code>MyDay</code>… Reused everywhere</td></tr>
+<tr><td><code>src/actions/</code></td><td>"Server actions": small functions that run on the server when a button is pressed. They hold the sign-in and call the API.</td></tr>
+<tr><td><code>src/api/</code></td><td>The generated client and types. Never edited by hand.</td></tr>
+<tr><td><code>src/lib/</code></td><td>Helpers: money formatting, the menu list (<code>nav.ts</code>), session cookies, <code>call()</code></td></tr>
+<tr><td><code>middleware.ts</code></td><td>A guard that runs before every page: not signed in, go to login. (Only a convenience. The backend is the real lock.)</td></tr>
+<tr><td><code>app/api/…</code></td><td>A few special web addresses used for photo uploads, because server actions are too small for big files</td></tr>
+<tr><td><code>public/</code></td><td>Plain files like the logo and the app icons</td></tr>
+</table>
+
+<h3>Two kinds of code in one app</h3>
+<div class="cols">
+<div class="box"><h4>Runs on the server</h4><p>Pages that fetch data, server actions, the middleware. It can hold secrets, read cookies, and talk to the backend. The visitor never sees this code.</p></div>
+<div class="box"><h4>Runs in the browser</h4><p>Anything marked <code>'use client'</code> at the top (like <code>ExtraWork.tsx</code>): things that react to clicks, hold form text, open dialogs. The visitor's device runs it.</p></div>
+</div>
+
+<h3>How sign-in is kept</h3>
+<p>When someone logs in, the backend gives two tokens: a short-lived <b>access token</b> (a signed pass) and a longer <b>refresh token</b>. The frontend keeps them in cookies the browser's scripts cannot read (<code>mpd_at</code>, <code>mpd_rt</code>). Every server action goes through <code>call()</code> (<code>src/lib/server-api.ts</code>), which attaches the pass. If the pass has expired, <code>call()</code> trades the refresh token for a new one once and retries, so people are not thrown out mid-task.</p>
+
+<h3>Looks: Tailwind</h3>
+<p>Instead of one big stylesheet, small named classes sit on each element, like <code>btn btn-primary !h-12</code> (a main button, 48 px tall). A few shared ones (<code>btn</code>, <code>card</code>, <code>field-input</code>) are defined in <code>app/globals.css</code> with the brand colours.</p>
+</section>
+
+<section id="backend">
+<h2>7. Inside the backend (NestJS)</h2>
+<p class="lead">NestJS is a framework that makes a backend tidy by giving every kind of code a fixed place.</p>
+<table>
+<tr><th>Piece</th><th>Job</th><th>Example</th></tr>
+<tr><td><b>Module</b></td><td>A folder for one area of the business. Modules do not reach into each other's tables; they call each other's services.</td><td><code>jobs</code>, <code>orders</code>, <code>vault</code>, <code>orgs-territory</code></td></tr>
+<tr><td><b>Controller</b></td><td>The front door of an address. It only receives the request, checks the role, and passes it on.</td><td><code>job-extras.controller.ts</code>: <code>POST /v1/jobs/:id/extras</code></td></tr>
+<tr><td><b>DTO</b></td><td>A description of what a request or answer must look like. Bad input is refused here with a clear message.</td><td><code>dto/extras.dto.ts</code></td></tr>
+<tr><td><b>Service</b></td><td>Where the rules live. All decisions happen here.</td><td><code>job-extras.service.ts</code></td></tr>
+<tr><td><b>Guard / policy</b></td><td>Who may do this? Role plus which organisation, area and which records are theirs.</td><td>"A worker only sees jobs given to them"</td></tr>
+<tr><td><b>Prisma</b></td><td>The translator between code and the database. <code>prisma/schema.prisma</code> describes every table.</td><td><code>model JobExtra</code></td></tr>
+<tr><td><b>Migration</b></td><td>A numbered SQL file that changes the database safely and repeatably.</td><td><code>20261124100000_job_extras</code></td></tr>
+<tr><td><b>Test</b></td><td>A script that plays the app like a user (sign in as a worker, send a request, expect a refusal) to prove the rules hold.</td><td><code>test/job-extras.e2e-spec.ts</code></td></tr>
+</table>
+
+<h3>The rules we never break</h3>
+<ul>
+<li><b>Money is whole paise</b> (₹1 = 100) and is calculated on the server only. A browser can say anything; the server never trusts a price it was sent.</li>
+<li><b>A status moves only through one gate.</b> A job cannot jump from "requested" to "closed"; <code>job-state.ts</code> lists every allowed move and each is written to a history.</li>
+<li><b>Two people for money.</b> Someone records a payment, a different person approves it (the "maker and checker").</li>
+<li><b>Another customer's record looks like it does not exist</b> (404, not "forbidden"), so nobody can probe for what exists.</li>
+<li><b>Codes and passwords are stored scrambled</b> (hashed). Even we cannot read a customer's job code.</li>
+<li><b>Races are handled in the database.</b> "First provider to accept wins" is a single guarded update, not a hope.</li>
+<li><b>Everything important is audited</b> (who, what, when).</li>
+</ul>
+<div class="note warn"><b>Why so careful?</b> A web app handles real people's property and money. A website can survive being wrong; an app that handles payments cannot.</div>
+</section>
+
+<section id="webapp-phone">
+<h2>8. Making the web app work like an app on a phone</h2>
+<p class="lead">This is exactly what M5.3 does. Nothing is rebuilt. The same web app is made comfortable on a phone and installable.</p>
+
+<h3>Four things turn a web page into something that feels like an app</h3>
+<table>
+<tr><th>Thing</th><th>What it does</th><th>Where in MPD</th></tr>
+<tr><td><b>Responsive layout</b></td><td>The same page rearranges itself to the screen width. On a phone the menu becomes a drawer and content is one column.</td><td>Tailwind classes like <code>lg:grid</code>, <code>sm:items-center</code>; the drawer in <code>AppShell.tsx</code></td></tr>
+<tr><td><b>Touch-sized controls</b></td><td>Buttons at least 44 px so a thumb can hit them with gloves on or in the sun.</td><td><code>!h-12</code> on the My day buttons</td></tr>
+<tr><td><b>A web app manifest</b></td><td>A small file that tells the phone "this site has a name, an icon and wants to open full screen". With it, "Add to home screen" installs it.</td><td><code>app/manifest.ts</code> and the icons in <code>public/brand/</code></td></tr>
+<tr><td><b>Device features</b></td><td>The browser can ask the phone for the camera and location. Allowed by the user, per site.</td><td>The photo button uses <code>capture="environment"</code> (rear camera); location comes from <code>navigator.geolocation</code></td></tr>
+</table>
+
+<h3>What the worker sees: "My day"</h3>
+<div class="cols">
+<div>
+<p>One column, big buttons, the next step spelled out. It lives in <code>src/components/jobs/MyDay.tsx</code> at <code>/admin/my-day</code>. Tapping Open shows the very same job screen the office uses, so there is one place where work is done, not two.</p>
+<ul>
+<li>Directions opens the phone's map with the job's address.</li>
+<li>Call dials the customer (a plain <code>tel:</code> link).</li>
+<li>The list refreshes itself every minute.</li>
+<li>Installed from the browser menu, it opens straight into this screen, with no address bar.</li>
+</ul>
+</div>
+<div><div class="phone"><b>My day</b><div class="row"><b>Water tank service</b><br>Visit 2 Dec, 10:00<br>Karelibaug, Vadodara</div><div class="row">Ask the customer for their start code</div><div class="big">Open and start</div><div class="row" style="text-align:center">Directions · Call</div></div></div>
+</div>
+
+<h3>Web app, installed web app, native app: what is the difference?</h3>
+<table>
+<tr><th></th><th>Web app in a browser</th><th>Installed web app (what we do)</th><th>Native app (App Store / Play Store)</th></tr>
+<tr><td>How you get it</td><td>Type an address</td><td>"Add to home screen" from the browser</td><td>Download from a store</td></tr>
+<tr><td>Updates</td><td>Instant, automatic</td><td>Instant, automatic</td><td>Each update goes through the store review</td></tr>
+<tr><td>Camera, location</td><td class="x"><span class="pill ok">yes</span></td><td><span class="pill ok">yes</span></td><td><span class="pill ok">yes</span></td></tr>
+<tr><td>Works with no signal</td><td><span class="pill no">no</span></td><td><span class="pill no">no (not built)</span></td><td><span class="pill ok">can</span></td></tr>
+<tr><td>Reliable push notifications</td><td><span class="pill no">limited</span></td><td><span class="pill no">limited on iPhone</span></td><td><span class="pill ok">yes</span></td></tr>
+<tr><td>Tracks location in the background</td><td><span class="pill no">no</span></td><td><span class="pill no">no</span></td><td><span class="pill ok">yes</span></td></tr>
+<tr><td>One code base for all</td><td><span class="pill ok">yes</span></td><td><span class="pill ok">yes</span></td><td><span class="pill no">separate builds</span></td></tr>
+<tr><td>Cost to build and keep</td><td>Lowest</td><td>Lowest</td><td>Highest</td></tr>
+</table>
+<div class="note">That is why we chose the installed web app: it covers everything a worker needs on a job, and is one product to maintain. We would revisit it only if workers often have no signal or we need always-on tracking.</div>
+<details><summary>What is not built yet in M5.3</summary><p>No offline mode (a "service worker" would be added to remember pages and queue actions without signal), and no push notifications. Messages and reports come in M6.</p></details>
+</section>
+
+<section id="security">
+<h2>9. Who can see and do what</h2>
+<p>There are two locks, and only the second is real.</p>
+<ol>
+<li><b>The first lock is cosmetic.</b> The frontend hides menu items a role should not use (<code>roles</code> in <code>nav.ts</code>) and the middleware sends strangers to login. It keeps screens tidy.</li>
+<li><b>The second lock is the backend.</b> Every address checks your role <em>and</em> whether the record is yours (your organisation, your area, your job). Even if someone types an address by hand or edits the page in their browser, the backend still refuses.</li>
+</ol>
+<p>Every role is tested for what it must be refused, not only for what it can do. That is the reason the test list is long.</p>
+</section>
+
+<section id="workflow">
+<h2>10. How a change gets made, step by step</h2>
+<ol>
+<li><b>Decide the rule</b> in plain words (you did this for extra work).</li>
+<li><b>Database:</b> describe new tables in <code>schema.prisma</code>, write the migration SQL.</li>
+<li><b>Backend:</b> DTOs, service (the rules), controller (the address), module wiring.</li>
+<li><b>Tests:</b> an end-to-end spec that plays every role, including the refusals.</li>
+<li><b>Export the contract:</b> <code>pnpm openapi:export</code>, then in the frontend <code>pnpm api:generate</code>.</li>
+<li><b>Frontend:</b> server actions, then the components and page, then <code>npx tsc --noEmit</code> and <code>pnpm lint</code>.</li>
+<li><b>Docs:</b> progress file, specs, both handbooks, the role guide, every <code>CLAUDE.md</code>, and the context repo.</li>
+<li><b>Verify and push:</b> <code>verify.ps1</code> checks the numbers and that nothing is left uncommitted; then commit and push.</li>
+</ol>
+<div class="note">We never run <code>pnpm build</code> in the frontend while you run it, because both use the same working folder. Type checking and lint give the same safety without that clash.</div>
+</section>
+
+<section id="hosting">
+<h2>11. Where it will run</h2>
+<p>For launch, one rented server (AWS Lightsail in Mumbai) runs everything in containers: a gatekeeper (Caddy), the API, the background worker, the web app and the database. Files go to private storage (S3) and emails through SES. The public site could later move to pure file hosting (S3 plus CloudFront) because it is static; the signed-in app needs a real server because of the sign-in and server actions. You decided to leave this until after launch. See <code>11-tech-explained.md</code> in <code>mpd-context</code> for the longer answer.</p>
+</section>
+
+<section id="where">
+<h2>12. Where to find things when you want to look</h2>
+<table>
+<tr><th>You want to know…</th><th>Look at</th></tr>
+<tr><td>What a screen looks like in code</td><td><code>mpd-frontend/src/components/…</code>, and the page in <code>app/…</code></td></tr>
+<tr><td>What the API can do</td><td>Start the backend and open <code>http://localhost:4000/docs</code>, or read <code>mpd-backend/openapi.json</code></td></tr>
+<tr><td>Where a rule is enforced</td><td><code>mpd-backend/src/modules/&lt;area&gt;/*.service.ts</code></td></tr>
+<tr><td>What a table holds</td><td><code>mpd-backend/prisma/schema.prisma</code></td></tr>
+<tr><td>What has been done and what is next</td><td><code>mpd-context/05-status.md</code></td></tr>
+<tr><td>Why something was decided</td><td><code>mpd-context/07-decisions.md</code></td></tr>
+<tr><td>What each role does, for staff</td><td><code>mpd-handbook-developer/guide/index.html</code></td></tr>
+<tr><td>A rule proven by a test</td><td><code>mpd-backend/test/*.e2e-spec.ts</code></td></tr>
+</table>
+<div class="note">Ask me to walk you through any file here. I can explain a single file line by line.</div>
+</section>
+
+<section id="glossary">
+<h2>13. Glossary</h2>
+<input type="search" id="gq" placeholder="Search a word, for example token, migration, route…" aria-label="Search glossary">
+<div id="glist"></div>
+</section>
+
+</main>
+</div>
+
+<script>
+/* ---------- side navigation ---------- */
+const secs=[...document.querySelectorAll('main section')];
+const side=document.getElementById('side');
+side.innerHTML=secs.map(s=>`<a href="#${s.id}">${s.querySelector('h2').textContent}</a>`).join('');
+const links=[...side.querySelectorAll('a')];
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id));}});},{rootMargin:'-20% 0px -70% 0px'});
+secs.forEach(s=>io.observe(s));
+
+/* ---------- website vs web app ---------- */
+const CMP=[
+ {k:'Looks',t:'Pages and screens',h:'<p><b>Website:</b> pages to read, made of text, images and links. The same for every visitor.</p><p><b>Web app:</b> screens to <em>use</em>: forms, lists, dialogs, buttons that change something. What you see depends on who you are.</p><p>Example: the MPD home page (website) versus the Jobs board (web app).</p>'},
+ {k:'Data',t:'Data',h:'<p><b>Website:</b> content is written ahead of time (MPD even keeps it in a content system, but it is the same for all).</p><p><b>Web app:</b> data is fetched fresh from the database for each person at each moment: your properties, your orders, your jobs.</p>'},
+ {k:'Sign-in',t:'Sign-in and roles',h:'<p><b>Website:</b> none.</p><p><b>Web app:</b> you prove who you are, the system remembers (tokens in cookies), and every action is checked against your role, your organisation and your area. MPD has seven roles, from customer to field worker.</p>'},
+ {k:'Rules',t:'Rules and state',h:'<p><b>Website:</b> nothing to remember.</p><p><b>Web app:</b> things have a <em>status</em> that moves through allowed steps (a job goes requested, accepted, assigned, started…). The backend guards each move and records it.</p>'},
+ {k:'Devices',t:'On a phone',h:'<p>Both can be responsive. A web app can additionally be <b>installed</b> (home screen icon, full screen) and use the camera and location. That is the step M5.3 takes for workers. See section 8.</p>'}
+];
+const ct=document.getElementById('cmpTabs'),cp=document.getElementById('cmpPanel');
+CMP.forEach((c,i)=>{const b=document.createElement('button');b.textContent=c.k;b.setAttribute('role','tab');b.onclick=()=>show(i);ct.appendChild(b);});
+function show(i){[...ct.children].forEach((b,j)=>b.setAttribute('aria-selected',i===j));cp.innerHTML='<h4 style="margin:0 0 6px">'+CMP[i].t+'</h4>'+CMP[i].h;}
+show(0);
+
+/* ---------- the parts ---------- */
+const PARTS=[
+ {n:'Browser / phone',i:'The person using MPD. Runs the HTML, CSS and JavaScript it is sent. Holds the sign-in cookies. Can use the camera and location.'},
+ {n:'Frontend (Next.js)',i:'<code>mpd-frontend</code> (signed in) and <code>mpd-global</code> (public). Builds screens, keeps the sign-in, and passes requests on. Port 3000 on your laptop.'},
+ {n:'Backend (NestJS)',i:'<code>mpd-backend</code>. Checks who you are, applies every rule, talks to the database and file storage. Port 4000, with the self-description at <code>/docs</code>.'},
+ {n:'Database (PostgreSQL)',i:'The permanent memory. On your laptop it runs in Docker. Tables are defined in <code>schema.prisma</code> and changed only by migrations.'},
+ {n:'File storage',i:'Photos, documents and proofs. On the laptop a local folder; at launch private S3. Opened only through links that expire in 5 minutes.'}
+];
+const pf=document.getElementById('partsFlow'),pi=document.getElementById('partsInfo');
+PARTS.forEach((p,i)=>{if(i)pf.insertAdjacentHTML('beforeend','<span class="arrow">→</span>');const d=document.createElement('button');d.className='node btn';d.textContent=p.n;d.onclick=()=>{[...pf.querySelectorAll('.node')].forEach(x=>x.classList.remove('on'));d.classList.add('on');pi.innerHTML='<b>'+p.n+'</b><br>'+p.i;};pf.appendChild(d);});
+pf.querySelector('.node').click();
+
+/* ---------- the journey ---------- */
+const J=[
+ {l:'Browser',t:'The worker taps "Send for approval"',d:'In the job screen, the <code>ExtraWork</code> component (it runs in the browser) handles the tap and calls a server action.',f:'mpd-frontend/src/components/jobs/ExtraWork.tsx'},
+ {l:'Frontend server',t:'The server action runs',d:'<code>submitExtra()</code> runs on the Next.js server, not on the phone. It does not know the password; it uses the signed-in cookies through <code>call()</code>.',f:'mpd-frontend/src/actions/jobs.ts and src/lib/server-api.ts'},
+ {l:'Frontend server',t:'The typed client builds the request',d:'The generated client turns this into <code>POST /v1/jobs/{id}/extras/{extraId}/submit</code> with the access token attached. If the token had expired it is refreshed once, silently.',f:'mpd-frontend/src/api/ (generated from openapi.json)'},
+ {l:'Backend',t:'The controller receives it',d:'NestJS checks the token and the role (only a field worker may do this) and passes the request to the service.',f:'mpd-backend/src/modules/jobs/job-extras.controller.ts'},
+ {l:'Backend',t:'The service applies the rules',d:'Is this the worker the job was given to? Is the job in progress? Is there a photo? Is the total above half the job price, so a sign-off is needed? All decided here, never in the browser.',f:'mpd-backend/src/modules/jobs/job-extras.service.ts'},
+ {l:'Backend',t:'The status gate',d:'The move "in progress → awaiting extra payment" is checked against the list of allowed moves. A move not on the list is refused.',f:'mpd-backend/src/modules/jobs/job-state.ts'},
+ {l:'Database',t:'Saved in one safe step',d:'Prisma updates the job and the request together in a transaction, with a guard: "only if it is still in progress". If someone else changed it a moment earlier, nothing changes and the worker is told.',f:'mpd-backend/prisma/schema.prisma (JobExtra, Job)'},
+ {l:'Backend',t:'History and audit',d:'A line is written to the job history ("extra sent") and to the audit log: who, what, when, from where.',f:'job_events and audit_events tables'},
+ {l:'Frontend server',t:'The answer comes back',d:'The API answers with the updated request. The action returns it as a simple "ok with data" or "failed with a message".',f:'mpd-frontend/src/lib/server-api.ts'},
+ {l:'Browser',t:'The screen updates',d:'<code>ExtraWork</code> reloads the list. The badge changes to "Waiting for the customer" (or the provider), and the worker\'s buttons disappear. Later the customer sees it and decides.',f:'mpd-frontend/src/components/jobs/ExtraWork.tsx'}
+];
+const jf=document.getElementById('jFlow'),jp=document.getElementById('jPanel'),jc=document.getElementById('jCount');
+const LAYERS=['Browser','Frontend server','Backend','Database'];
+LAYERS.forEach((x,i)=>{if(i)jf.insertAdjacentHTML('beforeend','<span class="arrow">→</span>');const n=document.createElement('span');n.className='node';n.dataset.l=x;n.textContent=x;jf.appendChild(n);});
+let ji=0;
+function jshow(){const s=J[ji];[...jf.querySelectorAll('.node')].forEach(n=>n.classList.toggle('on',n.dataset.l===s.l));jp.innerHTML=`<h4 style="margin:0 0 6px">${ji+1}. ${s.t}</h4><p>${s.d}</p><p><span class="pill">file</span><code>${s.f}</code></p>`;jc.textContent=`Step ${ji+1} of ${J.length}`;}
+document.getElementById('jNext').onclick=()=>{ji=(ji+1)%J.length;jshow();};
+document.getElementById('jPrev').onclick=()=>{ji=(ji-1+J.length)%J.length;jshow();};
+jshow();
+
+/* ---------- glossary ---------- */
+const G=[
+ ['API','A way for one program to ask another for data or an action. Ours is a set of addresses starting with /v1.'],
+ ['Access token','A signed pass, valid for a short time, that proves who you are on every request.'],
+ ['Refresh token','A longer-lived key used only to get a new access token. It is replaced each time it is used.'],
+ ['Backend','The program on the server that holds the rules and the data access. Here: mpd-backend.'],
+ ['Browser','The program on a phone or computer that shows web pages, such as Chrome or Safari.'],
+ ['Component','A reusable piece of a screen, for example a button, a card or the whole Jobs board.'],
+ ['Controller','Backend code that receives a request at an address and hands it to a service.'],
+ ['Cookie','A small piece of data the browser keeps for a site, used here to remember the sign-in.'],
+ ['CSS','The language that sets how things look: colours, sizes, spacing.'],
+ ['Database','Organised permanent storage. Here PostgreSQL.'],
+ ['Docker','A way to run a program in a sealed box so it behaves the same on every machine.'],
+ ['DTO','A description of the exact shape of a request or answer. Bad input is refused here.'],
+ ['End-to-end test','A script that uses the app like a person would, from the first request to the stored result.'],
+ ['Frontend','What runs for the visitor: the screens. Here mpd-frontend and mpd-global.'],
+ ['Hash','A one-way scramble. We store codes and passwords hashed so nobody can read them back.'],
+ ['HTML','The language that gives a page its structure: headings, paragraphs, buttons.'],
+ ['Layout','A frame shared by many pages, such as the menu and top bar.'],
+ ['Manifest','A small file that tells a phone the web app\'s name, icon and that it can be installed.'],
+ ['Middleware','A guard that runs before a page or request, for example sending signed-out visitors to login.'],
+ ['Migration','A numbered SQL file that changes the database in a safe, repeatable way.'],
+ ['Module','A folder for one business area in the backend (jobs, orders…).'],
+ ['NestJS','The framework our backend is built with.'],
+ ['Next.js','The framework our frontends are built with, on top of React.'],
+ ['OpenAPI','A machine-readable list of everything the API can do. Our contract: openapi.json.'],
+ ['PWA','Progressive web app: a web app that can be installed and feel like an app. What M5.3 aims for.'],
+ ['Prisma','The tool that lets the backend read and write the database in code.'],
+ ['React','A library for building screens from components.'],
+ ['Responsive','A page that rearranges itself to fit any screen width.'],
+ ['Route','An address of a page or API call. In Next.js a folder under app/ is a route.'],
+ ['Server action','A function that runs on the server when a button is pressed, called straight from a component.'],
+ ['Service (backend)','The class that holds the rules for one area of the business.'],
+ ['Service worker','A background script in the browser that can cache pages and queue actions for offline use. Not built yet.'],
+ ['State machine','A fixed list of statuses and the only moves allowed between them. Our jobs and orders use one.'],
+ ['Static page','A page made ahead of time and handed out unchanged to everyone.'],
+ ['Tailwind','A way of styling by putting small class names on elements.'],
+ ['Transaction','Several database changes done together: all succeed or none do.'],
+ ['TypeScript','JavaScript with types, so many mistakes are caught before the code runs.'],
+ ['Webhook','A message another system sends to us when something happens (used with online payments later).']
+];
+const gl=document.getElementById('glist'),gq=document.getElementById('gq');
+function gdraw(){const q=gq.value.trim().toLowerCase();gl.innerHTML=G.filter(([a,b])=>!q||a.toLowerCase().includes(q)||b.toLowerCase().includes(q)).map(([a,b])=>`<details><summary>${a}</summary><p>${b}</p></details>`).join('')||'<p>No match.</p>';}
+gq.oninput=gdraw;gdraw();
+</script>
+</body>
+</html>

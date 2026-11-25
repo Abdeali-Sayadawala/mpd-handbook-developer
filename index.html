@@ -82,7 +82,21 @@ td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 <script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
 </head>
 <body>
-<nav class="scroll" aria-label="Sections"><a href="#map">System map</a><a href="#modules">Modules</a><a href="#jobs">Job states</a><a href="#pay">Payments</a><a href="#vault">Document vault</a><a href="#franchise">Franchise</a><a href="#cost">Hosting cost</a><a href="#road">Roadmap</a><a href="status.html">What is built →</a><a href="engineering/index.html">Engineering handbook</a><a href="testing/index.html">Tester handbook</a><a href="guide/index.html">Role guide</a><a href="docs/view.html">Documents</a></nav>
+<nav class="scroll" aria-label="Sections"><a href="#guides">All guides</a><a href="#map">System map</a><a href="#modules">Modules</a><a href="#jobs">Job states</a><a href="#pay">Payments</a><a href="#vault">Document vault</a><a href="#franchise">Franchise</a><a href="#cost">Hosting cost</a><a href="#road">Roadmap</a><a href="status.html">What is built →</a><a href="engineering/index.html">Engineering handbook</a><a href="testing/index.html">Tester handbook</a><a href="guide/index.html">Role guide</a><a href="my-guide/index.html">Extra guide</a><a href="../mpd-handbook/index.html">User guide</a><a href="docs/view.html">Documents</a></nav>
+
+<section class="band alt" id="guides"><div class="wrap">
+<h2>All guides</h2>
+<p class="lede">Every guide for this project, in the order to read them. All pages are static and open to anyone.</p>
+<div class="grid">
+<div class="card"><h3><a href="guide/index.html">Role guide</a></h3><p>Pick a role (owner, operations, franchise, provider, worker) and see its screens and rules.</p></div>
+<div class="card"><h3><a href="testing/index.html">Tester handbook</a></h3><p>Every scenario to check by hand, with accounts, steps and what you should see.</p></div>
+<div class="card"><h3><a href="engineering/index.html">Engineering handbook</a></h3><p>How everything is built, with diagrams, state machines and recipes.</p></div>
+<div class="card"><h3><a href="my-guide/index.html">Extra guide: how MPD is built</a></h3><p>A plain-words walk through the stack for someone who knows web basics.</p></div>
+<div class="card"><h3><a href="status.html">What is built</a></h3><p>One-page status of the milestones and the numbers.</p></div>
+<div class="card"><h3><a href="docs/view.html">Documents</a></h3><p>Architecture, customers and pricing, dispatch, legal services plan, progress and the legacy notes.</p></div>
+<div class="card"><h3><a href="../mpd-handbook/index.html">User guide (public handbook)</a></h3><p>How a customer or partner uses the product.</p></div>
+</div>
+</div></section>
 
 <section class="band" id="map"><div class="wrap hero">
 <div>
