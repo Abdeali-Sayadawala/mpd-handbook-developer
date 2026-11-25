@@ -381,3 +381,24 @@ chapter('legalwaves', 'Legal services of Waves 2 to 4', '<p>After <code>pnpm db:
     'Complete the case of LGW-05 and open Earnings as OPS1.',
   ], ['Only the provider has an earning for it; there is no franchise or master franchise earning. The provider\'s amount is its percentage of the professional fee and other charges, less the discount.'], { tags: ['core'] }),
 ]);
+
+chapter('pwork', 'Work in the property history', '<p>Every finished job on a property stays in that property history, even after the house is sold. You need C1 (an owner with a finished job: do JOB-04 to WRK-13 first), a second customer C2, and OPS1.</p>', [
+  T('PWH-01', 'The owner sees finished work in the history', ['C1'], [
+    'Open <b>Properties</b>, choose the property with a finished job, then <b>History</b>.',
+  ], ['The timeline shows "Work done: [service]" with the date, what the worker wrote, the job number, "ordered by you", the checklist steps answered and the photo count. A job still in progress is not there.'], { tags: ['smoke', 'core'] }),
+  T('PWH-02', 'Open the checklist and photos of an old job', ['C1'], [
+    'On a "Work done" entry press <b>What was done, and photos</b>. Press a photo.',
+  ], ['The answers and the photo list appear; a photo opens in a new tab through a short-lived link.'], { tags: ['core'] }),
+  T('PWH-03', 'A new owner sees the earlier jobs', ['C1', 'C2', 'OPS1'], [
+    'Make C2 the owner of the property (a unit registered to a new owner, or ask a developer to add the new owner and end the old one). Sign in as C2 and open the property History.',
+  ], ['C2 sees the same "Work done" entries with report and photos, shown as "ordered by an earlier owner or the project owner". No name, price, rating or chat of C1 appears anywhere.'], { tags: ['core', 'security'] }),
+  T('PWH-04', 'The earlier owner no longer sees the property', ['C1'], [
+    'Sign in as C1 after PWH-03 and open the property History address you used before.',
+  ], ['It is not found. C1 still sees their own job under Service requests.'], { tags: ['edge', 'security'] }),
+  T('PWH-05', 'Nobody else can read it', ['C2', 'PA1', 'OPS1'], [
+    'As a customer who does not own the property try to open its History address. As staff, try the customer pages.',
+  ], ['Another customer gets "not found". Staff screens are unchanged (they use the Jobs board).'], { tags: ['security'] }),
+  T('PWH-06', 'Photo access is logged', ['OPS1'], [
+    'After C2 opened a photo in PWH-03, ask a developer to look at the audit log for the action <code>vault.granted_access</code>.',
+  ], ['There is one entry per opened photo with the person and the document.'], { tags: ['edge'] }),
+]);

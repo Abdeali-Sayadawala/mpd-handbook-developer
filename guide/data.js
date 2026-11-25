@@ -1,7 +1,7 @@
 /* The content of the role guide. Plain words, no internal names. To document a change: edit this file only.
    Keep it in step with the app (see mpd-context/09-handbooks.md). Last reviewed: see GUIDE.updated. */
 window.GUIDE = {
-  updated: "1 Dec 2026 (after M7.6)",
+  updated: "1 Dec 2026 (after property work history)",
 
   groups: [
     { id: "head", name: "Head office" },
@@ -311,7 +311,7 @@ window.GUIDE = {
       reportsTo: "—", manages: "Your own properties, orders and documents.",
       menu: [
         { group: "Overview", items: [{ label: "Dashboard", what: "Home." }, { label: "Getting started", what: "Your request, and any offer we have sent you to accept." }] },
-        { group: "My property", items: [{ label: "Properties", what: "Your properties. Each has Services, Plans and History." }, { label: "Documents", what: "Your private vault." }] },
+        { group: "My property", items: [{ label: "Properties", what: "Your properties. Each has Services, Plans and History (orders, plans, owners and every job done on it, with checklist and photos, even before you owned it)." }, { label: "Documents", what: "Your private vault." }] },
         { group: "Services", items: [{ label: "Orders", what: "What you bought and whether it is paid." }, { label: "Service requests", what: "Where your paid services and plan visits stand." }] }
       ],
       tasks: [
