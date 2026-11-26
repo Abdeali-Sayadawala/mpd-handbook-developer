@@ -25,11 +25,11 @@ chapter('setup', 'Setup and the test world', '<p>Run these once, in order. They 
   ], [
     'The three pincodes show as switched on.', 'A pincode switched on is still not available to customers: that needs a provider that covers it (checked in later scenarios).',
   ], { tags: ['core'], pre: ['Signed in as ADMIN.'], note: 'Use the same three pincodes for the whole test.' }),
-  T('TW-02', 'Create the master franchise and its area', ['ADMIN'], [
-    'Open <b>Organisations</b>.', 'Add a <b>Master franchise</b> named "Test City MF" for the city of your pincodes.',
-    'On it press the map icon (Territories) and add an area "Whole city" holding PIN-N, PIN-S and PIN-X.',
+  T('TW-02', 'Create the master franchise for a city', ['ADMIN'], [
+    'Open <b>Organisations</b>.', 'Press <b>+</b> on the head office row and add a <b>Master franchise</b> named "Test City MF". Under <b>City it runs</b> type the first letters of your city (for example Vadodara) and pick it from the list.',
+    'Press the map icon (Territories) on its row.',
   ], [
-    'The master franchise appears in the tree under MPD with its area.', 'Adding a <i>second</i> master franchise for the same city is refused with a message (one per city): try it and then cancel.',
+    'The master franchise appears in the tree under MPD and its row says "runs Vadodara". The map icon shows one read-only area, "Vadodara (whole city)", holding <b>every</b> pincode of the city (there is no way to add or remove pincodes: the city is the area). A pincode added to the city later joins it by itself.', 'Adding a <i>second</i> master franchise for the same city is refused with a message (one per city): try it and then cancel. Saving a master franchise without choosing a city is refused.',
   ], { tags: ['core'] }),
   T('TW-03', 'Invite MF1, OPS1 and OPS2, and accept the invitations', ['ADMIN', 'MF1', 'OPS1', 'OPS2'], [
     'As ADMIN open <b>Staff</b> and press <b>Invite</b>. Choose organisation <b>MPD</b>, role <b>Operations</b>, enter the name and email of OPS1. Repeat for OPS2.',
@@ -43,7 +43,7 @@ chapter('setup', 'Setup and the test world', '<p>Run these once, in order. They 
   T('TW-04', 'MF1 builds two franchises with their areas', ['MF1'], [
     'Sign in as MF1. Open <b>Organisations</b>.', 'Press + on the master franchise row, add a <b>Franchise</b> "Test Franchise North". Add its area "North" with PIN-N.',
     'Add a second franchise "Test Franchise South" with its area "South" holding PIN-S.',
-    'Try to add PIN-N to the South area as well.', 'Try to add a pincode of another city to either area.',
+    'Try to add PIN-N to the South area as well.', 'Try to add a pincode of another city to either area (a franchise may only hold pincodes of its master franchise city).',
   ], [
     'Both franchises exist with their own areas.', 'Adding PIN-N to South is <b>refused</b> and the message says which franchise already holds it (franchises never overlap).',
     'A pincode outside your city is refused (a child can only hold pincodes of its parent).',

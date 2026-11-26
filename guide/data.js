@@ -501,7 +501,7 @@ window.GUIDE = {
     ] },
     { id: "ho_network", title: "Build the network", where: "Organisations, Staff, Masters", steps: [
       "In Masters switch on the pincodes you will serve.",
-      "In Organisations add a Master franchise (one per city) and give it territories.",
+      "In Organisations add a Master franchise and choose the city it runs (one per city); its area is the whole city automatically.",
       "The master franchise adds franchises, who add providers. Providers choose their services.",
       "Invite people from Staff. A pincode is available to customers only when it is switched on AND an active provider with staff covers it."
     ] },

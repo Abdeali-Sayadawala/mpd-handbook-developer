@@ -35,7 +35,7 @@ How it is organised (**BUILT**, `territories` + `territory_pincodes`):
 - A pincode is **available to customers only when it is switched on AND at least one active, staffed service provider covers it** (the availability rule, **BUILT**).
 
 **DECIDED rules on areas (owner, 21-Nov-2026):**
-- A **master franchise** runs one city. One master franchise per city.
+- A **master franchise** runs one city (a city, not a list of pincodes: `organisations.city_id`, 26-Nov-2026). One active master franchise per city (a database rule). Its area is every pincode of the city, including pincodes added later; franchises and providers below it still hold pincodes inside it.
 - A **franchise** can hold **one or many pincodes and one or many areas** (several territories). Its pincodes must be inside its master franchise's.
 - **A franchise can never overlap another franchise.** A pincode belongs to at most one franchise. (This is the only exclusive level.) **Enforced in code (M5.0a, 22-Nov-2026):** creating or changing a franchise territory is refused (409) if a pincode already belongs to another franchise; two master franchises cannot hold pincodes of the same city. Providers overlap freely.
 - A **service provider** also holds one or many pincodes and areas, chosen from the list of pincodes of its franchise.
@@ -136,7 +136,7 @@ Accepting is a single guarded update (`UPDATE jobs SET provider_org_id = :org, s
 ## 9. Decisions (owner, 21-Nov-2026)
 
 1. **Area unit = pincode**, with area names as labels. *(my recommendation, accepted)*
-2. **Overlaps.** One master franchise per city. A franchise holds one or many pincodes and areas but **never overlaps another franchise**. Providers hold one or many pincodes and areas and **may overlap each other**, also within one franchise. To serve a pincode outside its franchise a provider must register under the franchise that runs it.
+2. **Overlaps.** One master franchise per city (it runs the whole city, so its area needs no pincode list). A franchise holds one or many pincodes and areas but **never overlaps another franchise**. Providers hold one or many pincodes and areas and **may overlap each other**, also within one franchise. To serve a pincode outside its franchise a provider must register under the franchise that runs it.
 3. **Provider offers.** A provider selects pincodes/areas from its franchise's list, then the services it provides. Offers = its services in all its chosen areas. No per-area exceptions at first.
 4. **Upline powers.** Both: nudge, and assign a request directly to an eligible provider.
 5. **Privacy.** Customer name, phone and address stay hidden until a provider accepts.
