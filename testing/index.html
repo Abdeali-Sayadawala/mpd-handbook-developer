@@ -126,6 +126,16 @@
 <h4>How to create a customer</h4>
 <p>You do not. A customer opens <code>http://localhost:3000/signup</code>, enters name, email and password, and types the 6-digit code that is printed in the API terminal (the same <code>to=...</code> line). Then they sign in at <code>/login</code>. A customer who forgets the password uses <b>Forgot password</b> on the login page; the reset link also appears in the API terminal. A project owner (builder or society) signs up the same way and Operations switch the customer type (see the customer scenarios).</p>
 
+<h4>How to choose what a service costs and how it is charged (sq ft, lump sum, per hour)</h4>
+<p>Every service has <b>one rate type</b> that says what the price means, and a price for each pincode. Three rate types exist from the start: <b>Lump sum</b> (one price for the whole service), <b>Per sq ft</b> (the price is multiplied by the property's built area) and <b>Per hour</b>. Services that were lump-sum in the old system, such as the site visit, start as Lump sum; the others start with <b>no rate type</b> and cannot be bought until you choose one.</p>
+<ol>
+<li>Open <b>Pricing</b>. On the <b>Price lists</b> tab press <b>New price list</b> and name it; a list is a <b>Draft</b> until you <b>Publish</b> it (you give a start date), and prices can only be typed in a draft.</li>
+<li>Open the <b>Service prices</b> tab, choose your draft at the top, find the service (use the search) and press its row to open the price window. The row shows its current rate type, or "Not set".</li>
+<li>If the service has no rate type, the window asks <b>How is this service charged?</b>: pick Lump sum, Per sq ft or Per hour.</li>
+<li><b>To change it later</b> (for example Site visit from Lump sum to Per sq ft), use <b>Change how it is charged</b> at the top of the same window and pick the other rate type. This is allowed only while the service has <b>no prices in any price list</b>: the same number would mean something different. If you already typed prices, remove them first (the bin icon on each pincode row, and clear the default), save, then change the rate type.</li>
+<li>Type the <b>Default price</b> (used in every pincode without its own price), an optional <b>Minimum charge</b>, and optional prices for single pincodes. Save, then <b>Publish</b> the list when it is ready.</li>
+<li>Need a unit that is not there (per sq yd, per visit hour)? Open the <b>Rate types</b> tab, press <b>New rate type</b>, choose how it is counted and the unit, and it appears in the choices above. A rate type that is in use can be switched off but never deleted.</li>
+</ol>
 <h4>How to switch things off and on</h4>
 <table>
 <tr><th>What</th><th>Where</th><th>What happens</th></tr>

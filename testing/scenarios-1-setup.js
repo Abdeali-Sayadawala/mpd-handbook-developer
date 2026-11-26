@@ -201,7 +201,7 @@ chapter('pricing', 'Prices and plans', '<p>Prices are worked out only on the ser
   T('PRC-02', 'A service must be priced in the area to be bought', ['OPS1', 'C1'], [
     'Remove the price of Tap repair for PIN-N in a draft list and publish.', 'Try to buy Tap repair for a property in PIN-N.', 'Restore and publish.',
   ], ['The shop does not offer it (or says it cannot be priced there). It returns when priced again.'], { tags: ['edge'] }),
-  T('PRC-03', 'Minimum charge and per-area pricing', ['OPS1', 'C1'], [
+  T('PRC-03', 'Minimum charge and per-area pricing (and changing how a service is charged)', ['OPS1', 'C1'], [
     'Set a minimum charge of Rs 600 on Water tank cleaning (Rs 5 per sq ft). Buy it for a 100 sq ft property and for a 1,000 sq ft one.',
   ], ['100 sq ft: 100 x 5 = Rs 500, but the minimum applies, so Rs 600. 1,000 sq ft: Rs 5,000. The quote shows the rate, the size and any minimum.'], { tags: ['core', 'edge'] }),
   T('PRC-04', 'Plan price is calculated per property', ['OPS1'], [
