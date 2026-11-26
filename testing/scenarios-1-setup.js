@@ -20,7 +20,7 @@ chapter('setup', 'Setup and the test world', '<p>Run these once, in order. They 
     'At least one service has kind Site visit (the mandatory first service).',
   ], { tags: ['smoke', 'core'] }),
   T('TW-01', 'Switch on the pincodes of the test world', ['ADMIN', 'OPS1'], [
-    'Open <b>Masters</b> and find a city that has several pincodes (for example a Vadodara pincode).',
+    'Open <b>Masters</b>, choose the pincodes list and search for a city that has several pincodes (for example Vadodara). All 178 pincodes are loaded and start switched off.',
     'Switch <b>on</b> three pincodes of the same city. Note them: <b>PIN-N</b>, <b>PIN-S</b> and <b>PIN-X</b> (a spare, left uncovered on purpose).',
   ], [
     'The three pincodes show as switched on.', 'A pincode switched on is still not available to customers: that needs a provider that covers it (checked in later scenarios).',
