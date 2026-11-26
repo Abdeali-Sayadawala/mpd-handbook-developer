@@ -158,6 +158,11 @@ chapter('network', 'Network and areas', '<p>The master franchise runs one city; 
   T('ORG-09', 'An existing user gets an extra role', ['FR1'], [
     'As FR1 invite the email of PA1 into Test Provider B as a Provider admin.',
   ], ['Because the person already has an account, they are given the role at once (no new password), and receive a "you have a new role" email in the terminal.'], { tags: ['edge'] }),
+  T('ORG-11', 'A provider admin chooses the services it offers', ['PA1'], [
+    'Sign in as PA1 (Provider admin). Open <b>Organisations</b>, find your own provider and press <b>Services</b>.',
+    'Search for a service, tick two or three, press <b>Save</b>, close the window and open it again.',
+    'Sign in as PB1 and try to open the services of Test Provider A (it is not in PB1 organisation tree).',
+  ], ['The list of services appears at once (no "Forbidden" and no endless "Loading"). Your ticks are saved and still there when you reopen it. The site visit is not in the list.', 'PB1 does not see Test Provider A at all. If a window ever cannot load, it shows only the error message, never "Loading" next to it.'], { tags: ['core', 'security'] }),
   T('ORG-10', 'Deactivating an organisation or person', ['OPS1', 'FR1'], [
     'As FR1 deactivate WA2 (or the provider\'s staff entry) and then try to sign in as WA2 in another session.', 'Reactivate.',
   ], ['A deactivated person cannot sign in or act; after reactivation they can again. A provider with no staff is not offered jobs.'], { tags: ['edge', 'security'] }),
@@ -210,4 +215,16 @@ chapter('pricing', 'Prices and plans', '<p>Prices are worked out only on the ser
   T('PRC-05', 'Only operations can change prices', ['FR1', 'PA1', 'C1'], [
     'Open <code>/admin/pricing</code> in each session.',
   ], ['Refused or missing for everyone but operations and the super admin.'], { tags: ['security'] }),
+]);
+
+chapter('loaders', 'Loaders: the screen always shows that it is waiting', '<p>Whenever the browser waits for the server, a thin blue bar runs along the top of the page and the mouse pointer shows the busy cursor. Answers faster than a fifth of a second show nothing, so the screen does not flicker. Opening a page also shows a grey page-shaped placeholder until the page arrives.</p>', [
+  T('LDR-01', 'Opening a page shows that something is happening', ['OPS1'], [
+    'In the browser developer tools (F12, tab Network) choose the speed <b>Slow 3G</b>. Click a menu item such as <b>Orders</b> or <b>Pricing</b>.',
+  ], ['At once the grey placeholder appears in place of the page, the blue bar runs along the top and the pointer shows the busy cursor. When the page arrives all of that disappears.'], { tags: ['smoke', 'core'] }),
+  T('LDR-02', 'A button that talks to the server shows that it is working', ['OPS1'], [
+    'With Slow 3G still on, press a save button (for example <b>Save</b> in a services window, or an Active switch in the catalogue).',
+  ], ['The blue bar runs while the server works and the pointer is busy. Buttons that already show "Saving..." or are disabled while working keep doing so.'], { tags: ['core'] }),
+  T('LDR-03', 'A quick answer does not flicker', ['OPS1'], [
+    'Switch the speed back to <b>No throttling</b> and click through a few menu items.',
+  ], ['Nothing flashes: fast pages simply appear. The bar only shows for answers that take longer than about a fifth of a second.'], { tags: ['edge'] }),
 ]);
