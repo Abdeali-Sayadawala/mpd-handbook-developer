@@ -2,7 +2,7 @@
 
 Last updated: 1-Dec-2026 (after finished work was added to the property history). Branch `develop` in every repo. Update this file at the end of every milestone step, together with the two handbooks and the repo `CLAUDE.md` files.
 
-**Size today:** 333 API endpoints, 35 database migrations, 579 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
+**Size today:** 333 API endpoints, 36 database migrations, 579 automated end-to-end tests (all passing; spec files run one at a time because they share one database and a global live price list), 0 lint errors.
 
 ## Milestones
 
