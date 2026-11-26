@@ -68,6 +68,89 @@
 <tr><td><b>C2</b></td><td>Customer (another owner)</td><td>-</td><td>Signs up (for "not yours" checks)</td></tr>
 <tr><td><b>PO1</b></td><td>Customer, project owner</td><td>-</td><td>Signs up; OPS1 switches the customer type</td></tr>
 </table>
+<h3 id="first-timer">2.4a What a clean app contains, and how to find your way (read this first)</h3>
+<p>After <code>pnpm db:fresh</code> the app is <b>empty on purpose</b>. It contains only what every installation needs, and <b>exactly one account</b>:</p>
+<table>
+<tr><th>Already there</th><th>Where you can see it</th></tr>
+<tr><td>The reference lists: states, cities and pincodes, area units, property types and their extra details</td><td>Staff menu <b>Masters</b></td></tr>
+<tr><td>The service catalogue from the old system: 13 categories, 68 sub-categories and the services</td><td><b>Service catalogue</b></td></tr>
+<tr><td>The 44 legal and professional services, each with a ready form, document checklist and progress steps (hidden from customers until you switch them on and give them a price)</td><td><b>Legal service forms</b></td></tr>
+<tr><td>The public website's home page blocks and pages</td><td><b>Website content</b> and <code>http://localhost:3001</code></td></tr>
+<tr><td><b>One account: the Super admin</b> (the email and password you put in <code>mpd-backend/.env</code> as <code>SEED_ADMIN_EMAIL</code> and <code>SEED_ADMIN_PASSWORD</code>)</td><td>Sign in at <code>http://localhost:3000/admin/login</code></td></tr>
+</table>
+<p><b>Not there, and you create it:</b> every other person, every organisation (master franchise, franchise, provider), every area, every price and every customer. That is the point: nothing you did not create can confuse you.</p>
+
+<h4>The menu, in plain words (signed in as the Super admin)</h4>
+<table>
+<tr><th>Menu item</th><th>What it is for</th></tr>
+<tr><td><b>Organisations</b></td><td>The <i>boxes</i> of the network: head office (MPD), master franchises (one per city), franchises (an area of a city), service providers. A box is not a person.</td></tr>
+<tr><td><b>Staff</b></td><td>The <i>people</i> inside the boxes. You invite a person into a box here, and switch a person off or on.</td></tr>
+<tr><td><b>Masters</b></td><td>Cities and pincodes. A pincode must be switched on before any customer can buy there.</td></tr>
+<tr><td><b>Service catalogue</b></td><td>What we sell. Each category, sub-category and service has an Active switch.</td></tr>
+<tr><td><b>Pricing</b></td><td>Prices per pincode. A service with no price in an area cannot be bought there.</td></tr>
+<tr><td><b>Customers, Orders, Payments, Onboarding, Site visits, Jobs board, Legal ...</b></td><td>Day-to-day work. They stay empty until customers exist.</td></tr>
+<tr><td><b>Reports, Earnings</b></td><td>Numbers and what partners earned. Empty at first.</td></tr>
+</table>
+
+<h4>The one rule behind everything: boxes first, then people</h4>
+<p>An <b>organisation</b> is created by someone above it. A <b>person</b> is <i>invited into</i> an organisation; nobody can be invited into a box that does not exist yet. So the order is always: create the box, then invite the person into it.</p>
+<table>
+<tr><th>Who</th><th>Box they belong to</th><th>Who creates the box</th><th>Who invites the person</th></tr>
+<tr><td>Operations</td><td>MPD (exists already)</td><td>-</td><td>Super admin (Operations can too)</td></tr>
+<tr><td>Master franchise</td><td>A master franchise (one per city)</td><td>Super admin or Operations</td><td>Super admin or Operations</td></tr>
+<tr><td>Franchise</td><td>A franchise (an area inside the city)</td><td>The master franchise</td><td>The master franchise</td></tr>
+<tr><td>Provider admin</td><td>A service provider</td><td>The franchise</td><td>The franchise</td></tr>
+<tr><td>Field worker</td><td>The same service provider</td><td>(already exists)</td><td>The provider admin</td></tr>
+<tr><td>Customer</td><td>-</td><td>-</td><td>Nobody: the customer signs up on the website</td></tr>
+</table>
+
+<h4>How to create an organisation (a box)</h4>
+<ol>
+<li>Open <b>Organisations</b>. You see the tree, starting with MPD.</li>
+<li>On the row of the parent press the <b>+</b> icon (its tooltip says "Add under ...").</li>
+<li>Type the <b>Name</b>, choose the <b>Type</b> (only the types that fit under that parent are offered) and press save. A master franchise belongs to one city, and only one master franchise per city is allowed.</li>
+<li>Give it an area: press the map icon (<b>Territories</b>) on the row, <b>Add a territory</b>, type a name and the pincodes it holds. A franchise's pincodes must lie inside its master franchise's and may not overlap another franchise. A provider chooses from its franchise's pincodes and may overlap other providers.</li>
+</ol>
+
+<h4>How to create a person (an account for staff)</h4>
+<ol>
+<li>Open <b>Staff</b> and press <b>Invite</b>.</li>
+<li>Choose the <b>organisation</b> (the box), the <b>role</b> (only roles that fit that box and are below you are offered), and type the person's <b>name</b> and <b>email</b>. Use an address you invent, such as <code>ops1@example.com</code>.</li>
+<li>Press <b>Send invitation</b>. The person appears under <b>Waiting to join</b>.</li>
+<li>There is no real email yet. Find the invitation in the <b>terminal that runs the API</b>: look for <code>to=ops1@example.com</code> and copy the link that looks like <code>.../admin/accept-invite?token=...</code>.</li>
+<li>Open that link in <b>another browser profile or a private window</b> (so you stay signed in as the Super admin), choose a password of at least 10 characters, and sign in at <code>http://localhost:3000/admin/login</code>.</li>
+<li>The link works <b>once</b>. If it is lost or used, press <b>Invite</b> again.</li>
+</ol>
+<p>If the email already has an account, the person is simply given the extra role (no new password).</p>
+
+<h4>How to create a customer</h4>
+<p>You do not. A customer opens <code>http://localhost:3000/signup</code>, enters name, email and password, and types the 6-digit code that is printed in the API terminal (the same <code>to=...</code> line). Then they sign in at <code>/login</code>. A customer who forgets the password uses <b>Forgot password</b> on the login page; the reset link also appears in the API terminal. A project owner (builder or society) signs up the same way and Operations switch the customer type (see the customer scenarios).</p>
+
+<h4>How to switch things off and on</h4>
+<table>
+<tr><th>What</th><th>Where</th><th>What happens</th></tr>
+<tr><td>A <b>person</b> (staff)</td><td><b>Staff</b>: the row's <b>Suspend</b> button, later <b>Reactivate</b></td><td>They are signed out everywhere and cannot sign in or act until reactivated. You cannot suspend yourself. You can only suspend people below you in your own branch.</td></tr>
+<tr><td>An <b>organisation</b></td><td><b>Organisations</b>: the pencil icon, then <b>Status</b> = Inactive (or Active)</td><td>It shows greyed out with an "Inactive" label; a provider that is inactive is not offered jobs.</td></tr>
+<tr><td>A <b>pincode</b></td><td><b>Masters</b>: the <b>Switched on</b> switch on the pincode</td><td>Customers can buy there only when it is on <b>and</b> an active provider with staff covers it.</td></tr>
+<tr><td>A <b>service</b> (also a legal service, a category or a sub-category)</td><td><b>Service catalogue</b>: the <b>Active</b> switch on the row</td><td>Hidden from the website, the shop and new bookings; work already booked carries on.</td></tr>
+<tr><td>A service a <b>provider</b> offers</td><td><b>Organisations</b>: the services icon on the provider's row, then <b>Switch off</b> (the upline gives a reason)</td><td>That provider is no longer offered that service's jobs; the provider sees the reason.</td></tr>
+<tr><td>A <b>customer</b></td><td>Not possible in this version</td><td>Staff can look at customers (menu <b>Customers</b>) but cannot switch one off.</td></tr>
+<tr><td>A <b>territory</b> (area)</td><td><b>Organisations</b>: the map icon, then the bin icon on the territory</td><td>Removes the area. It is not a switch: add it again if you need it back.</td></tr>
+</table>
+
+<h4>What the Super admin can do that Operations cannot</h4>
+<p>Very little, on purpose. Operations run the day-to-day business and nearly every screen and action is open to both. The differences are about <b>who controls the accounts at the top</b>:</p>
+<table>
+<tr><th></th><th>Super admin</th><th>Operations</th></tr>
+<tr><td>Everything day-to-day (customers, orders, payments, prices, catalogue, legal, reports, payouts, content)</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Create organisations, invite master franchises and everyone below</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Invite or create another <b>Super admin</b></td><td>Yes</td><td><b>No</b> (the option is missing or refused)</td></tr>
+<tr><td>Suspend, reactivate or change a <b>Super admin</b></td><td>Yes, any other one (never yourself)</td><td><b>No</b></td></tr>
+<tr><td>Suspend or reactivate an <b>Operations</b> person</td><td>Yes</td><td><b>No</b>: a person can only manage people ranked below them, and Operations are equals (Operations can still invite another Operations person)</td></tr>
+<tr><td>Approve a payment they recorded themselves</td><td>No</td><td>No (the person who records a payment can never approve it; a second person must)</td></tr>
+</table>
+<p>So the Super admin is the <b>owner of the keys</b>: only that role can create or remove the other top-level accounts. Keep one Super admin for yourself and create separate Operations accounts (OPS1 and OPS2) for the work, because the two-person rule for payments and payouts needs two different people.</p>
+<div class="note"><b>Starting again:</b> stop the API, worker and web app, then run <code>pnpm db:fresh</code> in <code>mpd-backend</code>. It deletes the development database, builds it again and loads only the reference lists, the service catalogue, the legal forms, the website blocks and the one Super admin. The automated tests never touch this database: they use their own (<code>mpd_test</code>) and delete everything they create.</div>
 <h3>2.5 Reaching the pages</h3>
 <table>
 <tr><th>Who</th><th>Sign in at</th></tr>
@@ -79,7 +162,7 @@
 <h3>2.6 Making time pass</h3>
 <p>Several scenarios involve waiting (reminders, acceptance limits, plan expiry). You cannot wait days, so each scenario tells you how to <b>set the data</b> so the condition is true now (for example a visit time within 24 hours, a document expiry in 5 days), then <b>wait up to 10 minutes</b> for the worker's sweep. Where a developer is needed to change a date, the scenario says so and offers the SQL or the API call.</p>
 <h3>2.7 Resetting</h3>
-<p>To start again from nothing: stop everything, run <code>docker compose -f docker-compose.dev.yml down -v</code> in <code>mpd-backend</code> (this deletes the database), then repeat 2.2. Your recorded results stay in this browser until you press <b>Reset results</b>.</p>
+<p>To start again from nothing: stop the API, the worker and the web app, then run <code>pnpm db:fresh</code> in <code>mpd-backend</code> (it deletes the development database and rebuilds it with only the reference lists, the service catalogue, the legal forms, the website blocks and the one Super admin; see 2.4a), then start the servers again as in 2.2. Your recorded results stay in this browser until you press <b>Reset results</b>.</p>
 </section>
 
 <section class="page" id="plan">
@@ -151,6 +234,6 @@ How bad:   Blocks the work / Wrong result / Looks wrong / Wrong wording</code></
 <script src="scenarios-4-jobs.js"></script>
 <script src="scenarios-5-after.js"></script>
 <script src="scenarios-6-cross.js"></script>
-<script>window.MPD_TESTS.version = 'M7.6 and property work history, 1 Dec 2026'; document.addEventListener('DOMContentLoaded', function () { document.getElementById('ver').textContent = window.MPD_TESTS.version; });</script>
+<script>window.MPD_TESTS.version = 'M7.6, work history and a clean-start guide, 1 Dec 2026'; document.addEventListener('DOMContentLoaded', function () { document.getElementById('ver').textContent = window.MPD_TESTS.version; });</script>
 </body>
 </html>
